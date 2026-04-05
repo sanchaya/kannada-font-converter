@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ - Nudi, Baraha, ShreeLipi ಅಕ್ಷರಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</title>
+    <meta name="description" content="ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ - Nudi (ನುಡಿ), Baraha (ಬರಹ), ShreeLipi (ಶ್ರೀ) ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸುತ್ತದೆ. ಸ್ವಯಂಚಾಲಿತ ಪತ್ತೆ, ಆಫ್ಲೈನ್ ಬೆಂಬಲ.">
+    <meta name="keywords" content="Nudi converter, Baraha converter, ShreeLipi converter, Kannada font converter, ASCII to Unicode Kannada, ಕನ್ನಡ ಫಾಂಟ್ ಪರಿವರ್ತಕ, Nudi to Unicode, Baraha to Unicode, Kannada old font conversion">
+    <meta name="author" content="ಸಂಚಯ">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://converter.sanchaya.net/">
+    <meta property="og:title" content="ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ">
+    <meta property="og:description" content="Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23155CA2'/%3E%3Ctext x='50' y='65' font-family='Anek Kannada' font-size='50' text-anchor='middle' fill='white'%3Eಕ%3C/text%3E%3C/svg%3E">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo.png" alt="Logo">
+                <span>ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#convert"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#history"><i class="fas fa-history me-1"></i> ಇತಿಹಾಸ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section class="hero">
+            <h1>ಕನ್ನಡ <span>ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</span></h1>
+            <p>Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</p>
+        </section>
+
+        <div class="converter-card" id="convert">
+            <div class="card-header-custom">
+                <i class="fas fa-magic"></i>
+                <h5>ಪರಿವರ್ತನೆ ವಿಭಾಗ</h5>
+            </div>
+            
+            <ul class="nav nav-tabs-custom" role="tablist">
+                <li class="nav-item">
+                    <button type="button" class="nav-link active" onclick="switchTab('tab-text', this)">
+                        <i class="fas fa-pencil-alt me-1"></i> ಪಠ್ಯ
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" onclick="switchTab('tab-file', this)">
+                        <i class="fas fa-file-alt me-1"></i> ಫೈಲ್
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" onclick="switchTab('tab-detect', this)">
+                        <i class="fas fa-search me-1"></i> ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content tab-content-custom">
+                <div class="tab-pane-custom active" id="tab-text">
+                    <div class="settings-panel mb-3 d-flex flex-wrap align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-exchange-alt me-1"></i>ದಿಕ್ಕು:</label>
+                            <select class="form-select form-select-sm" id="convert-direction" style="width:auto;">
+                                <option value="auto">ಸ್ವಯಂಚಾಲಿತ</option>
+                                <option value="a2u">ASCII → Unicode</option>
+                                <option value="u2a">Unicode → ASCII</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-sort-numeric-up me-1"></i>ಸಂಖ್ಯೆ:</label>
+                            <select class="form-select form-select-sm" id="number-format" style="width:auto;">
+                                <option value="keep">ಮೂಲವಿಡು</option>
+                                <option value="kn">ಕನ್ನಡ (೦೧೨)</option>
+                                <option value="en">ಇಂಗ್ಲಿಷ್ (012)</option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" id="retain-english">
+                            <label class="form-check-label" for="retain-english">ಇಂಗ್ಲಿಷ್ ಉಳಿಸಿ</label>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label-custom mb-0">
+                                    <i class="fas fa-file-import me-1"></i> ಮೂಲ ಪಠ್ಯ
+                                </label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="info-badge badge-unknown py-1 px-2" id="detect-badge" style="font-size:0.75rem;">
+                                        <i class="fas fa-question-circle"></i>
+                                        <span id="detect-text">ಪತ್ತೆ ಆಗಿಲ್ಲ</span>
+                                    </span>
+                                    <small class="text-muted" id="char-count">0 ಅಕ್ಷರ</small>
+                                </div>
+                            </div>
+                            <textarea class="form-control-custom w-100" id="input-text" style="min-height:320px;"
+                                placeholder="ಇಲ್ಲಿ ನುಡಿ/ಬರಹ/ಶ್ರೀ ASCII ಪಠ್ಯವನ್ನು ಅಂಟಿಸಿ..."></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label-custom mb-0">
+                                    <i class="fas fa-file-export me-1"></i> ಪರಿವರ್ತಿತ ಪಠ್ಯ
+                                </label>
+                                <small class="text-muted" id="out-char-count"></small>
+                            </div>
+                            <textarea class="form-control-custom w-100" id="output-text" readonly
+                                style="min-height:320px;background:#fafafa;font-family:'Anek Kannada',sans-serif;"
+                                placeholder="ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3 flex-wrap">
+                        <button class="btn-convert" onclick="convertText()">
+                            <i class="fas fa-exchange-alt"></i> ಪರಿವರ್ತಿಸಿ
+                        </button>
+                        <button class="btn-outline-custom" onclick="copyOutput()">
+                            <i class="fas fa-copy"></i> ಕಾಪಿ
+                        </button>
+                        <button class="btn-outline-custom" onclick="downloadOutput('txt')">
+                            <i class="fas fa-download"></i> TXT
+                        </button>
+                        <button class="btn-outline-custom" onclick="clearText()">
+                            <i class="fas fa-trash-alt"></i> ತೆರವು
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-pane-custom" id="tab-file">
+                    <div class="dropzone" id="dropzone">
+                        <input type="file" id="file-input" accept=".txt,.docx" hidden>
+                        <div class="dropzone-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p class="h5">ಫೈಲ್ ಅಪ್ಲೋಡ್ ಮಾಡಿ</p>
+                        <p>ಅಥವಾ ಇಲ್ಲಿ ಡ್ರ್ಯಾಗ್ ಮಾಡಿ</p>
+                        <small class="text-muted">TXT ಮತ್ತು DOCX ಫೈಲ್ಗಳು ಬೆಂಬಲಿತ</small>
+                    </div>
+                    
+                    <div id="file-info" style="display: none;">
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="file-item">
+                                    <div class="file-info">
+                                        <i class="fas fa-file-alt file-icon"></i>
+                                        <div>
+                                            <strong id="file-name">filename.txt</strong>
+                                            <br><small class="text-muted" id="file-size">0 KB</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="clearFile()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <div class="stat-value" id="stat-chars">0</div>
+                                            <div class="stat-label">ಅಕ್ಷರ</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <div class="stat-value" id="stat-words">0</div>
+                                            <div class="stat-label">ಪದಗಳು</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <div class="stat-value" id="stat-format">-</div>
+                                            <div class="stat-label">ಸ್ವರೂಪ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-2 mt-3">
+                            <button class="btn-convert" onclick="convertFile()">
+                                <i class="fas fa-exchange-alt"></i> ಪರಿವರ್ತಿಸಿ
+                            </button>
+                            <button class="btn-outline-custom" onclick="downloadOutput('txt')">
+                                <i class="fas fa-download"></i> TXT
+                            </button>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label class="form-label-custom">ಫಲಿತಾಂಶ</label>
+                            <div class="preview-box" id="file-output"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane-custom" id="tab-detect">
+                    <p class="text-muted mb-3">ಕನ್ನಡ ಮತ್ತು ASCII ಅಕ್ಷರಗಳ ಮಿಶ್ರಣವನ್ನು ಪತ್ತೆ ಮಾಡಿ. ತಪ್ಪಾಗಿ ಬಂದ ಅಕ್ಷರಗಳನ್ನು ಗುರುತಿಸಲು ಸಹಾಯಕ.</p>
+                    
+                    <div class="mb-3">
+                        <textarea class="form-control-custom" id="detect-input" 
+                            placeholder="ಪತ್ತೆ ಮಾಡಬೇಕಾದ ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ..."></textarea>
+                    </div>
+                    
+                    <button class="btn-convert" onclick="detectMixed()">
+                        <i class="fas fa-search"></i> ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ ಮಾಡಿ
+                    </button>
+                    
+                    <div id="detect-results" class="mt-4" style="display: none;">
+                        <div class="alert" id="detect-alert"></div>
+                        <div class="preview-box" id="detect-highlighted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="history" class="mt-5">
+            <div class="converter-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-history"></i>
+                    <h5>ಪರಿವರ್ತನೆ ಇತಿಹಾಸ</h5>
+                </div>
+                <div class="card-body-custom">
+                    <div id="history-loading" class="text-center py-3">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="history-list" class="table-responsive" style="display:none;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ದಿಕ್ಕು</th>
+                                    <th>ಅಕ್ಷರಗಳು</th>
+                                    <th>ಸಮಯ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-tbody"></tbody>
+                        </table>
+                    </div>
+                    <p id="history-empty" class="text-muted text-center py-3" style="display:none;">ಯಾವುದೇ ಇತಿಹಾಸ ಇಲ್ಲ</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="mt-5">
+            <div class="converter-card">
+                <div class="card-header-custom" style="background: var(--secondary);">
+                    <i class="fas fa-info-circle"></i>
+                    <h5>ಬಗ್ಗೆ</h5>
+                </div>
+                <div class="card-body-custom">
+                    <p>ಈ ತಂತ್ರಾಂಶವು ಕನ್ನಡದ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳಾದ Nudi (ನುಡಿ), Baraha (ಬರಹ), ಮತ್ತು ShreeLipi (ಶ್ರೀ) ಅನ್ನು ಆಧುನಿಕ Unicode ಗೆ ಪರಿವರ್ತಿಸುತ್ತದೆ.</p>
+                    <ul>
+                        <li>ಸರ್ವರ್‌ನಲ್ಲಿ ಪರಿವರ್ತನೆ ಇತಿಹಾಸ ಸಂರಕ್ಷಿಸಲಾಗುತ್ತದೆ</li>
+                        <li>TXT ಮತ್ತು DOCX ಫೈಲ್ ಬೆಂಬಲ</li>
+                        <li>ಸ್ವಯಂಚಾಲಿತ</li>
+                        <li>ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2026 ಸಂಚಯ. ಸಂಚಿ ಫೌಂಡೇಶನ್.</p>
+            <div>
+                <a href="https://sanchaya.org" class="footer-link" target="_blank">sanchaya.org</a>
+                <a href="https://fonts.sanchaya.net" class="footer-link" target="_blank">ಫಾಂಟ್ಸ್ ಸಂಚಯ</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-custom" id="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
