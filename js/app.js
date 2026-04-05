@@ -312,10 +312,39 @@ function convert(text, numFormat, direction, retainEnglish = false) {
     let result;
     if (direction === 'a2u' || direction === 'auto') {
         result = asciiToUnicode(text, retainEnglish);
+    } else if (direction === 'u2a') {
+        result = unicodeToASCII(text);
     } else {
-        result = text; // Unicode to ASCII not implemented in client
+        result = text;
     }
     result = convertNumbers(result, numFormat);
+    return result;
+}
+
+// Unicode to ASCII conversion
+function unicodeToASCII(text) {
+    let result = text;
+    result = result.replace(/ಕ್ಷ/g, 'x').replace(/ಜ್ಞ/g, 'Y');
+    
+    const ASCII_VATT = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî";
+    
+    result = result.replace(new RegExp(`([ೆೇೊ])([${ASCII_VATT}])`, 'g'), '$2$1');
+    
+    // Use reverse mapping from A2U_MAP
+    const U2A_MAP = {};
+    Object.entries(A2U_MAP).forEach(([k, v]) => U2A_MAP[v] = k);
+    
+    const U2A_KEYS = Object.keys(U2A_MAP).sort((a, b) => b.length - a.length);
+    U2A_KEYS.forEach(key => {
+        if (key.length > 0) {
+            const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+            result = result.replace(regex, U2A_MAP[key]);
+        }
+    });
+    
+    result = result.split('್').join('ï');
+    result = result.replace(/[೦-೯]/g, (c) => EN_DIGITS['೦೧೨೩೪೫೬೭೮೯'.indexOf(c)]);
+    
     return result;
 }
 
