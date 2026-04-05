@@ -1,7 +1,7 @@
 {
   "name": "kannada-font-converter",
   "version": "1.0.0",
-  "description": "Enterprise Kannada Font Converter - Nudi, Baraha, ShreeLipi to Unicode",
+  "description": "Kannada Font Converter - Nudi, Baraha, ShreeLipi to Unicode",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

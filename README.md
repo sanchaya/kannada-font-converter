@@ -1,6 +1,6 @@
 # ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ
 
-Enterprise Kannada Font Converter - Convert between Legacy ASCII (Nudi/Baraha/ShreeLipi) and Unicode
+Kannada Font Converter - Convert between Legacy ASCII (Nudi/Baraha/ShreeLipi) and Unicode
 
 ## Features
 
