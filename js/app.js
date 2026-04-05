@@ -324,25 +324,35 @@ function convert(text, numFormat, direction, retainEnglish = false) {
 // Unicode to ASCII conversion
 function unicodeToASCII(text) {
     let result = text;
+    
+    // Special compound characters
     result = result.replace(/ಕ್ಷ/g, 'x').replace(/ಜ್ಞ/g, 'Y');
     
+    const ASCII_DEERGA = "Ã";
     const ASCII_VATT = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî";
     
+    // Handle vowel signs with vattakshara reordering
     result = result.replace(new RegExp(`([ೆೇೊ])([${ASCII_VATT}])`, 'g'), '$2$1');
     
-    // Use reverse mapping from A2U_MAP
+    // Build reverse mapping
     const U2A_MAP = {};
     Object.entries(A2U_MAP).forEach(([k, v]) => U2A_MAP[v] = k);
     
+    // Sort by length (longest first) - explicit comparator needed for Unicode
     const U2A_KEYS = Object.keys(U2A_MAP).sort((a, b) => b.length - a.length);
-    U2A_KEYS.forEach(key => {
+    
+    // Replace using regex to handle overlapping matches properly
+    for (const key of U2A_KEYS) {
         if (key.length > 0) {
             const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
             result = result.replace(regex, U2A_MAP[key]);
         }
-    });
+    }
     
+    // Replace halant
     result = result.split('್').join('ï');
+    
+    // Convert numbers
     result = result.replace(/[೦-೯]/g, (c) => EN_DIGITS['೦೧೨೩೪೫೬೭೮೯'.indexOf(c)]);
     
     return result;
