@@ -518,11 +518,18 @@ function handleFile(f) {
     if (ext === 'docx') {
         const reader = new FileReader();
         reader.onload = function(e) {
-            if (typeof mammoth === 'undefined') {
+            const mammothLib = typeof mammoth !== 'undefined' ? mammoth : (typeof window.mammoth !== 'undefined' ? window.mammoth : null);
+            console.log('Mammoth available:', !!mammothLib, typeof mammothLib);
+            if (!mammothLib) {
                 showToast('DOCX library not loaded. Please refresh the page.', 'error');
                 return;
             }
-            mammoth.extractRawText({ arrayBuffer: e.target.result })
+            if (typeof mammothLib.extractRawText !== 'function') {
+                console.error('extractRawText not found. Available methods:', Object.keys(mammothLib));
+                showToast('DOCX library invalid. Please try TXT files or refresh.', 'error');
+                return;
+            }
+            mammothLib.extractRawText({ arrayBuffer: e.target.result })
                 .then(function(result) {
                     fileText = result.value;
                     showFileInfo();
