@@ -174,15 +174,10 @@ const NUDI_SINGLE_UPPER = new Set(['A','B','C','D','E','F','G','H','I','J','K','
 const NUDI_SINGLE_LOWER = new Set(['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']);
 
 function _isEnglishToken(token, fullText, tokenStart) {
-    if (!PURE_ASCII_WORD_RE.test(token)) return false;
-    if (LATIN_EXT_RE.test(token)) return false;
-    if (token.length === 1) {
-        if (NUDI_SINGLE_UPPER.has(token) || NUDI_SINGLE_LOWER.has(token)) return false;
-        return false;
-    }
-    const charBefore = tokenStart > 0 ? fullText[tokenStart - 1] : '';
-    const charAfter = tokenStart + token.length < fullText.length ? fullText[tokenStart + token.length] : '';
-    if (LATIN_EXT_RE.test(charBefore) || LATIN_EXT_RE.test(charAfter)) return false;
+    if (!/^[a-zA-Z'-]+$/.test(token)) return false;
+    if (token.length === 1) return false;
+    if (/[À-ÿøñð]/.test(token)) return false;
+    if (/^[ABCDEFGHJKLMNQRTVXYacdfklnprtwyj]+$/.test(token)) return false;
     return true;
 }
 
