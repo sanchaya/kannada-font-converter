@@ -627,3 +627,146 @@ document.addEventListener('DOMContentLoaded', function() {
         historySection.style.display = 'none';
     }
 });
+
+// ============================================================
+// URL FETCH AND CONVERT
+// ============================================================
+function detectFontsFromCSS(cssText) {
+    const fonts = new Set();
+    const fontFamilyRegex = /font-family:\s*['"]?([^'";]+)['"]?/gi;
+    const fontFaceRegex = /@font-face\s*\{[^}]*font-family:\s*['"]?([^'";]+)['"]?/gi;
+    
+    let match;
+    while ((match = fontFamilyRegex.exec(cssText)) !== null) {
+        if (match[1] && !match[1].includes('inherit') && !match[1].includes('system')) {
+            fonts.add(match[1].trim());
+        }
+    }
+    while ((match = fontFaceRegex.exec(cssText)) !== null) {
+        if (match[1]) {
+            fonts.add(match[1].trim());
+        }
+    }
+    
+    return Array.from(fonts);
+}
+
+function extractTextFromHTML(html) {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    
+    const scriptsAndStyles = temp.querySelectorAll('script, style, noscript');
+    scriptsAndStyles.forEach(el => el.remove());
+    
+    let text = temp.textContent || temp.innerText || '';
+    text = text.replace(/\s+/g, ' ').trim();
+    
+    return text;
+}
+
+function extractTextWithFontInfo(html) {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    
+    const scriptsAndStyles = temp.querySelectorAll('script, style, noscript');
+    scriptsAndStyles.forEach(el => el.remove());
+    
+    const styles = temp.querySelectorAll('style');
+    let allCSS = '';
+    styles.forEach(style => {
+        allCSS += style.textContent || '';
+    });
+    
+    const detectedFonts = detectFontsFromCSS(allCSS);
+    
+    let text = temp.textContent || temp.innerText || '';
+    text = text.replace(/\s+/g, ' ').trim();
+    
+    return { text, fonts: detectedFonts };
+}
+
+async function fetchAndConvertUrl() {
+    const urlInput = document.getElementById('url-input');
+    const url = urlInput.value.trim();
+    
+    if (!url) {
+        showToast('ದಯವಿಟ್ಟು URL ನ್ನು ನಮೂದಿಸಿ', 'error');
+        return;
+    }
+    
+    const loadingEl = document.getElementById('url-loading');
+    const infoEl = document.getElementById('url-info');
+    const fetchBtn = document.getElementById('url-fetch-btn');
+    
+    loadingEl.style.display = 'flex';
+    infoEl.style.display = 'none';
+    fetchBtn.disabled = true;
+    
+    try {
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+        const response = await fetch(corsProxy + encodeURIComponent(url));
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        const html = await response.text();
+        
+        const { text, fonts } = extractTextWithFontInfo(html);
+        
+        document.getElementById('url-source-text').value = text;
+        document.getElementById('detected-fonts').textContent = fonts.length > 0 ? fonts.join(', ') : 'ಯಾವುದೇ ಫಾಂಟ್ ಪತ್ತೆ ಆಗಿಲ್ಲ';
+        
+        const numFormat = document.getElementById('number-format').value;
+        const retainEl = document.getElementById('retain-english');
+        const retainEnglish = retainEl ? retainEl.checked : false;
+        let direction = document.getElementById('convert-direction').value;
+        
+        if (direction === 'auto') {
+            const unicodeCount = (text.match(/[\u0C80-\u0CFF]/g) || []).length;
+            const asciiKnCount = (text.match(/[À-ÿøñð]/g) || []).length;
+            direction = (unicodeCount > asciiKnCount) ? 'u2a' : 'a2u';
+        }
+        
+        const converted = convert(text, numFormat, direction, retainEnglish);
+        document.getElementById('url-output-text').value = converted;
+        
+        loadingEl.style.display = 'none';
+        infoEl.style.display = 'block';
+        
+        showToast('URL ಪರಿವರ್ತನೆ ಯಶಸ್ವಿಯಾಗಿದೆ', 'success');
+    } catch (error) {
+        console.error(error);
+        loadingEl.style.display = 'none';
+        showToast('ದೋಷ: ' + error.message, 'error');
+    } finally {
+        fetchBtn.disabled = false;
+    }
+}
+
+function copyUrlOutput() {
+    const output = document.getElementById('url-output-text').value;
+    if (!output) {
+        showToast('ಮೊದಲು URL ಪರಿವರ್ತಿಸಿ', 'error');
+        return;
+    }
+    navigator.clipboard.writeText(output).then(() => {
+        showToast('ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ಕಾಪಿ ಆಗಿದೆ', 'success');
+    });
+}
+
+function downloadUrlOutput(format) {
+    const output = document.getElementById('url-output-text').value;
+    if (!output) {
+        showToast('ಮೊದಲು URL ಪರಿವರ್ತಿಸಿ', 'error');
+        return;
+    }
+    
+    const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'converted.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('ಡೌನ್ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
+}

@@ -66,6 +66,11 @@
                         <i class="fas fa-search me-1"></i> ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" onclick="switchTab('tab-url', this)">
+                        <i class="fas fa-link me-1"></i> URL
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content tab-content-custom">
@@ -224,9 +229,57 @@
                         <div class="preview-box" id="detect-highlighted"></div>
                     </div>
                 </div>
+
+                <div class="tab-pane-custom" id="tab-url">
+                    <p class="text-muted mb-3">URL ನಿಂದ ವಿಷಯವನ್ನು ಪಡೆದು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ. CSS ಫಾಂಟ್‌ಗಳನ್ನು ಸಹ ಪತ್ತೆ ಮಾಡಲಾಗುತ್ತದೆ.</p>
+                    
+                    <div class="mb-3">
+                        <label class="form-label-custom"><i class="fas fa-link me-1"></i>URL:</label>
+                        <input type="url" class="form-control-custom" id="url-input" 
+                            placeholder="https://..." value="https://web.archive.org/web/20040704032751/http://thatskannada.com/sahitya/debate/020704baraha.html">
+                    </div>
+                    
+                    <button class="btn-convert" onclick="fetchAndConvertUrl()" id="url-fetch-btn">
+                        <i class="fas fa-download"></i> ಪಡೆದು ಪರಿವರ್ತಿಸಿ
+                    </button>
+                    
+                    <div id="url-loading" class="mt-3" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span class="ms-2">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</span>
+                    </div>
+                    
+                    <div id="url-info" class="mt-3" style="display: none;">
+                        <div class="alert alert-info">
+                            <strong><i class="fas fa-font me-1"></i>ಪತ್ತೆ ಆದ ಫಾಂಟ್‌ಗಳು:</strong>
+                            <span id="detected-fonts"></span>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label-custom"><i class="fas fa-file-import me-1"></i>ಮೂಲ ಪಠ್ಯ:</label>
+                            <textarea class="form-control-custom" id="url-source-text" readonly
+                                style="min-height: 150px; font-family: monospace; font-size: 12px;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <label class="form-label-custom"><i class="fas fa-file-export me-1"></i>ಪರಿವರ್ತಿತ ಪಠ್ಯ:</label>
+                        <textarea class="form-control-custom" id="url-output-text" readonly
+                            style="min-height: 320px; font-family: 'Anek Kannada', sans-serif;"></textarea>
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-3 flex-wrap">
+                        <button class="btn-outline-custom" onclick="copyUrlOutput()">
+                            <i class="fas fa-copy"></i> ಕಾಪಿ
+                        </button>
+                        <button class="btn-outline-custom" onclick="downloadUrlOutput('txt')">
+                            <i class="fas fa-download"></i> TXT
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-
+    
         <section id="about" class="mt-5">
             <div class="converter-card">
                 <div class="card-header-custom" style="background: var(--secondary);">
