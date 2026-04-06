@@ -122,10 +122,64 @@ const consonantMaps = [
     ['¼ÉÊ', 'ಳೈ'], ['¼ÉÆ', 'ಳೊ'], ['¼ÉÆÃ', 'ಳೋ'], ['¼Ë', 'ಳೌ']
 ];
 
+// ============================================================
+// SHREELIPI ASCII TO UNICODE MAPPING
+// ============================================================
+
+const SHREE_VOWEL_MAP = {
+    'A': 'ಅ', 'B': 'ಆ', 'C': 'ಇ', 'D': 'ಈ', 'E': 'ಉ', 'F': 'ಊ',
+    'Má': 'ಋ', 'G': 'ಎ', 'H': 'ಏ', 'I': 'ಐ', 'J': 'ಒ', 'K': 'ಓ', 'L': 'ಔ',
+    'í': 'ಂ', '@': 'ಃ'
+};
+
+const SHREE_CONSONANT_MAP = {
+    'PÜ': 'ಕ', 'S': 'ಖ', 'WÜ': 'ಗ', 'Z': 'ಘ', '_': 'ಙ',
+    'aÜ': 'ಚ', 'dÜ': 'ಛ', 'g': 'ಜ', 'ÃÜká': 'ಝ', 'm': 'ಞ',
+    'o': 'ಟ', 'sÜ': 'ಠ', 'vÜ': 'ಡ', 'yÜ': 'ಢ', '|': 'ಣ',
+    'ñÜ': 'ತ', '¥Ü': 'ಥ', '¨Ü': 'ದ', '«Ü': 'ಧ', '®Ü': 'ನ',
+    '±Ü': 'ಪ', '¶Ü': 'ಫ', 'Ÿ': 'ಬ', '»Ü': 'ಭ', 'ÊÜá': 'ಮ',
+    '¿á': 'ಯ', 'ÃÜ': 'ರ', 'Æ': 'ಲ', 'ÊÜ': 'ವ', 'ÍÜ': 'ಶ',
+    'ÐÜ': 'ಷ', 'ÓÜ': 'ಸ', 'ÖÜ': 'ಹ', 'ÙÜ': 'ಳ',
+    'Ý': 'ಾ', 'Q': 'ಕಿ', 'Qà': 'ಕೀ',
+    'á': 'ು', 'ã': 'ೂ', 'ê': 'ೃ', 'æ': 'ೆ', 'æà': 'ೇ',
+    'æç': 'ೈ', 'æã': 'ೊ', 'æãà': 'ೋ', 'è': 'ೌ',
+    'U': 'ಖಿ', 'Uà': 'ಖೀ', 'X': 'ಗಿ', 'Xà': 'ಗೀ', '\\': 'ಘಿ', '\\à': 'ಘೀ',
+    'b': 'ಚಿ', 'bà': 'ಚೀ', 'e': 'ಛಿ', 'eà': 'ಛೀ', 'i': 'ಜಿ', 'ià': 'ಜೀ',
+    'Äká': 'ಝಿ', 'Äkáà': 'ಝೀ', 'q': 'ಟಿ', 'qà': 'ಟೀ', 't': 'ಠಿ', 'tà': 'ಠೀ',
+    'w': 'ಡಿ', 'wà': 'ಡೀ', '{': 'ಢಿ', '{à': 'ಢೀ', '~': 'ಣಿ', '~à': 'ಣೀ',
+    '£': 'ತಿ', '£à': 'ತೀ', '¦': 'ಥಿ', '¦à': 'ಥೀ', '©': 'ದಿ', '©à': 'ದೀ',
+    '˜': 'ಧಿ', '˜à': 'ಧೀ', '¯': 'ನಿ', '¯à': 'ನೀ', '²': 'ಪಿ', '²à': 'ಪೀ',
+    '¹': 'ಬಿ', '¹à': 'ಬೀ', '¼': 'ಭಿ', '¼à': 'ಭೀ', 'Î': 'ಶಿ', 'Îà': 'ಶೀ',
+    'Ñ': 'ಷಿ', 'Ñà': 'ಷೀ', 'Ô': 'ಸಿ', 'Ôà': 'ಸೀ', '×': 'ಹಿ', '×à': 'ಹೀ',
+    'Ú': 'ಳಿ', 'Úà': 'ಳೀ',
+    'R': '್', '…': '್', 'V': '್', 'Y': '್', '^': '್', '`': '್',
+    'c': '್', 'f': '್', 'j': '್', 'l': '್', 'n': '್', 'r': '್',
+    'u': '್', 'x': '್', 'z': '್', '¡': '್', '¤': '್', '§': '್',
+    'ª': '್', 'œ': '್', '°': '್', '³': '್', '#': '್', 'º': '್',
+    '½': '್', '¾': '್', 'Â': '್', 'Å': '್', 'É': '್', 'Ì': '್',
+    'Ï': '್', 'Õ': '್', 'Ø': '್', 'Û': '್', 'ì': 'ರ್'
+};
+
+const SHREE_VOWEL_SIGNS = {
+    'Ý': 'ಾ', 'Q': 'ಕಿ', 'Qà': 'ಕೀ',
+    'á': 'ು', 'ã': 'ೂ', 'ê': 'ೃ', 'æ': 'ೆ', 'æà': 'ೇ',
+    'æç': 'ೈ', 'æã': 'ೊ', 'æãà': 'ೋ', 'è': 'ೌ'
+};
+
+function getShreeKeys() {
+    return Object.keys(SHREE_CONSONANT_MAP).sort((a, b) => b.length - a.length);
+}
+
+// ============================================================
+// APPLY MAPPINGS
+// ============================================================
+
 vowelMaps.forEach(m => A2U_MAP[m[0]] = m[1]);
 consonantMaps.forEach(m => A2U_MAP[m[0]] = m[1]);
 
 const A2U_KEYS = Object.keys(A2U_MAP).sort((a, b) => b.length - a.length);
+
+const SHREE_A2U_KEYS = getShreeKeys();
 
 const VATTAKSHARA_MAP = {
     'Ì': 'ಕ್', 'Í': 'ಖ್', 'Î': 'ಗ್', 'Ï': 'ಘ್', 'Ð': 'ಙ್',
@@ -225,7 +279,72 @@ function _replace_a2u_anuswara_visarga(txt) {
     return txt.replace(/A/g, 'ಂ').replace(/B/g, 'ಃ');
 }
 
-function asciiToUnicode(text, retainEnglish = false) {
+function shreeToUnicode(text, retainEnglish = false) {
+    let result = text;
+    const englishTexts = [];
+
+    if (retainEnglish) {
+        let out = '';
+        let i = 0;
+        while (i < result.length) {
+            if (result[i] === '\uFF62') {
+                let j = i + 1;
+                while (j < result.length && result[j] !== '\uFF63') j++;
+                out += result.slice(i, j + 1);
+                i = j + 1;
+                continue;
+            }
+            if (/[a-zA-Z]/.test(result[i])) {
+                let j = i;
+                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
+                const token = result.slice(i, j);
+                if (_isEnglishToken(token, result, i)) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(token);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += token;
+                }
+                i = j;
+            } else {
+                out += result[i];
+                i++;
+            }
+        }
+        result = out;
+    }
+
+    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
+    const words = result.split(' ');
+    const convertedWords = words.map(word => {
+        if (word.length === 0) return word;
+        const parts = word.split(PLACEHOLDER_SPLIT);
+        const convertedParts = parts.map(part => {
+            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
+            if (part.length === 0) return part;
+            let converted = part;
+            SHREE_A2U_KEYS.forEach(key => {
+                if (key.length > 0) {
+                    converted = converted.split(key).join(SHREE_CONSONANT_MAP[key]);
+                }
+            });
+            return converted;
+        });
+        return convertedParts.join('');
+    });
+    result = convertedWords.join(' ');
+
+    if (retainEnglish && englishTexts.length > 0) {
+        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
+    }
+    return result;
+}
+
+function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
+    if (fontType === 'shree') {
+        return shreeToUnicode(text, retainEnglish);
+    }
+    
     let result = text;
     const englishTexts = [];
 
@@ -303,10 +422,10 @@ function convertNumbers(text, mode) {
     return text;
 }
 
-function convert(text, numFormat, direction, retainEnglish = false) {
+function convert(text, numFormat, direction, retainEnglish = false, fontType = 'nudi') {
     let result;
     if (direction === 'a2u' || direction === 'auto') {
-        result = asciiToUnicode(text, retainEnglish);
+        result = asciiToUnicode(text, retainEnglish, fontType);
     } else if (direction === 'u2a') {
         result = unicodeToASCII(text);
     } else {
@@ -400,6 +519,15 @@ function convertText() {
         const retainEl = document.getElementById('retain-english');
         const retainEnglish = retainEl ? retainEl.checked : false;
         let direction = document.getElementById('convert-direction').value;
+        let fontType = document.getElementById('font-type').value;
+
+        // Auto-detect font type
+        if (fontType === 'auto') {
+            const textLower = text.toLowerCase();
+            const shreeIndicators = ['pü', 'wü', 'ñü', '±ü', 'êüá'];
+            const hasShree = shreeIndicators.some(indicator => text.includes(indicator.toLowerCase()) || text.includes(indicator));
+            fontType = hasShree ? 'shree' : 'nudi';
+        }
 
         // Auto-detect direction
         if (direction === 'auto') {
@@ -408,7 +536,7 @@ function convertText() {
             direction = (unicodeCount > asciiKnCount) ? 'u2a' : 'a2u';
         }
 
-        convertedText = convert(text, numFormat, direction, retainEnglish);
+        convertedText = convert(text, numFormat, direction, retainEnglish, fontType);
         document.getElementById('output-text').value = convertedText;
         document.getElementById('out-char-count').textContent = convertedText.length + ' ಅಕ್ಷರ';
         showToast('ಪರಿವರ್ತನೆ ಯಶಸ್ವಿಯಾಗಿದೆ', 'success');
@@ -819,6 +947,7 @@ async function fetchAndConvertUrl() {
         const retainEl = document.getElementById('url-retain-english');
         const retainEnglish = retainEl ? retainEl.checked : true;
         let direction = document.getElementById('url-convert-direction').value;
+        let fontType = document.getElementById('url-font-type').value;
         
         if (direction === 'auto') {
             const unicodeCount = (text.match(/[\u0C80-\u0CFF]/g) || []).length;
@@ -826,7 +955,7 @@ async function fetchAndConvertUrl() {
             direction = (unicodeCount > asciiKnCount) ? 'u2a' : 'a2u';
         }
         
-        const converted = convert(text, numFormat, direction, retainEnglish);
+        const converted = convert(text, numFormat, direction, retainEnglish, fontType);
         document.getElementById('url-output-text').value = converted;
         
         loadingEl.style.display = 'none';
