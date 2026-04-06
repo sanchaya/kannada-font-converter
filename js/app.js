@@ -692,7 +692,7 @@ function extractTextFromHTML(html) {
     return text;
 }
 
-function extractTextWithFontInfo(html) {
+function extractTextWithFontInfo(html, maxWords = 800) {
     const temp = document.createElement('div');
     temp.innerHTML = html;
     
@@ -710,7 +710,15 @@ function extractTextWithFontInfo(html) {
     let text = temp.textContent || temp.innerText || '';
     text = text.replace(/\s+/g, ' ').trim();
     
-    return { text, fonts: detectedFonts };
+    const wordCount = text.split(/\s+/).length;
+    const isTruncated = wordCount > maxWords;
+    
+    if (isTruncated) {
+        const words = text.split(/\s+/);
+        text = words.slice(0, maxWords).join(' ');
+    }
+    
+    return { text, fonts: detectedFonts, isTruncated, totalWords: wordCount };
 }
 
 async function fetchAndConvertUrl() {
@@ -730,6 +738,8 @@ async function fetchAndConvertUrl() {
     infoEl.style.display = 'none';
     fetchBtn.disabled = true;
     
+    const maxWords = 800;
+    
     try {
         const corsProxy = 'https://api.allorigins.win/raw?url=';
         const response = await fetch(corsProxy + encodeURIComponent(url));
@@ -740,10 +750,14 @@ async function fetchAndConvertUrl() {
         
         const html = await response.text();
         
-        const { text, fonts } = extractTextWithFontInfo(html);
+        const { text, fonts, isTruncated, totalWords } = extractTextWithFontInfo(html);
         
         document.getElementById('url-source-text').value = text;
         document.getElementById('detected-fonts').textContent = fonts.length > 0 ? fonts.join(', ') : 'ಯಾವುದೇ ಫಾಂಟ್ ಪತ್ತೆ ಆಗಿಲ್ಲ';
+        
+        if (isTruncated) {
+            showToast(`ಟಿಪ್ಪಣಿ: ${totalWords} ಪದಗಳಲ್ಲಿ ${maxWords} ಪದಗಳು ಮಾತ್ರ ತೋರಿಸಲಾಗಿದೆ`, 'info');
+        }
         
         const numFormat = document.getElementById('number-format').value;
         const retainEl = document.getElementById('retain-english');
