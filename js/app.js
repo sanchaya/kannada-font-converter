@@ -518,7 +518,7 @@ function handleFile(f) {
     if (ext === 'docx') {
         const reader = new FileReader();
         reader.onload = function(e) {
-            mammoth.convertToRawText({ arrayBuffer: e.target.result })
+            mammoth.extractRawText({ arrayBuffer: e.target.result })
                 .then(function(result) {
                     fileText = result.value;
                     showFileInfo();
