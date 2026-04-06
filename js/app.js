@@ -705,7 +705,13 @@ function extractTextFromHTML(html) {
 }
 
 function extractTextWithFontInfo(html, maxWords = 800) {
-    const temp = document.createElement('div');
+    if (!html.trim().startsWith('<')) {
+        const text = html.replace(/\s+/g, ' ').trim();
+        const wordCount = text.split(/\s+/).length;
+        const isTruncated = wordCount > maxWords;
+        const truncatedText = isTruncated ? text.split(/\s+/).slice(0, maxWords).join(' ') : text;
+        return { text: truncatedText, fonts: [], isTruncated, totalWords: wordCount };
+    }
     
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -773,9 +779,11 @@ async function fetchAndConvertUrl() {
         let success = false;
         
         const corsProxies = [
+            { url: url => `https://r.jina.ai/http://${url.replace(/^https?:\/\//, '')}`, name: 'jina.ai' },
+            { url: url => `https://r.jina.ai/http://${url.replace(/^https?:\/\//, '')}`, name: 'jina.ai https' },
+            { url: url => `https://r.jina.ai/http://${url}`, name: 'jina.ai full' },
             { url: url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, name: 'allorigins' },
-            { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' },
-            { url: url => `https://api.corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy alt' }
+            { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' }
         ];
         
         for (const proxy of corsProxies) {
