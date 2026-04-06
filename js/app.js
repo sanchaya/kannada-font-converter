@@ -742,30 +742,48 @@ async function fetchAndConvertUrl() {
     
     const maxWords = 800;
     
+    async function tryFetchWithProxy(proxyUrl) {
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error('Fetch failed');
+        return response.text();
+    }
+    
+    async function tryFetchDirect(url) {
+        try {
+            return await fetch(url);
+        } catch (e) {
+            return null;
+        }
+    }
+    
     try {
-        const corsProxies = [
-            'https://corsproxy.io/?',
-            'https://api.allorigins.win/raw?url=',
-            'https://proxy.cors.sh/?url='
-        ];
-        
         let html = '';
-        let lastError = null;
+        let success = false;
+        
+        const corsProxies = [
+            { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' },
+            { url: url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, name: 'allorigins' },
+            { url: url => `https://api.corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io alt' }
+        ];
         
         for (const proxy of corsProxies) {
             try {
-                const response = await fetch(proxy + encodeURIComponent(url));
+                const response = await fetch(proxy.url(url));
                 if (response.ok) {
                     html = await response.text();
+                    success = true;
                     break;
                 }
             } catch (e) {
-                lastError = e;
+                console.log(`Proxy ${proxy.name} failed:`, e.message);
             }
         }
         
-        if (!html) {
-            throw lastError || new Error('URL ಪಡೆಯಲಾಗಲಿಲ್ಲ. ಬೇರೆ URL ಪ್ರಯತ್ನಿಸಿ');
+        if (!success) {
+            showToast('URL ಪಡೆಯಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಬೇರೆ URL ಪ್ರಯತ್ನಿಸಿ', 'error');
+            loadingEl.style.display = 'none';
+            fetchBtn.disabled = false;
+            return;
         }
         
         const { text, fonts, isTruncated, totalWords } = extractTextWithFontInfo(html);
