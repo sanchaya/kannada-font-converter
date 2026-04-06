@@ -518,13 +518,18 @@ function handleFile(f) {
     if (ext === 'docx') {
         const reader = new FileReader();
         reader.onload = function(e) {
+            if (typeof mammoth === 'undefined') {
+                showToast('DOCX library not loaded. Please refresh the page.', 'error');
+                return;
+            }
             mammoth.extractRawText({ arrayBuffer: e.target.result })
                 .then(function(result) {
                     fileText = result.value;
                     showFileInfo();
                 })
-                .catch(function() {
-                    showToast('DOCX ಓದುವುದು ವಿಫಲ', 'error');
+                .catch(function(err) {
+                    console.error(err);
+                    showToast('DOCX ಓದುವುದು ವಿಫಲ: ' + err.message, 'error');
                 });
         };
         reader.readAsArrayBuffer(f);
