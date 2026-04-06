@@ -801,9 +801,9 @@ async function fetchAndConvertUrl() {
         }
         
         const numFormat = document.getElementById('number-format').value;
-        const retainEl = document.getElementById('retain-english');
-        const retainEnglish = retainEl ? retainEl.checked : false;
-        let direction = document.getElementById('convert-direction').value;
+        const retainEl = document.getElementById('url-retain-english');
+        const retainEnglish = retainEl ? retainEl.checked : true;
+        let direction = document.getElementById('url-convert-direction').value;
         
         if (direction === 'auto') {
             const unicodeCount = (text.match(/[\u0C80-\u0CFF]/g) || []).length;

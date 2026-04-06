@@ -244,6 +244,21 @@
                             placeholder="https://..." value="https://web.archive.org/web/20040704032751/http://thatskannada.com/sahitya/debate/020704baraha.html">
                     </div>
                     
+                    <div class="settings-panel mb-3 d-flex flex-wrap align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-exchange-alt me-1"></i>ದಿಕ್ಕು:</label>
+                            <select class="form-select form-select-sm" id="url-convert-direction" style="width:auto;">
+                                <option value="auto">ಸ್ವಯಂಚಾಲಿತ</option>
+                                <option value="a2u" selected>ASCII → Unicode</option>
+                                <option value="u2a">Unicode → ASCII</option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" id="url-retain-english" checked>
+                            <label class="form-check-label" for="url-retain-english">ಇಂಗ್ಲಿಷ್ ಉಳಿಸಿ</label>
+                        </div>
+                    </div>
+                    
                     <button class="btn-convert" onclick="fetchAndConvertUrl()" id="url-fetch-btn">
                         <i class="fas fa-download"></i> ಪಡೆದು ಪರಿವರ್ತಿಸಿ
                     </button>
