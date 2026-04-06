@@ -364,6 +364,28 @@ function switchTab(id, btn) {
 }
 
 // ============================================================
+// FILE HANDLING
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    
+    if (!dropzone || !fileInput) return;
+    
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', (e) => { 
+        if (e.target.files.length > 0) handleFile(e.target.files[0]); 
+    });
+});
+
+// ============================================================
 // TEXT CONVERSION (Client-side for GitHub Pages)
 // ============================================================
 function convertText() {
@@ -462,19 +484,6 @@ function downloadOutput(format) {
 // ============================================================
 // FILE HANDLING
 // ============================================================
-const dropzone = document.getElementById('dropzone');
-const fileInput = document.getElementById('file-input');
-
-dropzone.addEventListener('click', () => fileInput.click());
-dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
-dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-dropzone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropzone.classList.remove('dragover');
-    if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
-});
-fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) handleFile(e.target.files[0]); });
-
 function handleFile(f) {
     fileName = f.name;
     const ext = f.name.split('.').pop().toLowerCase();
