@@ -744,8 +744,8 @@ async function fetchAndConvertUrl() {
     
     try {
         const corsProxies = [
-            'https://api.allorigins.win/raw?url=',
             'https://corsproxy.io/?',
+            'https://api.allorigins.win/raw?url=',
             'https://proxy.cors.sh/?url='
         ];
         
@@ -765,7 +765,7 @@ async function fetchAndConvertUrl() {
         }
         
         if (!html) {
-            throw lastError || new Error('Failed to fetch URL');
+            throw lastError || new Error('URL ಪಡೆಯಲಾಗಲಿಲ್ಲ. ಬೇರೆ URL ಪ್ರಯತ್ನಿಸಿ');
         }
         
         const { text, fonts, isTruncated, totalWords } = extractTextWithFontInfo(html);
