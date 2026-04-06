@@ -766,9 +766,9 @@ async function fetchAndConvertUrl() {
         let success = false;
         
         const corsProxies = [
-            { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' },
             { url: url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, name: 'allorigins' },
-            { url: url => `https://api.corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io alt' }
+            { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' },
+            { url: url => `https://api.corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy alt' }
         ];
         
         for (const proxy of corsProxies) {
