@@ -181,6 +181,66 @@ const A2U_KEYS = Object.keys(A2U_MAP).sort((a, b) => b.length - a.length);
 
 const SHREE_A2U_KEYS = getShreeKeys();
 
+// ============================================================
+// PRAKASH FONT MAPPING
+// ============================================================
+
+const PRAKASH_MAP = {
+    'ka': 'ಕ', 'K': 'ಖ', 'ga': 'ಗ', 'G': 'ಘ', 'ja': 'ಜ',
+    'Ta': 'ಟ', 'Ta': 'ಠ', 'Da': 'ಡ', 'Da': 'ಢ', 'Na': 'ಣ',
+    'ta': 'ತ', 'tha': 'ಥ', 'da': 'ದ', 'dha': 'ಧ', 'na': 'ನ',
+    'pa': 'ಪ', 'fa': 'ಫ', 'ba': 'ಬ', 'bha': 'ಭ', 'ma': 'ಮ',
+    'ya': 'ಯ', 'ra': 'ರ', 'la': 'ಲ', 'va': 'ವ', 'Sha': 'ಶ',
+    'sha': 'ಷ', 'Sa': 'ಸ', 'ha': 'ಹ', 'La': 'ಳ',
+    'A': 'ಅ', 'AA': 'ಆ', 'i': 'ಇ', 'I': 'ಈ', 'u': 'ಉ', 'U': 'ಊ',
+    'Ri': 'ಋ', 'e': 'ಎ', 'E': 'ಏ', 'ai': 'ಐ', 'o': 'ಒ', 'O': 'ಓ', 'au': 'ಔ',
+    'AM': 'ಂ', 'AH': 'ಃ',
+    'kI': 'ಕಿ', 'kI': 'ಕೀ', 'gI': 'ಗಿ', 'gI': 'ಗೀ', 'jI': 'ಜಿ', 'jI': 'ಜೀ',
+    'ki': 'ಕಿ', 'ki': 'ಕೀ', 'gi': 'ಗಿ', 'gi': 'ಗೀ', 'ji': 'ಜಿ', 'ji': 'ಜೀ',
+    'kU': 'ಕು', 'kU': 'ಕೂ', 'gU': 'ಗು', 'gU': 'ಗೂ', 'jU': 'ಜು', 'jU': 'ಜೂ'
+};
+
+const PRAKASH_VOWEL_SIGNS = {
+    'A': 'ಾ', 'i': 'ಿ', 'I': 'ೀ', 'u': 'ು', 'U': 'ೂ', 'Ri': 'ೃ',
+    'e': 'ೆ', 'E': 'ೇ', 'ai': 'ೈ', 'o': 'ೊ', 'O': 'ೋ', 'au': 'ೌ'
+};
+
+const PRAKASH_VATT = {
+    'k': 'ಕ್', 'K': 'ಖ್', 'g': 'ಗ್', 'G': 'ಘ್', 'j': 'ಜ್',
+    'T': 'ಟ್', 'D': 'ಡ್', 'N': 'ಣ್', 't': 'ತ್', 'd': 'ದ್', 'n': 'ನ್',
+    'p': 'ಪ್', 'f': 'ಫ್', 'b': 'ಬ್', 'm': 'ಮ್', 'y': 'ಯ್', 'r': 'ರ್',
+    'l': 'ಲ್', 'v': 'ವ್', 'S': 'ಶ್', 's': 'ಷ್', 'h': 'ಹ್', 'L': 'ಳ್'
+};
+
+// ============================================================
+// AKRUTI FONT MAPPING
+// ============================================================
+
+const AKRUTI_MAP = {
+    'k': 'ಕ', 'K': 'ಖ', 'g': 'ಗ', 'G': 'ಘ', 'j': 'ಜ',
+    't': 'ಟ', 'T': 'ಠ', 'd': 'ಡ', 'D': 'ಢ', 'n': 'ಣ',
+    'w': 'ತ', 'W': 'ಥ', 'x': 'ದ', 'X': 'ಧ', 'y': 'ನ',
+    'p': 'ಪ', 'P': 'ಫ', 'b': 'ಬ', 'B': 'ಭ', 'm': 'ಮ',
+    'r': 'ಯ', 'R': 'ರ', 'l': 'ಲ', 'v': 'ವ', 'S': 'ಶ',
+    's': 'ಷ', 'z': 'ಸ', 'h': 'ಹ', 'L': 'ಳ',
+    'a': 'ಅ', 'A': 'ಆ', 'i': 'ಇ', 'I': 'ಈ', 'u': 'ಉ', 'U': 'ಊ',
+    'q': 'ಋ', 'e': 'ಎ', 'E': 'ಏ', 'o': 'ಒ', 'O': 'ಓ', 'H': 'ಔ',
+    'F': 'ಂ', ':': 'ಃ'
+};
+
+const AKRUTI_VOWEL_SIGNS = {
+    'A': 'ಾ', 'i': 'ಿ', 'I': 'ೀ', 'u': 'ು', 'U': 'ೂ', 'q': 'ೃ',
+    'e': 'ೆ', 'E': 'ೇ', 'o': 'ೊ', 'O': 'ೋ', 'w': 'ೌ'
+};
+
+const AKRUTI_VATT = {
+    'k': 'ಕ್', 'K': 'ಖ್', 'g': 'ಗ್', 'G': 'ಘ್', 'j': 'ಜ್',
+    't': 'ಟ್', 'T': 'ಠ್', 'd': 'ಡ್', 'D': 'ಢ್', 'n': 'ಣ್',
+    'w': 'ತ್', 'W': 'ಥ್', 'x': 'ದ್', 'X': 'ಧ್', 'y': 'ನ್',
+    'p': 'ಪ್', 'P': 'ಫ್', 'b': 'ಬ್', 'B': 'ಭ್', 'm': 'ಮ್',
+    'r': 'ರ್', 'l': 'ಲ್', 'v': 'ವ್', 'S': 'ಶ್', 's': 'ಷ್', 'z': 'ಸ್', 'h': 'ಹ್', 'L': 'ಳ್'
+};
+
 const VATTAKSHARA_MAP = {
     'Ì': 'ಕ್', 'Í': 'ಖ್', 'Î': 'ಗ್', 'Ï': 'ಘ್', 'Ð': 'ಙ್',
     'Ñ': 'ಚ್', 'Ò': 'ಛ್', 'Ó': 'ಜ್', 'Ô': 'ಝ್', 'Õ': 'ಞ್',
@@ -340,9 +400,155 @@ function shreeToUnicode(text, retainEnglish = false) {
     return result;
 }
 
+function prakashToUnicode(text, retainEnglish = false) {
+    let result = text;
+    const englishTexts = [];
+
+    if (retainEnglish) {
+        let out = '';
+        let i = 0;
+        while (i < result.length) {
+            if (result[i] === '\uFF62') {
+                let j = i + 1;
+                while (j < result.length && result[j] !== '\uFF63') j++;
+                out += result.slice(i, j + 1);
+                i = j + 1;
+                continue;
+            }
+            if (/[a-zA-Z]/.test(result[i])) {
+                let j = i;
+                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
+                const token = result.slice(i, j);
+                if (_isEnglishToken(token, result, i)) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(token);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += token;
+                }
+                i = j;
+            } else {
+                out += result[i];
+                i++;
+            }
+        }
+        result = out;
+    }
+
+    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
+    const words = result.split(' ');
+    const convertedWords = words.map(word => {
+        if (word.length === 0) return word;
+        const parts = word.split(PLACEHOLDER_SPLIT);
+        const convertedParts = parts.map(part => {
+            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
+            if (part.length === 0) return part;
+            let converted = part;
+            
+            const keys = Object.keys(PRAKASH_MAP).sort((a, b) => b.length - a.length);
+            keys.forEach(key => {
+                converted = converted.split(key).join(PRAKASH_MAP[key]);
+            });
+            
+            Object.entries(PRAKASH_VOWEL_SIGNS).forEach(([k, v]) => {
+                converted = converted.split(k).join(v);
+            });
+            
+            Object.entries(PRAKASH_VATT).forEach(([k, v]) => {
+                converted = converted.split(k).join(v);
+            });
+            
+            return converted;
+        });
+        return convertedParts.join('');
+    });
+    result = convertedWords.join(' ');
+
+    if (retainEnglish && englishTexts.length > 0) {
+        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
+    }
+    return result;
+}
+
+function akrutiToUnicode(text, retainEnglish = false) {
+    let result = text;
+    const englishTexts = [];
+
+    if (retainEnglish) {
+        let out = '';
+        let i = 0;
+        while (i < result.length) {
+            if (result[i] === '\uFF62') {
+                let j = i + 1;
+                while (j < result.length && result[j] !== '\uFF63') j++;
+                out += result.slice(i, j + 1);
+                i = j + 1;
+                continue;
+            }
+            if (/[a-zA-Z]/.test(result[i])) {
+                let j = i;
+                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
+                const token = result.slice(i, j);
+                if (_isEnglishToken(token, result, i)) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(token);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += token;
+                }
+                i = j;
+            } else {
+                out += result[i];
+                i++;
+            }
+        }
+        result = out;
+    }
+
+    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
+    const words = result.split(' ');
+    const convertedWords = words.map(word => {
+        if (word.length === 0) return word;
+        const parts = word.split(PLACEHOLDER_SPLIT);
+        const convertedParts = parts.map(part => {
+            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
+            if (part.length === 0) return part;
+            let converted = part;
+            
+            const keys = Object.keys(AKRUTI_MAP).sort((a, b) => b.length - a.length);
+            keys.forEach(key => {
+                converted = converted.split(key).join(AKRUTI_MAP[key]);
+            });
+            
+            Object.entries(AKRUTI_VOWEL_SIGNS).forEach(([k, v]) => {
+                converted = converted.split(k).join(v);
+            });
+            
+            Object.entries(AKRUTI_VATT).forEach(([k, v]) => {
+                converted = converted.split(k).join(v);
+            });
+            
+            return converted;
+        });
+        return convertedParts.join('');
+    });
+    result = convertedWords.join(' ');
+
+    if (retainEnglish && englishTexts.length > 0) {
+        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
+    }
+    return result;
+}
+
 function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
     if (fontType === 'shree') {
         return shreeToUnicode(text, retainEnglish);
+    }
+    if (fontType === 'prakash') {
+        return prakashToUnicode(text, retainEnglish);
+    }
+    if (fontType === 'akruti') {
+        return akrutiToUnicode(text, retainEnglish);
     }
     
     let result = text;
@@ -442,6 +648,12 @@ function unicodeToASCII(text, fontType = 'nudi') {
     if (fontType === 'shree') {
         return unicodeToShreelipi(text);
     }
+    if (fontType === 'prakash') {
+        return unicodeToPrakash(text);
+    }
+    if (fontType === 'akruti') {
+        return unicodeToAkruti(text);
+    }
     
     // Special compound characters
     result = result.replace(/ಕ್ಷ/g, 'x').replace(/ಜ್ಞ/g, 'Y');
@@ -530,6 +742,40 @@ function unicodeToShreelipi(text) {
     // Convert numbers
     for (let i = 0; i < KN_DIGITS.length; i++) {
         result = result.split(KN_DIGITS[i]).join(EN_DIGITS[i]);
+    }
+    
+    return result;
+}
+
+function unicodeToPrakash(text) {
+    let result = text;
+    
+    const PRAKASH_U2A_MAP = {};
+    Object.entries(PRAKASH_MAP).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
+    Object.entries(PRAKASH_VOWEL_SIGNS).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
+    Object.entries(PRAKASH_VATT).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
+    
+    const U2A_KEYS = Object.keys(PRAKASH_U2A_MAP).sort((a, b) => b.length - a.length);
+    
+    for (const key of U2A_KEYS) {
+        result = result.split(key).join(PRAKASH_U2A_MAP[key]);
+    }
+    
+    return result;
+}
+
+function unicodeToAkruti(text) {
+    let result = text;
+    
+    const AKRUTI_U2A_MAP = {};
+    Object.entries(AKRUTI_MAP).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
+    Object.entries(AKRUTI_VOWEL_SIGNS).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
+    Object.entries(AKRUTI_VATT).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
+    
+    const U2A_KEYS = Object.keys(AKRUTI_U2A_MAP).sort((a, b) => b.length - a.length);
+    
+    for (const key of U2A_KEYS) {
+        result = result.split(key).join(AKRUTI_U2A_MAP[key]);
     }
     
     return result;
