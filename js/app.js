@@ -427,7 +427,7 @@ function convert(text, numFormat, direction, retainEnglish = false, fontType = '
     if (direction === 'a2u' || direction === 'auto') {
         result = asciiToUnicode(text, retainEnglish, fontType);
     } else if (direction === 'u2a') {
-        result = unicodeToASCII(text);
+        result = unicodeToASCII(text, fontType);
     } else {
         result = text;
     }
@@ -436,8 +436,12 @@ function convert(text, numFormat, direction, retainEnglish = false, fontType = '
 }
 
 // Unicode to ASCII conversion
-function unicodeToASCII(text) {
+function unicodeToASCII(text, fontType = 'nudi') {
     let result = text;
+    
+    if (fontType === 'shree') {
+        return unicodeToShreelipi(text);
+    }
     
     // Special compound characters
     result = result.replace(/ಕ್ಷ/g, 'x').replace(/ಜ್ಞ/g, 'Y');
@@ -468,6 +472,65 @@ function unicodeToASCII(text) {
     
     // Convert numbers
     result = result.replace(/[೦-೯]/g, (c) => EN_DIGITS['೦೧೨೩೪೫೬೭೮೯'.indexOf(c)]);
+    
+    return result;
+}
+
+function unicodeToShreelipi(text) {
+    let result = text;
+    
+    const SHREE_U2A_MAP = {
+        'ಅ': 'A', 'ಆ': 'B', 'ಇ': 'C', 'ಈ': 'D', 'ಉ': 'E', 'ಊ': 'F',
+        'ಋ': 'Má', 'ೠ': 'Má', 'ಎ': 'G', 'ಏ': 'H', 'ಐ': 'I', 'ಒ': 'J', 'ಓ': 'K', 'ಔ': 'L',
+        'ಂ': 'í', 'ಃ': '@',
+        'ಕ': 'PÜ', 'ಖ': 'S', 'ಗ': 'WÜ', 'ಘ': 'Z', 'ಙ': '_',
+        'ಚ': 'aÜ', 'ಛ': 'dÜ', 'ಜ': 'g', 'ಝ': 'ÃÜká', 'ಞ': 'm',
+        'ಟ': 'o', 'ಠ': 'sÜ', 'ಡ': 'vÜ', 'ಢ': 'yÜ', 'ಣ': '|',
+        'ತ': 'ñÜ', 'ಥ': '¥Ü', 'ದ': '¨Ü', 'ಧ': '«Ü', 'ನ': '®Ü',
+        'ಪ': '±Ü', 'ಫ': '¶Ü', 'ಬ': 'Ÿ', 'ಭ': '»Ü', 'ಮ': 'ÊÜá',
+        'ಯ': '¿á', 'ರ': 'ÃÜ', 'ಲ': 'Æ', 'ವ': 'ÊÜ', 'ಶ': 'ÍÜ',
+        'ಷ': 'ÐÜ', 'ಸ': 'ÓÜ', 'ಹ': 'ÖÜ', 'ಳ': 'ÙÜ',
+        'ಾ': 'Ý',
+        'ಕಿ': 'Q', 'ಕೀ': 'Qà', 'ಕು': 'PÜá', 'ಕೂ': 'PÜã', 'ಕೃ': 'PÜê', 'ಕೆ': 'PÜæ', 'ಕೇ': 'PÜæà', 'ಕೈ': 'PÜæç', 'ಕೊ': 'PÜæã', 'ಕೋ': 'PÜæãà', 'ಕೌ': 'PÜè',
+        'ಖಿ': 'U', 'ಖೀ': 'Uà', 'ಗಿ': 'X', 'ಗೀ': 'Xà', 'ಘಿ': '\\', 'ಘೀ': '\\à',
+        'ಚಿ': 'b', 'ಚೀ': 'bà', 'ಛಿ': 'e', 'ಛೀ': 'eà', 'ಜಿ': 'i', 'ಜೀ': 'ià',
+        'ಝಿ': 'Äká', 'ಝೀ': 'Äkáà', 'ಟಿ': 'q', 'ಟೀ': 'qà', 'ಠಿ': 't', 'ಠೀ': 'tà',
+        'ಡಿ': 'w', 'ಡೀ': 'wà', 'ಢಿ': '{', 'ಢೀ': '{à', 'ಣಿ': '~', 'ಣೀ': '~à',
+        'ತಿ': '£', 'ತೀ': '£à', 'ಥಿ': '¦', 'ಥೀ': '¦à', 'ದಿ': '©', 'ದೀ': '©à',
+        'ಧಿ': '˜', 'ಧೀ': '˜à', 'ನಿ': '¯', 'ನೀ': '¯à', 'ಪಿ': '²', 'ಪೀ': '²à',
+        'ಫಿ': 'µ', 'ಫೀ': 'µà', 'ಬಿ': '¹', 'ಬೀ': '¹à', 'ಭಿ': '¼', 'ಭೀ': '¼à',
+        'ಮಿ': 'Ëá', 'ಮೀ': 'Ëáà', 'ಯಿ': 'Àá', 'ಯೀ': 'Àáà', 'ರಿ': 'Ä', 'ರೀ': 'Äà',
+        'ಲಿ': 'È', 'ಲೀ': 'Èà', 'ವಿ': 'Ë', 'ವೀ': 'Ëà', 'ಶಿ': 'Î', 'ಶೀ': 'Îà',
+        'ಷಿ': 'Ñ', 'ಷೀ': 'Ñà', 'ಸಿ': 'Ô', 'ಸೀ': 'Ôà', 'ಹಿ': '×', 'ಹೀ': '×à',
+        'ಳಿ': 'Ú', 'ಳೀ': 'Úà',
+        'ಕ್ಷ': 'ûÜ', 'ಜ್ಞ': 'ý',
+        '್': '…', 'ು': 'á', 'ೂ': 'ã', 'ೃ': 'ê', 'ೆ': 'æ', 'ೇ': 'æà', 'ೈ': 'æç', 'ೊ': 'æã', 'ೋ': 'æãà', 'ೌ': 'è',
+        'ರ್': 'ì', '್ಕ': 'R', '್ಖ': 'V', '್ಗ': 'Y', '್ಘ': '^', '್ಙ': '`',
+        '್ಚ': 'c', '್ಛ': 'f', '್ಜ': 'j', '್ಝ': 'l', '್ಞ': 'n',
+        '್ಟ': 'r', '್ಠ': 'u', '್ಡ': 'x', '್ಢ': 'z', '್ಣ': '¡',
+        '್ತ': '¤', '್ಥ': '§', '್ದ': 'ª', '್ಧ': 'œ', '್ನ': '°',
+        '್ಪ': '³', '್ಫ': '#', '್ಬ': 'º', '್ಭ': '½', '್ಮ': '¾',
+        '್ಯ': 'Â', '್ರ': 'Å', '್ಲ': 'É', '್ವ': 'Ì', '್ಶ': 'Ï',
+        '್ಸ': 'Õ', '್ಹ': 'Ø', '್ಳ': 'Û'
+    };
+    
+    const KN_DIGITS = '೦೧೨೩೪೫೬೭೮೯';
+    const EN_DIGITS = '0123456789';
+    
+    // Build reverse map keys sorted by length (longest first)
+    const U2A_KEYS = Object.keys(SHREE_U2A_MAP).sort((a, b) => b.length - a.length);
+    
+    // Replace Unicode characters with ShreeLipi
+    for (const key of U2A_KEYS) {
+        if (key.length > 0) {
+            result = result.split(key).join(SHREE_U2A_MAP[key]);
+        }
+    }
+    
+    // Convert numbers
+    for (let i = 0; i < KN_DIGITS.length; i++) {
+        result = result.split(KN_DIGITS[i]).join(EN_DIGITS[i]);
+    }
     
     return result;
 }
