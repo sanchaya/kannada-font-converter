@@ -694,12 +694,14 @@ function extractTextFromHTML(html) {
 
 function extractTextWithFontInfo(html, maxWords = 800) {
     const temp = document.createElement('div');
-    temp.innerHTML = html;
     
-    const scriptsAndStyles = temp.querySelectorAll('script, style, noscript');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    const scriptsAndStyles = doc.querySelectorAll('script, style, noscript');
     scriptsAndStyles.forEach(el => el.remove());
     
-    const styles = temp.querySelectorAll('style');
+    const styles = doc.querySelectorAll('style');
     let allCSS = '';
     styles.forEach(style => {
         allCSS += style.textContent || '';
@@ -707,7 +709,7 @@ function extractTextWithFontInfo(html, maxWords = 800) {
     
     const detectedFonts = detectFontsFromCSS(allCSS);
     
-    let text = temp.textContent || temp.innerText || '';
+    let text = doc.body.textContent || doc.body.innerText || '';
     text = text.replace(/\s+/g, ' ').trim();
     
     const wordCount = text.split(/\s+/).length;
