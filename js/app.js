@@ -741,14 +741,30 @@ async function fetchAndConvertUrl() {
     const maxWords = 800;
     
     try {
-        const corsProxy = 'https://api.allorigins.win/raw?url=';
-        const response = await fetch(corsProxy + encodeURIComponent(url));
+        const corsProxies = [
+            'https://api.allorigins.win/raw?url=',
+            'https://corsproxy.io/?',
+            'https://proxy.cors.sh/?url='
+        ];
         
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        let html = '';
+        let lastError = null;
+        
+        for (const proxy of corsProxies) {
+            try {
+                const response = await fetch(proxy + encodeURIComponent(url));
+                if (response.ok) {
+                    html = await response.text();
+                    break;
+                }
+            } catch (e) {
+                lastError = e;
+            }
         }
         
-        const html = await response.text();
+        if (!html) {
+            throw lastError || new Error('Failed to fetch URL');
+        }
         
         const { text, fonts, isTruncated, totalWords } = extractTextWithFontInfo(html);
         
