@@ -400,7 +400,7 @@ function shreeToUnicode(text, retainEnglish = false) {
     return result;
 }
 
-function prakashToUnicode(text, retainEnglish = false) {
+function prakashakToUnicode(text, retainEnglish = false) {
     let result = text;
     const englishTexts = [];
 
@@ -544,8 +544,8 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
     if (fontType === 'shree') {
         return shreeToUnicode(text, retainEnglish);
     }
-    if (fontType === 'prakash') {
-        return prakashToUnicode(text, retainEnglish);
+    if (fontType === 'prakashak') {
+        return prakashakToUnicode(text, retainEnglish);
     }
     if (fontType === 'akruti') {
         return akrutiToUnicode(text, retainEnglish);
@@ -648,7 +648,7 @@ function unicodeToASCII(text, fontType = 'nudi') {
     if (fontType === 'shree') {
         return unicodeToShreelipi(text);
     }
-    if (fontType === 'prakash') {
+    if (fontType === 'prakashak') {
         return unicodeToPrakash(text);
     }
     if (fontType === 'akruti') {
