@@ -1,15 +1,15 @@
-# Autopilot State — kanconvert
+# Autopilot State - kanconvert
 
 ## Last run: 2026-07-23
 
-## Session 2026-07-22/23 (interactive) — major changes
+## Session 2026-07-22/23 (interactive) - major changes
 - Multi-page app: keyboards.html, mappings.html, about.html added; #keyboards section removed from index
 - Branding aligned with fonts.sanchaya.net (favicons, horizontal wordmark logo)
 - Live editor rebuilt: bidirectional editing (both panes editable, live sync),
   per-pane editor toolbars (file open TXT/DOCX, font, size, copy, download, expand, clear),
   direction toggle (ASCII simulator / u2a), format-based downloads (ascii/unicode/both),
   DOCX image detection (text-only notice), UTF-8→windows-1252 decode fallback
-- IME: fixed activation (proper setLanguage/load/setIM/enable API — the old
+- IME: fixed activation (proper setLanguage/load/setIM/enable API - the old
   'setInputMethod' trigger does not exist in jquery.ime); visible ಕೀಬೋರ್ಡ್ dropdown is the
   single IME control on live panes (floating selector disabled there to avoid clashes)
 - Retain-English fix: standalone digit runs protected in all four decoders
@@ -23,7 +23,7 @@ Static HTML + JS app (client-side conversion) with an optional Express server fo
 Hosted on GitHub Pages at converter.sanchaya.net. Node server is secondary.
 
 ## Build/test commands
-- No automated tests exist (Tier B finding — see below)
+- No automated tests exist (Tier B finding - see below)
 - Static smoke: open index.html in browser
 - Server: `PORT=3001 node server.js`
 
@@ -42,7 +42,7 @@ _(nothing flagged yet)_
 
 ---
 
-## Open proposals — needs your call
+## Open proposals - needs your call
 
 ### B1: jquery.ime CDN pinned to @master (fragile)
 `index.html` loads 7 jquery.ime scripts from `cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/...`.
@@ -51,7 +51,7 @@ Using `@master` means a breaking upstream commit could silently break the IME ov
 Risk if not fixed: rare but possible silent IME breakage.
 
 ### B2: Unbounded in-memory conversions Map (server.js)
-`server.js` line 19: `const conversions = new Map();` — grows forever, no eviction.
+`server.js` line 19: `const conversions = new Map();` - grows forever, no eviction.
 Comment already says "use Redis in production." If the server runs long-term, this leaks memory.
 **Suggestion:** Add a size cap: if `conversions.size > 1000`, delete the oldest 100 entries before inserting.
 Risk: low if server is restarted regularly; real leak if left running for weeks.
@@ -62,12 +62,12 @@ are copy-pasted between `server.js` and `js/app.js`. Any bug fix or mapping addi
 applied in both files manually.
 **Suggestion:** Extract to `js/converter-core.js`, import in server.js via `require()` and load
 via `<script>` in index.html before app.js.
-Risk: medium — divergence already exists (app.js has Shree/Prakashak/Akruti functions that server.js lacks).
+Risk: medium - divergence already exists (app.js has Shree/Prakashak/Akruti functions that server.js lacks).
 
 ### B4: CNAME file has two domain entries
 `CNAME` contains two lines: `converter.sanchaya.net` and `parivarthaka.sanchaya.net`.
 GitHub Pages CNAME only reads the first line; the second is ignored (not an active GH Pages domain).
-README lists parivarthaka as an "alternate domain" — if it's supposed to work, it needs a separate
+README lists parivarthaka as an "alternate domain" - if it's supposed to work, it needs a separate
 DNS CNAME + GH Pages custom domain config, which can't be done via this file.
 **Suggestion:** Either remove the second line (keep file clean) or document that parivarthaka
 is a DNS alias handled outside GitHub Pages.
@@ -81,7 +81,7 @@ Run with `node test/smoke.js`. Low effort, high value given the complexity of th
 
 ## Conventions observed
 - Client-side conversion is the primary path (GitHub Pages friendly)
-- Server is supplementary (history, API) — can be ignored for static deploys
+- Server is supplementary (history, API) - can be ignored for static deploys
 - Bootstrap 5.3 + jQuery 3.7.1 for UI
 - Kannada Unicode block: U+0C80–U+0CFF
 - Font type selector covers: Nudi, Baraha, ShreeLipi, Prakashak, Akruti
