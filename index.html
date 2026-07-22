@@ -12,21 +12,27 @@
     <meta property="og:title" content="ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ">
     <meta property="og:description" content="Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ">
     <meta property="og:type" content="website">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23155CA2'/%3E%3Ctext x='50' y='65' font-family='Anek Kannada' font-size='50' text-anchor='middle' fill='white'%3Eಕ%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/android-chrome-192x192.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/css/jquery.ime.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.11.0/mammoth.browser.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="img/logo.png" alt="Logo">
+            <a class="navbar-brand" href="https://converter.sanchaya.net/">
+                <img src="img/app-icon-light.png" alt="ಸಂಚಯ">
                 <span class="brand-text">
-                    <span class="brand-title">ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ <small class="text-muted fw-normal">(v1.0.1)</small></span>
-                    <span class="brand-subtitle">Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</span>
+                    <span class="brand-title">ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ <span class="brand-version">v1.0.1</span></span>
+                    <span class="brand-subtitle">Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್‌ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</span>
                 </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -34,8 +40,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#convert"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="keyboards.html"><i class="fas fa-keyboard me-1"></i> ಕೀಬೋರ್ಡ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mappings.html"><i class="fas fa-table me-1"></i> ಮ್ಯಾಪಿಂಗ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
                 </ul>
             </div>
         </div>
@@ -51,6 +59,9 @@
             <div class="card-header-custom">
                 <i class="fas fa-magic"></i>
                 <h5>ಪರಿವರ್ತನೆ ವಿಭಾಗ</h5>
+                <button type="button" class="tour-btn" onclick="startTour()" title="ಈ ವಿಭಾಗದ ಮಾರ್ಗದರ್ಶಿ">
+                    <i class="fas fa-circle-question me-1"></i> ಮಾರ್ಗದರ್ಶಿ
+                </button>
             </div>
             
             <ul class="nav nav-tabs-custom" role="tablist">
@@ -322,9 +333,16 @@
                 </div>
 
                 <div class="tab-pane-custom" id="tab-live">
-                    <p class="text-muted mb-3">ಎಡಭಾಗದಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ — ಬಲಭಾಗದಲ್ಲಿ Unicode ಪರಿವರ್ತನೆ ಲೈವ್ ಆಗಿ ಕಾಣಿಸುತ್ತದೆ.</p>
-                    
+                    <p class="text-muted mb-3" id="live-help-text">ಎಡಭಾಗದಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ — ಅದರ ASCII ಎನ್ಕೋಡಿಂಗ್ ಎಡಭಾಗದಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ ಮತ್ತು Unicode ಪರಿವರ್ತನೆ ಬಲಭಾಗದಲ್ಲಿ ಲೈವ್ ಆಗಿ ಕಾಣಿಸುತ್ತದೆ. ಕನ್ನಡ ಟೈಪ್ ಮಾಡಲು ಮೇಲಿನ <strong>ಕೀಬೋರ್ಡ್</strong> ಆಯ್ಕೆಯಿಂದ KGP, InScript, ಅಥವಾ ಲಿಪ್ಯಂತರಣ ಆರಿಸಿ. ಇಂಗ್ಲಿಷ್ ಪಠ್ಯ ಇದ್ದಂತೆಯೇ ಉಳಿಯುತ್ತದೆ.</p>
+
                     <div class="settings-panel mb-3 d-flex flex-wrap align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-right-left me-1"></i>ದಿಕ್ಕು:</label>
+                            <select class="form-select form-select-sm" id="live-direction" style="width:auto;">
+                                <option value="a2u">ASCII ಸಿಮ್ಯುಲೇಟರ್ → Unicode</option>
+                                <option value="u2a">Unicode → ASCII</option>
+                            </select>
+                        </div>
                         <div class="d-flex align-items-center gap-2">
                             <label class="form-label-custom mb-0"><i class="fas fa-font me-1"></i>ಫಾಂಟ್:</label>
                             <select class="form-select form-select-sm" id="live-font-type" style="width:auto;">
@@ -334,72 +352,106 @@
                                 <option value="akruti">Akruti</option>
                             </select>
                         </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-keyboard me-1"></i>ಕೀಬೋರ್ಡ್:</label>
+                            <select class="form-select form-select-sm" id="live-keyboard" style="width:auto;">
+                                <option value="kn-kgp">KGP / ನುಡಿ</option>
+                                <option value="kn-inscript">InScript</option>
+                                <option value="kn-transliteration">ಲಿಪ್ಯಂತರಣ</option>
+                                <option value="system">English / ಸಿಸ್ಟಂ</option>
+                            </select>
+                        </div>
                         <div class="form-check mb-0">
-                            <input class="form-check-input" type="checkbox" id="live-retain-english">
+                            <input class="form-check-input" type="checkbox" id="live-retain-english" checked>
                             <label class="form-check-label" for="live-retain-english">ಇಂಗ್ಲಿಷ್ ಉಳಿಸಿ</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 ms-auto flex-wrap" id="live-download-group">
+                            <span class="form-label-custom mb-0" style="font-size:0.85rem;"><i class="fas fa-download me-1"></i>ಡೌನ್‌ಲೋಡ್:</span>
+                            <button type="button" class="btn-outline-custom py-1 px-2" style="font-size:0.82rem;" onclick="liveDownloadFormat('ascii')">ASCII</button>
+                            <button type="button" class="btn-outline-custom py-1 px-2" style="font-size:0.82rem;" onclick="liveDownloadFormat('unicode')">Unicode</button>
+                            <button type="button" class="btn-outline-custom py-1 px-2" style="font-size:0.82rem;" onclick="liveDownloadFormat('both')">ಎರಡೂ</button>
                         </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="form-label-custom mb-0">
-                                    <i class="fas fa-file-import me-1"></i> ASCII ಇನ್‌ಪುಟ್
+                                <label class="form-label-custom mb-0" id="live-source-label">
+                                    <i class="fas fa-file-import me-1"></i> ASCII ಮೂಲ
                                 </label>
                                 <small class="text-muted" id="live-source-count">0 ಅಕ್ಷರ</small>
                             </div>
-                            <textarea class="form-control-custom" id="live-source"
-                                placeholder="ಇಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ (ಉದಾ: PÀ£ï£ÀqÀ)..."
-                                style="min-height:500px;" spellcheck="false"></textarea>
-                            <div class="d-flex gap-2 mt-2 flex-wrap">
-                                <button class="btn-outline-custom" onclick="downloadLiveSource()">
-                                    <i class="fas fa-download"></i> ASCII ಡೌನ್‌ಲೋಡ್
+                            <div class="editor-toolbar">
+                                <button type="button" title="ಫೈಲ್ ತೆರೆಯಿರಿ (TXT / DOCX)" onclick="liveOpenFileFor('source')">
+                                    <i class="fas fa-folder-open"></i>
                                 </button>
+                                <span class="et-divider"></span>
+                                <select id="live-editor-font-source" onchange="liveApplyEditorFont('source')" title="ಫಾಂಟ್">
+                                    <option value="auto">ಸ್ವಯಂ ಫಾಂಟ್</option>
+                                    <option value="mono">Mono</option>
+                                    <option value="plex">IBM Plex Sans</option>
+                                    <option value="anek">Anek Kannada</option>
+                                </select>
+                                <button type="button" onclick="liveFontSizeFor('source',-1)" title="ಫಾಂಟ್ ಗಾತ್ರ ಕಡಿಮೆ"><i class="fas fa-minus"></i></button>
+                                <button type="button" onclick="liveFontSizeFor('source',1)" title="ಫಾಂಟ್ ಗಾತ್ರ ಹೆಚ್ಚು"><i class="fas fa-plus"></i></button>
+                                <span class="et-divider"></span>
+                                <button type="button" onclick="liveCopy('source')" title="ಕಾಪಿ"><i class="fas fa-copy"></i></button>
+                                <button type="button" onclick="liveDownload('source')" title="ಡೌನ್‌ಲೋಡ್"><i class="fas fa-download"></i></button>
+                                <span class="et-divider"></span>
+                                <button type="button" onclick="liveExpand('source')" title="ವಿಸ್ತರಿಸಿ / ಕುಗ್ಗಿಸಿ"><i class="fas fa-expand"></i></button>
+                                <button type="button" onclick="liveClearPane('source')" title="ಎಲ್ಲಾ ಅಳಿಸಿ"><i class="fas fa-eraser"></i></button>
+                                <input type="file" id="live-file-input" accept=".txt,.text,.docx" style="display:none;">
                             </div>
+                            <textarea class="form-control-custom live-editor-surface" id="live-source"
+                                placeholder="ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ — ASCII ಎನ್ಕೋಡಿಂಗ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತೋರಿಸಲ್ಪಡುತ್ತದೆ..."
+                                style="min-height:500px;" spellcheck="false"></textarea>
+
+                            <div id="live-ascii-preview-wrap" class="mt-2">
+                                <label class="form-label-custom mb-1" style="font-size:0.82rem;">
+                                    <i class="fas fa-eye me-1"></i> ASCII ಫಾಂಟ್‌ನಲ್ಲಿ ಹೀಗೆ ಕಾಣುತ್ತದೆ (ನುಡಿ ಎಡಿಟರ್ ನೋಟ):
+                                </label>
+                                <div id="live-ascii-preview" class="preview-box" style="min-height:60px;max-height:160px;font-size:1.05rem;"></div>
+                            </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label class="form-label-custom mb-0">
-                                    <i class="fas fa-file-export me-1"></i> Unicode ಔಟ್‌ಪುಟ್
+                                <label class="form-label-custom mb-0" id="live-result-label">
+                                    <i class="fas fa-file-export me-1"></i> Unicode ಫಲಿತಾಂಶ
                                 </label>
                                 <small class="text-muted" id="live-result-count">0 ಅಕ್ಷರ</small>
                             </div>
-                            <textarea class="form-control-custom" id="live-result" readonly
-                                style="min-height:500px;font-family:'Anek Kannada',sans-serif;font-size:1.15rem;line-height:1.8;"
-                                placeholder="Unicode ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ..."></textarea>
-                            <div class="d-flex gap-2 mt-2 flex-wrap">
-                                <button class="btn-outline-custom" onclick="copyLiveResult()">
-                                    <i class="fas fa-copy"></i> ಕಾಪಿ
+                            <div class="editor-toolbar">
+                                <button type="button" title="ಫೈಲ್ ತೆರೆಯಿರಿ (TXT / DOCX)" onclick="liveOpenFileFor('result')">
+                                    <i class="fas fa-folder-open"></i>
                                 </button>
-                                <button class="btn-outline-custom" onclick="downloadLiveResult()">
-                                    <i class="fas fa-download"></i> Unicode ಡೌನ್‌ಲೋಡ್
-                                </button>
-                                <button class="btn-outline-custom" onclick="downloadLiveBoth()">
-                                    <i class="fas fa-file-archive"></i> ಎರಡೂ
-                                </button>
+                                <span class="et-divider"></span>
+                                <select id="live-editor-font-result" onchange="liveApplyEditorFont('result')" title="ಫಾಂಟ್">
+                                    <option value="auto">ಸ್ವಯಂ ಫಾಂಟ್</option>
+                                    <option value="mono">Mono</option>
+                                    <option value="plex">IBM Plex Sans</option>
+                                    <option value="anek">Anek Kannada</option>
+                                </select>
+                                <button type="button" onclick="liveFontSizeFor('result',-1)" title="ಫಾಂಟ್ ಗಾತ್ರ ಕಡಿಮೆ"><i class="fas fa-minus"></i></button>
+                                <button type="button" onclick="liveFontSizeFor('result',1)" title="ಫಾಂಟ್ ಗಾತ್ರ ಹೆಚ್ಚು"><i class="fas fa-plus"></i></button>
+                                <span class="et-divider"></span>
+                                <button type="button" onclick="liveCopy('result')" title="ಕಾಪಿ"><i class="fas fa-copy"></i></button>
+                                <button type="button" onclick="liveDownload('result')" title="ಡೌನ್‌ಲೋಡ್"><i class="fas fa-download"></i></button>
+                                <button type="button" onclick="liveDownloadFormat('both')" title="ಎರಡೂ ಡೌನ್‌ಲೋಡ್"><i class="fas fa-file-zipper"></i></button>
+                                <span class="et-divider"></span>
+                                <button type="button" onclick="liveExpand('result')" title="ವಿಸ್ತರಿಸಿ / ಕುಗ್ಗಿಸಿ"><i class="fas fa-expand"></i></button>
+                                <button type="button" onclick="liveClearPane('result')" title="ಎಲ್ಲಾ ಅಳಿಸಿ"><i class="fas fa-eraser"></i></button>
                             </div>
+                            <textarea class="form-control-custom live-editor-surface" id="live-result"
+                                style="min-height:500px;font-family:'Anek Kannada',sans-serif;font-size:1.15rem;line-height:1.8;"
+                                placeholder="ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ — ಇಲ್ಲಿಯೂ ಸಂಪಾದಿಸಬಹುದು..." spellcheck="false"></textarea>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    
-        <section id="about" class="mt-5">
-            <div class="converter-card">
-                <div class="card-header-custom" style="background: var(--secondary);">
-                    <i class="fas fa-info-circle"></i>
-                    <h5>ಬಗ್ಗೆ</h5>
-                </div>
-                <div class="card-body-custom">
-                    <p>ಈ ತಂತ್ರಾಂಶವು ಕನ್ನಡದ ಹಳೆಯ ASCII ಫಾಂಟ್ಗಳಾದ Nudi (ನುಡಿ), Baraha (ಬರಹ), ಮತ್ತು ShreeLipi (ಶ್ರೀ) ಅನ್ನು ಆಧುನಿಕ Unicode ಗೆ ಪರಿವರ್ತಿಸುತ್ತದೆ.</p>
-                    <ul>
-                        <li>TXT ಮತ್ತು DOCX ಫೈಲ್ ಬೆಂಬಲ</li>
-                        <li>ಸ್ವಯಂಚಾಲಿತ</li>
-                        <li>ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+
     </main>
 
     <footer class="site-footer">
@@ -415,6 +467,93 @@
     <div class="toast-custom" id="toast"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/tour.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/src/jquery.ime.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/src/jquery.ime.selector.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/src/jquery.ime.preferences.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/src/jquery.ime.inputmethods.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/rules/kn/kn-inscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/rules/kn/kn-transliteration.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/rules/kn/kn-kgp.js"></script>
+    <script>
+    // Restrict the IME language list to Kannada, KGP first
+    function pruneNonKnMethods() {
+        if (!$.ime || !$.ime.languages || !$.ime.languages.kn) return false;
+        var kn = $.ime.languages.kn;
+        if (kn.inputmethods && kn.inputmethods.indexOf('kn-kgp') > 0) {
+            kn.inputmethods = ['kn-kgp'].concat(kn.inputmethods.filter(function(id) { return id !== 'kn-kgp'; }));
+        }
+        $.ime.languages = { kn: kn };
+        return true;
+    }
+
+    // Attach jquery.ime (with its floating selector) to the general-purpose
+    // textareas only. The live editor panes are managed exclusively by the
+    // visible ಕೀಬೋರ್ಡ್ dropdown, so they get no floating selector — otherwise
+    // the two controls fight over the active input method.
+    function setupIMEIndicator() {
+        try {
+            $('textarea:not([readonly]):not(#live-source):not(#live-result)').ime();
+        } catch(e) {
+            setTimeout(function() {
+                try { $('textarea:not([readonly]):not(#live-source):not(#live-result)').ime(); } catch(e2) { console.error('IME init failed:', e2); }
+            }, 500);
+        }
+    }
+
+    // Apply the chosen keyboard to a single element (no floating selector)
+    function applyKeyboardTo(el, val) {
+        if (!el || !window.jQuery || !jQuery.fn.ime) return;
+        try {
+            $(el).ime({ showSelector: false });
+            var ime = $(el).data('ime');
+            if (!ime) return;
+            if (val === 'system') {
+                ime.disable();
+                return;
+            }
+            ime.setLanguage('kn');
+            ime.load(val).done(function() {
+                ime.setIM(val);
+                ime.enable();
+            });
+        } catch(e) { console.error('IME activation failed:', e); }
+    }
+
+    // Apply the #live-keyboard dropdown choice to both live panes.
+    // The Kannada IME goes on whichever pane holds Unicode text:
+    //  - a2u: source (simulator) + result (Unicode) both get the IME
+    //  - u2a: source (Unicode) gets the IME, result (ASCII) types plain
+    function applyLiveKeyboard() {
+        var sel = document.getElementById('live-keyboard');
+        var dir = document.getElementById('live-direction');
+        var val = sel ? sel.value : 'kn-kgp';
+        var isU2a = dir && dir.value === 'u2a';
+        applyKeyboardTo(document.getElementById('live-source'), val);
+        applyKeyboardTo(document.getElementById('live-result'), isU2a ? 'system' : val);
+    }
+    window.applyLiveKeyboard = applyLiveKeyboard;
+
+    if (window.jQuery && jQuery.fn.ime) {
+        // Rules base path (used only if a method needs lazy loading)
+        $.ime.setPath('https://cdn.jsdelivr.net/gh/wikimedia/jquery.ime@master/');
+        pruneNonKnMethods();
+        if ($.ime.preferences && $.ime.preferences.setLanguage) {
+            $.ime.preferences.setLanguage('kn');
+        }
+        setupIMEIndicator();
+        applyLiveKeyboard();
+        var kbdSel = document.getElementById('live-keyboard');
+        if (kbdSel) {
+            kbdSel.addEventListener('change', function() {
+                applyLiveKeyboard();
+                var el = document.getElementById('live-source');
+                if (el) el.focus();
+            });
+        }
+    }
+    </script>
 </body>
 </html>

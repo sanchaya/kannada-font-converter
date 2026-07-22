@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಫಾಂಟ್ ಮ್ಯಾಪಿಂಗ್ - ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</title>
+    <meta name="description" content="Nudi, ShreeLipi, Prakashak, Akruti ಫಾಂಟ್‌ಗಳ ASCII ↔ Unicode ಅಕ್ಷರ ಮ್ಯಾಪಿಂಗ್ ಪಟ್ಟಿಗಳು">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/android-chrome-192x192.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .map-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+        .map-tabs button {
+            border: 1px solid var(--border-color); background: var(--third-color);
+            color: var(--text-color1); padding: 0.5rem 1.1rem; border-radius: 8px;
+            font-weight: 500; cursor: pointer; font-size: 0.9rem;
+        }
+        .map-tabs button:hover { border-color: var(--text-color3); color: var(--text-color3); }
+        .map-tabs button.active { background: var(--text-color3); border-color: var(--text-color3); color: white; }
+        .map-tabs button .badge { background: rgba(0,0,0,0.15); font-weight: 500; margin-left: 6px; }
+        .map-table { font-size: 0.85rem; }
+        .map-table td.kn { font-family: 'Anek Kannada', sans-serif; font-size: 1rem; }
+        .map-table td code { color: #a4243b; }
+        .map-search { max-width: 320px; }
+        .map-section-title { font-weight: 600; margin: 1.25rem 0 0.5rem; font-size: 0.95rem; color: var(--secondary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://converter.sanchaya.net/">
+                <img src="img/app-icon-light.png" alt="ಸಂಚಯ">
+                <span class="brand-text">
+                    <span class="brand-title">ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ <span class="brand-version">v1.0.1</span></span>
+                    <span class="brand-subtitle">Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್‌ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</span>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="keyboards.html"><i class="fas fa-keyboard me-1"></i> ಕೀಬೋರ್ಡ್</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="mappings.html"><i class="fas fa-table me-1"></i> ಮ್ಯಾಪಿಂಗ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="converter-card">
+            <div class="card-header-custom">
+                <i class="fas fa-table"></i>
+                <h5>ಫಾಂಟ್ ಅಕ್ಷರ ಮ್ಯಾಪಿಂಗ್</h5>
+            </div>
+            <div class="card-body-custom">
+                <p class="text-muted mb-3">
+                    ಪ್ರತಿ ಹಳೆಯ (legacy) ಫಾಂಟ್‌ನ ASCII ಸಂಕೇತಗಳು ಮತ್ತು ಅವುಗಳ Unicode ಕನ್ನಡ ಸಮಾನಗಳು.
+                    ಈ ಪಟ್ಟಿಗಳು ಪರಿವರ್ತಕದ ನಿಜವಾದ ಮ್ಯಾಪಿಂಗ್ ದತ್ತಾಂಶದಿಂದಲೇ ನೇರವಾಗಿ ತಯಾರಾಗುತ್ತವೆ.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
+                    <div class="map-tabs mb-0" id="map-tabs"></div>
+                    <input type="search" class="form-control form-control-sm map-search" id="map-search"
+                           placeholder="ಹುಡುಕಿ (ಕನ್ನಡ ಅಥವಾ ASCII)...">
+                </div>
+
+                <div id="map-content"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2026 ಸಂಚಯ ಮತ್ತು ಸಂಚಿ ಫೌಂಡೇಶನ್.</p>
+            <div>
+                <a href="https://sanchaya.org" class="footer-link" target="_blank">sanchaya.org</a>
+                <a href="https://fonts.sanchaya.net" class="footer-link" target="_blank">ಫಾಂಟ್ಸ್ ಸಂಚಯ</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-custom" id="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        function esc(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function toEntries(objOrArr) {
+            return Array.isArray(objOrArr) ? objOrArr.slice() : Object.entries(objOrArr);
+        }
+
+        // Sections are built from the converter's own data structures in app.js
+        var FONTS = {
+            nudi: {
+                label: 'Nudi / Baraha',
+                sections: [
+                    { title: 'ಸ್ವರಗಳು ಮತ್ತು ವಿಶೇಷ ಅಕ್ಷರಗಳು', data: vowelMaps },
+                    { title: 'ವ್ಯಂಜನಗಳು (ಕಾಗುಣಿತ ಸಹಿತ)', data: consonantMaps },
+                    { title: 'ವತ್ತಕ್ಷರಗಳು', data: VATTAKSHARA_MAP },
+                    { title: 'ಇತರೆ ಚಿಹ್ನೆಗಳು', data: OTHER_MAP }
+                ]
+            },
+            shree: {
+                label: 'ShreeLipi',
+                sections: [
+                    { title: 'ಸ್ವರಗಳು', data: SHREE_VOWEL_MAP },
+                    { title: 'ವ್ಯಂಜನಗಳು', data: SHREE_CONSONANT_MAP },
+                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: SHREE_VOWEL_SIGNS }
+                ]
+            },
+            prakashak: {
+                label: 'Prakashak',
+                sections: [
+                    { title: 'ಅಕ್ಷರಗಳು', data: PRAKASH_MAP },
+                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: PRAKASH_VOWEL_SIGNS },
+                    { title: 'ವತ್ತಕ್ಷರಗಳು', data: PRAKASH_VATT }
+                ]
+            },
+            akruti: {
+                label: 'Akruti',
+                sections: [
+                    { title: 'ಅಕ್ಷರಗಳು', data: AKRUTI_MAP },
+                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: AKRUTI_VOWEL_SIGNS },
+                    { title: 'ವತ್ತಕ್ಷರಗಳು', data: AKRUTI_VATT }
+                ]
+            }
+        };
+
+        var activeFont = 'nudi';
+        var COLS = 4;
+
+        function fontCount(key) {
+            return FONTS[key].sections.reduce(function(n, s) { return n + toEntries(s.data).length; }, 0);
+        }
+
+        function renderTabs() {
+            var el = document.getElementById('map-tabs');
+            el.innerHTML = Object.keys(FONTS).map(function(key) {
+                return '<button type="button" data-font="' + key + '"' +
+                    (key === activeFont ? ' class="active"' : '') + '>' +
+                    esc(FONTS[key].label) +
+                    ' <span class="badge rounded-pill">' + fontCount(key) + '</span></button>';
+            }).join('');
+            el.querySelectorAll('button').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    activeFont = btn.getAttribute('data-font');
+                    renderTabs();
+                    renderContent();
+                });
+            });
+        }
+
+        function tableHTML(entries) {
+            var html = '<div class="table-responsive"><table class="table table-sm table-bordered map-table mb-0">' +
+                '<thead class="table-light"><tr>';
+            for (var i = 0; i < COLS; i++) html += '<th>ASCII</th><th>ಕನ್ನಡ</th>';
+            html += '</tr></thead><tbody>';
+            for (var r = 0; r < entries.length; r += COLS) {
+                html += '<tr>';
+                for (var c = 0; c < COLS; c++) {
+                    var e = entries[r + c];
+                    html += e
+                        ? '<td><code>' + esc(e[0]) + '</code></td><td class="kn">' + esc(e[1]) + '</td>'
+                        : '<td></td><td></td>';
+                }
+                html += '</tr>';
+            }
+            return html + '</tbody></table></div>';
+        }
+
+        function renderContent() {
+            var q = (document.getElementById('map-search').value || '').trim();
+            var font = FONTS[activeFont];
+            var out = '';
+            var total = 0;
+            font.sections.forEach(function(sec) {
+                var entries = toEntries(sec.data);
+                if (q) {
+                    entries = entries.filter(function(e) {
+                        return e[0].indexOf(q) > -1 || e[1].indexOf(q) > -1;
+                    });
+                }
+                if (!entries.length) return;
+                total += entries.length;
+                out += '<div class="map-section-title">' + esc(sec.title) +
+                    ' <span class="text-muted fw-normal">(' + entries.length + ')</span></div>' +
+                    tableHTML(entries);
+            });
+            document.getElementById('map-content').innerHTML = out ||
+                '<p class="text-muted">ಯಾವುದೇ ಹೊಂದಾಣಿಕೆ ಸಿಗಲಿಲ್ಲ.</p>';
+        }
+
+        document.getElementById('map-search').addEventListener('input', renderContent);
+        renderTabs();
+        renderContent();
+    })();
+    </script>
+</body>
+</html>

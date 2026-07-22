@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಕೀಬೋರ್ಡ್ ವಿನ್ಯಾಸಗಳು - ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</title>
+    <meta name="description" content="ಕನ್ನಡ ಕೀಬೋರ್ಡ್ ವಿನ್ಯಾಸಗಳು — KGP/ನುಡಿ, InScript, ಲಿಪ್ಯಂತರಣ">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/android-chrome-192x192.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://converter.sanchaya.net/">
+                <img src="img/app-icon-light.png" alt="ಸಂಚಯ">
+                <span class="brand-text">
+                    <span class="brand-title">ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ <span class="brand-version">v1.0.1</span></span>
+                    <span class="brand-subtitle">Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್‌ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</span>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="keyboards.html"><i class="fas fa-keyboard me-1"></i> ಕೀಬೋರ್ಡ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mappings.html"><i class="fas fa-table me-1"></i> ಮ್ಯಾಪಿಂಗ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="converter-card">
+            <div class="card-header-custom">
+                <i class="fas fa-keyboard"></i>
+                <h5>ಕನ್ನಡ ಕೀಬೋರ್ಡ್ ವಿನ್ಯಾಸಗಳು</h5>
+            </div>
+            <div class="card-body-custom">
+                <p class="text-muted mb-4">
+                    ಈ ಪರಿವರ್ತಕದ <a href="/#convert">ಲೈವ್ ಸಂಪಾದಕದಲ್ಲಿ</a> ಕೆಳಗಿನ ಮೂರು ಕನ್ನಡ ಕೀಬೋರ್ಡ್ ವಿನ್ಯಾಸಗಳು ಲಭ್ಯ. ಟೈಪ್ ಮಾಡುವಾಗ <i class="fas fa-keyboard"></i> ಮೆನು ಮೂಲಕ ಬದಲಾಯಿಸಬಹುದು.
+                </p>
+
+                <!-- Jump links -->
+                <div class="d-flex gap-3 mb-4 flex-wrap">
+                    <a href="#kgp" class="btn-outline-custom py-1 px-3" style="font-size:0.88rem;"><i class="fas fa-keyboard me-1"></i> KGP / ನುಡಿ</a>
+                    <a href="#inscript" class="btn-outline-custom py-1 px-3" style="font-size:0.88rem;"><i class="fas fa-keyboard me-1"></i> InScript</a>
+                    <a href="#transliteration" class="btn-outline-custom py-1 px-3" style="font-size:0.88rem;"><i class="fas fa-language me-1"></i> ಲಿಪ್ಯಂತರಣ</a>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- KGP / Nudi -->
+                <!-- ============================================================ -->
+                <section id="kgp" class="mb-5 pb-4" style="border-bottom:1px solid var(--border-color);">
+                    <h5 class="fw-bold mb-1">
+                        <i class="fas fa-keyboard me-2" style="color:var(--primary);"></i>KGP / ನುಡಿ (Nudi) <span class="badge ms-2" style="background:var(--primary);font-size:0.7rem;">ಡೀಫಾಲ್ಟ್</span>
+                    </h5>
+                    <p class="text-muted mb-3">
+                        <strong>ಕನ್ನಡ ಗತಿ ಪ್ರಸಾದ್ (KGP)</strong> — ಕಾಗುಣಿತ-ಆಧಾರಿತ (phonetic) ವಿನ್ಯಾಸ. ಅಕ್ಷರಗಳನ್ನು ಅವುಗಳ ಉಚ್ಚಾರಣೆ ಪ್ರಕಾರ ಟೈಪ್ ಮಾಡಿ.
+                        <code>ka</code>→ಕ, <code>ra</code>→ರ, <code>f</code>=್ (ಹಲಂತ), <code>M</code>=ಂ.
+                    </p>
+                    <div style="border:1px solid var(--border-color);border-radius:8px;overflow:hidden;margin-bottom:0.75rem;">
+                        <img src="img/keyboard-kgp.png"
+                             alt="KGP/Nudi Keyboard Layout"
+                             style="width:100%;height:auto;display:block;">
+                    </div>
+                    <p class="text-muted mb-3" style="font-size:0.78rem;">
+                        ಮೂಲ: <a href="https://commons.wikimedia.org/wiki/File:Kannada_Keyboard_Layout_KPRao_(Nudi-KGP).png" target="_blank" rel="noopener">Wikimedia Commons</a>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered mb-0" style="font-size:0.85rem;">
+                            <thead class="table-light">
+                                <tr><th colspan="8" class="text-center">ವ್ಯಂಜನಗಳು</th></tr>
+                                <tr><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>k</code></td><td>ಕ</td><td><code>K/kh</code></td><td>ಖ</td><td><code>g</code></td><td>ಗ</td><td><code>G/gh</code></td><td>ಘ</td></tr>
+                                <tr><td><code>c/ch</code></td><td>ಚ</td><td><code>C/chh</code></td><td>ಛ</td><td><code>j</code></td><td>ಜ</td><td><code>J/jh</code></td><td>ಝ</td></tr>
+                                <tr><td><code>T</code></td><td>ಟ</td><td><code>Th</code></td><td>ಠ</td><td><code>D</code></td><td>ಡ</td><td><code>Dh</code></td><td>ಢ</td></tr>
+                                <tr><td><code>t</code></td><td>ತ</td><td><code>th</code></td><td>ಥ</td><td><code>d</code></td><td>ದ</td><td><code>dh</code></td><td>ಧ</td></tr>
+                                <tr><td><code>n</code></td><td>ನ</td><td><code>N</code></td><td>ಣ</td><td><code>p</code></td><td>ಪ</td><td><code>P/ph</code></td><td>ಫ</td></tr>
+                                <tr><td><code>b</code></td><td>ಬ</td><td><code>B/bh</code></td><td>ಭ</td><td><code>m</code></td><td>ಮ</td><td><code>y</code></td><td>ಯ</td></tr>
+                                <tr><td><code>r</code></td><td>ರ</td><td><code>l</code></td><td>ಲ</td><td><code>v/w</code></td><td>ವ</td><td><code>L</code></td><td>ಳ</td></tr>
+                                <tr><td><code>S/sh</code></td><td>ಶ</td><td><code>Sh</code></td><td>ಷ</td><td><code>s</code></td><td>ಸ</td><td><code>h</code></td><td>ಹ</td></tr>
+                            </tbody>
+                            <thead class="table-light">
+                                <tr><th colspan="8" class="text-center">ಸ್ವರಗಳು ಮತ್ತು ಚಿಹ್ನೆಗಳು</th></tr>
+                                <tr><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>a</code></td><td>ಅ/ಾ</td><td><code>aa/A</code></td><td>ಆ</td><td><code>i</code></td><td>ಇ/ಿ</td><td><code>ii/I</code></td><td>ಈ/ೀ</td></tr>
+                                <tr><td><code>u</code></td><td>ಉ/ು</td><td><code>uu/U</code></td><td>ಊ/ೂ</td><td><code>e</code></td><td>ಎ/ೆ</td><td><code>ee/E</code></td><td>ಏ/ೇ</td></tr>
+                                <tr><td><code>ai</code></td><td>ಐ/ೈ</td><td><code>o</code></td><td>ಒ/ೊ</td><td><code>oo/O</code></td><td>ಓ/ೋ</td><td><code>au</code></td><td>ಔ/ೌ</td></tr>
+                                <tr><td><code>f</code></td><td>್ (ಹಲಂತ)</td><td><code>M</code></td><td>ಂ (ಅನುಸ್ವಾರ)</td><td><code>H</code></td><td>ಃ (ವಿಸರ್ಗ)</td><td><code>R</code></td><td>ಋ/ೃ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ============================================================ -->
+                <!-- InScript -->
+                <!-- ============================================================ -->
+                <section id="inscript" class="mb-5 pb-4" style="border-bottom:1px solid var(--border-color);">
+                    <h5 class="fw-bold mb-1">
+                        <i class="fas fa-keyboard me-2" style="color:var(--secondary);"></i>InScript (ಇನ್‌ಸ್ಕ್ರಿಪ್ಟ್)
+                    </h5>
+                    <p class="text-muted mb-3">
+                        <strong>ಭಾರತ ಸರ್ಕಾರದ ಮಾನಕ ವಿನ್ಯಾಸ</strong> — ಸ್ಥಿತಿ-ಆಧಾರಿತ (positional). ಪ್ರತಿ ಕೀಗೆ ನಿರ್ದಿಷ್ಟ ಅಕ್ಷರ.
+                        Windows ಮತ್ತು Linux ನಲ್ಲಿ ಅಂತರ್ನಿರ್ಮಿತ. <a href="https://commons.wikimedia.org/wiki/File:KB_Kannada.svg" target="_blank" rel="noopener">ಪೂರ್ಣ ಚಿತ್ರ Wikimedia Commons ನಲ್ಲಿ ನೋಡಿ →</a>
+                    </p>
+
+                    <!-- InScript keyboard visual using HTML/CSS -->
+                    <div class="inscript-keyboard mb-3" style="background:#f8f9fa;border:1px solid var(--border-color);border-radius:8px;padding:12px;overflow-x:auto;">
+                        <style>
+                        .kb-row { display:flex; gap:4px; margin-bottom:4px; }
+                        .kb-key {
+                            min-width:44px; height:44px; border:1px solid #ccc; border-radius:5px;
+                            background:white; display:flex; flex-direction:column;
+                            align-items:center; justify-content:center;
+                            font-size:0.7rem; line-height:1.2; padding:2px;
+                            box-shadow:0 2px 0 #aaa; flex-shrink:0;
+                        }
+                        .kb-key .shift { font-size:0.65rem; color:#555; }
+                        .kb-key .base { font-size:0.85rem; font-family:'Anek Kannada',sans-serif; color:#155CA2; font-weight:600; }
+                        .kb-key.wide { min-width:66px; }
+                        .kb-key.wider { min-width:88px; }
+                        .kb-key.special { background:#eee; color:#666; font-size:0.65rem; }
+                        </style>
+                        <!-- Row 1: Numbers (same as QWERTY) -->
+                        <div class="kb-row">
+                            <div class="kb-key special wider">Tab</div>
+                            <div class="kb-key"><span class="shift">ಔ</span><span class="base">ಒ</span></div>
+                            <div class="kb-key"><span class="shift">ಐ</span><span class="base">ಎ</span></div>
+                            <div class="kb-key"><span class="shift">ಆ</span><span class="base">ಆ/ಾ</span></div>
+                            <div class="kb-key"><span class="shift">ಈ</span><span class="base">ಇ/ಿ</span></div>
+                            <div class="kb-key"><span class="shift">ಊ</span><span class="base">ಉ/ು</span></div>
+                            <div class="kb-key"><span class="shift">ಭ</span><span class="base">ಬ</span></div>
+                            <div class="kb-key"><span class="shift">ಙ</span><span class="base">ಹ</span></div>
+                            <div class="kb-key"><span class="shift">ಘ</span><span class="base">ಗ</span></div>
+                            <div class="kb-key"><span class="shift">ಧ</span><span class="base">ದ</span></div>
+                            <div class="kb-key"><span class="shift">ಝ</span><span class="base">ಜ</span></div>
+                            <div class="kb-key"><span class="shift">ಢ</span><span class="base">ಡ</span></div>
+                            <div class="kb-key"><span class="shift">ಫ</span><span class="base">ಣ</span></div>
+                        </div>
+                        <!-- Row 2: Home row -->
+                        <div class="kb-row">
+                            <div class="kb-key special wider">Caps</div>
+                            <div class="kb-key"><span class="shift">ಓ</span><span class="base">ಅ</span></div>
+                            <div class="kb-key"><span class="shift">ಏ</span><span class="base">ಆ/ಾ</span></div>
+                            <div class="kb-key"><span class="shift">ಈ/ೀ</span><span class="base">ಇ/ಿ</span></div>
+                            <div class="kb-key"><span class="shift">ಊ/ೂ</span><span class="base">ಉ/ು</span></div>
+                            <div class="kb-key"><span class="shift">ಃ</span><span class="base">ಹ</span></div>
+                            <div class="kb-key"><span class="shift">ಥ</span><span class="base">ತ</span></div>
+                            <div class="kb-key"><span class="shift">ಞ</span><span class="base">ದ</span></div>
+                            <div class="kb-key"><span class="shift">ಛ</span><span class="base">ಚ</span></div>
+                            <div class="kb-key"><span class="shift">ಠ</span><span class="base">ಟ</span></div>
+                            <div class="kb-key"><span class="shift">—</span><span class="base">್</span></div>
+                            <div class="kb-key special wider">Enter</div>
+                        </div>
+                        <!-- Row 3: Bottom row -->
+                        <div class="kb-row">
+                            <div class="kb-key special wider">Shift</div>
+                            <div class="kb-key"><span class="shift">ಎ/ೆ</span><span class="base">ಏ/ೇ</span></div>
+                            <div class="kb-key"><span class="shift">ಂ</span><span class="base">ಸ</span></div>
+                            <div class="kb-key"><span class="shift">ಮ</span><span class="base">ಮ</span></div>
+                            <div class="kb-key"><span class="shift">ನ</span><span class="base">ನ</span></div>
+                            <div class="kb-key"><span class="shift">ಲ</span><span class="base">ವ</span></div>
+                            <div class="kb-key"><span class="shift">ಳ</span><span class="base">ಲ</span></div>
+                            <div class="kb-key"><span class="shift">ಶ</span><span class="base">ಸ</span></div>
+                            <div class="kb-key"><span class="shift">ಷ</span><span class="base">ಯ</span></div>
+                            <div class="kb-key special wider">Shift</div>
+                        </div>
+                        <p class="text-muted mt-2 mb-0" style="font-size:0.75rem;">ಗಮನಿಸಿ: ಇದು ಒಂದು ಸರಳೀಕೃತ ಪ್ರಾತ್ಯಕ್ಷಿಕೆ. ಸಂಪೂರ್ಣ ವಿನ್ಯಾಸಕ್ಕೆ <a href="https://commons.wikimedia.org/wiki/File:KB_Kannada.svg" target="_blank" rel="noopener">Wikimedia Commons</a> ನೋಡಿ.</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered mb-0" style="font-size:0.85rem;">
+                            <thead class="table-light">
+                                <tr><th colspan="8" class="text-center">ಪ್ರಮುಖ ಕೀ ಮ್ಯಾಪಿಂಗ್ (QWERTY ಸ್ಥಾನ)</th></tr>
+                                <tr><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>Shift</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th><th>Shift</th><th>ಕೀ</th><th>ಅಕ್ಷರ</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>d</code></td><td>ಅ</td><td>ಓ</td><td><code>e</code></td><td>ಆ/ಾ</td><td>ಏ</td><td><code>f</code></td><td>ಇ/ಿ</td></tr>
+                                <tr><td><code>r</code></td><td>ಈ/ೀ</td><td>—</td><td><code>g</code></td><td>ಉ/ು</td><td>ಊ/ೂ</td><td><code>t</code></td><td>ಊ/ೂ</td></tr>
+                                <tr><td><code>+</code></td><td>ಎ/ೆ</td><td>ಐ</td><td><code>`</code></td><td>ಏ/ೇ</td><td>ಒ</td><td><code>j</code></td><td>ಂ</td></tr>
+                                <tr><td><code>q</code></td><td>ಃ</td><td>—</td><td><code>x</code></td><td>್</td><td>—</td><td><code>w</code></td><td>ಋ/ೃ</td></tr>
+                                <tr><td><code>k</code></td><td>ಕ</td><td>ಖ</td><td><code>i</code></td><td>ಗ</td><td>ಘ</td><td><code>o</code></td><td>ದ</td></tr>
+                                <tr><td><code>p</code></td><td>ಜ</td><td>ಝ</td><td><code>a</code></td><td>ಚ</td><td>ಛ</td><td><code>s</code></td><td>ಸ</td></tr>
+                                <tr><td><code>h</code></td><td>ತ</td><td>ಥ</td><td><code>n</code></td><td>ಲ</td><td>ಳ</td><td><code>v</code></td><td>ನ</td></tr>
+                                <tr><td><code>b</code></td><td>ವ</td><td>—</td><td><code>m</code></td><td>ಮ</td><td>—</td><td><code>u</code></td><td>ಹ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ============================================================ -->
+                <!-- Transliteration -->
+                <!-- ============================================================ -->
+                <section id="transliteration">
+                    <h5 class="fw-bold mb-1">
+                        <i class="fas fa-language me-2" style="color:#5b8c5a;"></i>ಲಿಪ್ಯಂತರಣ (Transliteration)
+                    </h5>
+                    <p class="text-muted mb-3">
+                        <strong>Wikimedia ITRANS-ಆಧಾರಿತ</strong> — ರೋಮನ್ ಅಕ್ಷರಗಳಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ, ಕನ್ನಡ ಪಡೆಯಿರಿ.
+                        ಇದು ಉಚ್ಚಾರಣೆ-ಆಧಾರಿತ — ನಿಗದಿತ ಕೀಬೋರ್ಡ್ ವಿನ್ಯಾಸವಿಲ್ಲ, ಬದಲಾಗಿ ರೋಮನ್ ಅಕ್ಷರ ಸಂಯೋಜನೆಗಳಿಂದ ಕನ್ನಡ ತಯಾರಾಗುತ್ತದೆ.
+                    </p>
+
+                    <div class="alert alert-info mb-3" style="font-size:0.88rem;">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>ಉದಾಹರಣೆ:</strong>
+                        <code>namaskara</code> → ನಮಸ್ಕಾರ &nbsp;·&nbsp;
+                        <code>karanaTaka</code> → ಕರ್ನಾಟಕ &nbsp;·&nbsp;
+                        <code>kannaDa</code> → ಕನ್ನಡ &nbsp;·&nbsp;
+                        <code>sanchaya</code> → ಸಂಚಯ
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered mb-0" style="font-size:0.85rem;">
+                                    <thead class="table-light">
+                                        <tr><th colspan="4" class="text-center">ಸ್ವರಗಳು (Vowels)</th></tr>
+                                        <tr><th>ಟೈಪ್</th><th>ಅಕ್ಷರ</th><th>ಟೈಪ್</th><th>ಅಕ್ಷರ</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><code>a</code></td><td>ಅ</td><td><code>aa / A</code></td><td>ಆ</td></tr>
+                                        <tr><td><code>i</code></td><td>ಇ</td><td><code>ii / I</code></td><td>ಈ</td></tr>
+                                        <tr><td><code>u</code></td><td>ಉ</td><td><code>uu / U</code></td><td>ಊ</td></tr>
+                                        <tr><td><code>e</code></td><td>ಎ</td><td><code>ee / E</code></td><td>ಏ</td></tr>
+                                        <tr><td><code>ai</code></td><td>ಐ</td><td><code>o</code></td><td>ಒ</td></tr>
+                                        <tr><td><code>oo / O</code></td><td>ಓ</td><td><code>au</code></td><td>ಔ</td></tr>
+                                        <tr><td><code>M</code></td><td>ಂ</td><td><code>H</code></td><td>ಃ</td></tr>
+                                        <tr><td><code>R</code></td><td>ಋ</td><td><code>~</code></td><td>್ (ಹಲಂತ)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered mb-0" style="font-size:0.85rem;">
+                                    <thead class="table-light">
+                                        <tr><th colspan="4" class="text-center">ವ್ಯಂಜನಗಳು (Consonants)</th></tr>
+                                        <tr><th>ಟೈಪ್</th><th>ಅಕ್ಷರ</th><th>ಟೈಪ್</th><th>ಅಕ್ಷರ</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><code>ka</code></td><td>ಕ</td><td><code>kha</code></td><td>ಖ</td></tr>
+                                        <tr><td><code>ga</code></td><td>ಗ</td><td><code>gha</code></td><td>ಘ</td></tr>
+                                        <tr><td><code>cha</code></td><td>ಚ</td><td><code>chha</code></td><td>ಛ</td></tr>
+                                        <tr><td><code>ja</code></td><td>ಜ</td><td><code>jha</code></td><td>ಝ</td></tr>
+                                        <tr><td><code>Ta</code></td><td>ಟ</td><td><code>Tha</code></td><td>ಠ</td></tr>
+                                        <tr><td><code>Da</code></td><td>ಡ</td><td><code>Dha</code></td><td>ಢ</td></tr>
+                                        <tr><td><code>ta</code></td><td>ತ</td><td><code>tha</code></td><td>ಥ</td></tr>
+                                        <tr><td><code>da</code></td><td>ದ</td><td><code>dha</code></td><td>ಧ</td></tr>
+                                        <tr><td><code>na</code></td><td>ನ</td><td><code>Na</code></td><td>ಣ</td></tr>
+                                        <tr><td><code>pa</code></td><td>ಪ</td><td><code>pha / f</code></td><td>ಫ</td></tr>
+                                        <tr><td><code>ba</code></td><td>ಬ</td><td><code>bha</code></td><td>ಭ</td></tr>
+                                        <tr><td><code>ma</code></td><td>ಮ</td><td><code>ya</code></td><td>ಯ</td></tr>
+                                        <tr><td><code>ra</code></td><td>ರ</td><td><code>la</code></td><td>ಲ</td></tr>
+                                        <tr><td><code>va</code></td><td>ವ</td><td><code>sha / S</code></td><td>ಶ</td></tr>
+                                        <tr><td><code>Sha</code></td><td>ಷ</td><td><code>sa</code></td><td>ಸ</td></tr>
+                                        <tr><td><code>ha</code></td><td>ಹ</td><td><code>La</code></td><td>ಳ</td></tr>
+                                        <tr><td><code>ksha / x</code></td><td>ಕ್ಷ</td><td><code>GYa / jnya</code></td><td>ಜ್ಞ</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2026 ಸಂಚಯ ಮತ್ತು ಸಂಚಿ ಫೌಂಡೇಶನ್.</p>
+            <div>
+                <a href="https://sanchaya.org" class="footer-link" target="_blank">sanchaya.org</a>
+                <a href="https://fonts.sanchaya.net" class="footer-link" target="_blank">ಫಾಂಟ್ಸ್ ಸಂಚಯ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

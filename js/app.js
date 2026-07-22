@@ -287,6 +287,22 @@ const PURE_ASCII_WORD_RE = /^[a-zA-Z'-]+$/;
 const NUDI_SINGLE_UPPER = new Set(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']);
 const NUDI_SINGLE_LOWER = new Set(['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']);
 
+// Uppercase letters that have standalone Nudi a2u mappings (not needing À/ï/É etc.)
+const NUDI_A2U_STANDALONE = new Set(['A','B','C','D','E','F','G','H','J','K','L','M','N','Q','R','T','V','X','Y']);
+
+// Common English uppercase words where every letter has a standalone Nudi a2u mapping.
+// These should be retained as English rather than converted as Nudi.
+const EN_UPPER_NUDI_CONFLICT = new Set([
+    'AM','AN','AT','BE','BY','HE','MY',
+    'AND','BAD','BAT','BED','BET','CAB','CAN','CAR','CAT','DAD',
+    'EAT','ERA','FAR','FAT','FED','GAG','GAL','GET','HAD','HAT',
+    'HEN','HER','JAB','JAG','JAM','JAR','JET','LAB','LAD','LAG',
+    'LET','MAD','MAN','MAT','MEN','MET','NAG','NET','RAG','RAM',
+    'RAN','RAT','RED','TAB','TAG','TAN','TAR','TAX','TED','TEN',
+    'THE','VAN','VAT','VET','YAM','YEN','YET',
+    'HTML','XML'
+]);
+
 function _isEnglishToken(token, fullText, tokenStart) {
     if (!PURE_ASCII_WORD_RE.test(token)) return false;
     if (LATIN_EXT_RE.test(token)) return false;
@@ -297,6 +313,20 @@ function _isEnglishToken(token, fullText, tokenStart) {
     const charBefore = tokenStart > 0 ? fullText[tokenStart - 1] : '';
     const charAfter = tokenStart + token.length < fullText.length ? fullText[tokenStart + token.length] : '';
     if (LATIN_EXT_RE.test(charBefore) || LATIN_EXT_RE.test(charAfter)) return false;
+    // All-uppercase short tokens where every char is a valid standalone Nudi a2u key
+    // are likely Nudi ASCII encoding, not English words.
+    if (token.length >= 2 && token.length <= 4 && token === token.toUpperCase()) {
+        let allNudiStandalone = true;
+        for (let i = 0; i < token.length; i++) {
+            if (!NUDI_A2U_STANDALONE.has(token[i])) {
+                allNudiStandalone = false;
+                break;
+            }
+        }
+        if (allNudiStandalone && !EN_UPPER_NUDI_CONFLICT.has(token)) {
+            return false;
+        }
+    }
     return true;
 }
 
@@ -371,6 +401,28 @@ function shreeToUnicode(text, retainEnglish = false) {
                     out += token;
                 }
                 i = j;
+            } else if (/[0-9]/.test(result[i])) {
+                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
+                // digits directly adjacent to encoding bytes/letters are part
+                // of the ASCII encoding and stay convertible.
+                let j = i;
+                while (j < result.length && /[0-9]/.test(result[j])) {
+                    j++;
+                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
+                }
+                const numToken = result.slice(i, j);
+                const before = i > 0 ? result[i - 1] : '';
+                const after = j < result.length ? result[j] : '';
+                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
+                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
+                if (!adjacentToCode) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(numToken);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += numToken;
+                }
+                i = j;
             } else {
                 out += result[i];
                 i++;
@@ -430,6 +482,28 @@ function prakashakToUnicode(text, retainEnglish = false) {
                     out += _makePlaceholder(idx);
                 } else {
                     out += token;
+                }
+                i = j;
+            } else if (/[0-9]/.test(result[i])) {
+                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
+                // digits directly adjacent to encoding bytes/letters are part
+                // of the ASCII encoding and stay convertible.
+                let j = i;
+                while (j < result.length && /[0-9]/.test(result[j])) {
+                    j++;
+                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
+                }
+                const numToken = result.slice(i, j);
+                const before = i > 0 ? result[i - 1] : '';
+                const after = j < result.length ? result[j] : '';
+                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
+                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
+                if (!adjacentToCode) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(numToken);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += numToken;
                 }
                 i = j;
             } else {
@@ -500,6 +574,28 @@ function akrutiToUnicode(text, retainEnglish = false) {
                     out += _makePlaceholder(idx);
                 } else {
                     out += token;
+                }
+                i = j;
+            } else if (/[0-9]/.test(result[i])) {
+                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
+                // digits directly adjacent to encoding bytes/letters are part
+                // of the ASCII encoding and stay convertible.
+                let j = i;
+                while (j < result.length && /[0-9]/.test(result[j])) {
+                    j++;
+                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
+                }
+                const numToken = result.slice(i, j);
+                const before = i > 0 ? result[i - 1] : '';
+                const after = j < result.length ? result[j] : '';
+                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
+                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
+                if (!adjacentToCode) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(numToken);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += numToken;
                 }
                 i = j;
             } else {
@@ -580,6 +676,28 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
                     out += _makePlaceholder(idx);
                 } else {
                     out += token;
+                }
+                i = j;
+            } else if (/[0-9]/.test(result[i])) {
+                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
+                // digits directly adjacent to encoding bytes/letters are part
+                // of the ASCII encoding and stay convertible.
+                let j = i;
+                while (j < result.length && /[0-9]/.test(result[j])) {
+                    j++;
+                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
+                }
+                const numToken = result.slice(i, j);
+                const before = i > 0 ? result[i - 1] : '';
+                const after = j < result.length ? result[j] : '';
+                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
+                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
+                if (!adjacentToCode) {
+                    const idx = englishTexts.length;
+                    englishTexts.push(numToken);
+                    out += _makePlaceholder(idx);
+                } else {
+                    out += numToken;
                 }
                 i = j;
             } else {
@@ -791,6 +909,17 @@ function switchTab(id, btn) {
     document.querySelectorAll('.nav-tabs-custom .nav-link').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     btn.classList.add('active');
+    if (id === 'tab-live') {
+        setTimeout(function() {
+            var el = document.getElementById('live-source');
+            if (!el) return;
+            el.focus();
+            // Apply whichever keyboard is chosen in the visible dropdown
+            if (typeof window.applyLiveKeyboard === 'function') {
+                window.applyLiveKeyboard();
+            }
+        }, 250);
+    }
 }
 
 // ============================================================
@@ -860,7 +989,8 @@ function convertText() {
 // ============================================================
 // DETECT INPUT TYPE
 // ============================================================
-document.getElementById('input-text').addEventListener('input', function() {
+var _inputTextEl = document.getElementById('input-text');
+if (_inputTextEl) _inputTextEl.addEventListener('input', function() {
     const text = this.value;
     document.getElementById('char-count').textContent = text.length + ' ಅಕ್ಷರ';
     
@@ -1219,8 +1349,6 @@ async function fetchAndConvertUrl() {
         
         const corsProxies = [
             { url: url => `https://r.jina.ai/http://${url.replace(/^https?:\/\//, '')}`, name: 'jina.ai' },
-            { url: url => `https://r.jina.ai/http://${url.replace(/^https?:\/\//, '')}`, name: 'jina.ai https' },
-            { url: url => `https://r.jina.ai/http://${url}`, name: 'jina.ai full' },
             { url: url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, name: 'allorigins' },
             { url: url => `https://corsproxy.io/?${encodeURIComponent(url)}`, name: 'corsproxy.io' }
         ];
@@ -1310,77 +1438,374 @@ function downloadUrlOutput(format) {
 }
 
 // ============================================================
-// LIVE EDITOR - Real-time ASCII to Unicode conversion
+// LIVE EDITOR - Two directions
+// a2u (ASCII simulator): left pane always shows ASCII encoding
+//   (Unicode typed via IME is auto-converted to ASCII in place),
+//   right pane shows Unicode. A preview box shows how the ASCII
+//   text looks in a legacy (Nudi-style) editor.
+// u2a: left pane keeps Unicode as typed (IME friendly),
+//   right pane shows the ASCII encoding for the selected font.
+// English/Latin text passes through unchanged in both directions.
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     const source = document.getElementById('live-source');
     const result = document.getElementById('live-result');
     const fontType = document.getElementById('live-font-type');
     const retainEnglish = document.getElementById('live-retain-english');
+    const directionEl = document.getElementById('live-direction');
+    const previewWrap = document.getElementById('live-ascii-preview-wrap');
+    const previewBox = document.getElementById('live-ascii-preview');
     if (!source) return;
 
-    function update() {
-        const text = source.value;
-        const font = fontType.value;
-        const retain = retainEnglish.checked;
+    var composing = false;
+    var converting = false;
 
+    function currentDirection() {
+        return directionEl ? directionEl.value : 'a2u';
+    }
+
+    function applyDirectionUI() {
+        var dir = currentDirection();
+        var srcLabel = document.getElementById('live-source-label');
+        var resLabel = document.getElementById('live-result-label');
+        var help = document.getElementById('live-help-text');
+        if (dir === 'u2a') {
+            if (srcLabel) srcLabel.innerHTML = '<i class="fas fa-file-import me-1"></i> Unicode ಮೂಲ';
+            if (resLabel) resLabel.innerHTML = '<i class="fas fa-file-export me-1"></i> ASCII ಫಲಿತಾಂಶ <small class="text-muted">(ಸಂಪಾದಿಸಬಹುದು)</small>';
+            if (help) help.innerHTML = 'ಎಡಭಾಗದಲ್ಲಿ Unicode ಕನ್ನಡ ಟೈಪ್ ಮಾಡಿ — ಮೇಲಿನ <strong>ಕೀಬೋರ್ಡ್</strong> ಆಯ್ಕೆಯಿಂದ KGP, InScript, ಅಥವಾ ಲಿಪ್ಯಂತರಣ ಆರಿಸಿ. ಆಯ್ದ ಫಾಂಟ್‌ನ ASCII ಎನ್ಕೋಡಿಂಗ್ ಬಲಭಾಗದಲ್ಲಿ ಲೈವ್ ಆಗಿ ಕಾಣಿಸುತ್ತದೆ. ಇಂಗ್ಲಿಷ್ ಪಠ್ಯ ಇದ್ದಂತೆಯೇ ಉಳಿಯುತ್ತದೆ.';
+            source.placeholder = 'ಇಲ್ಲಿ Unicode ಕನ್ನಡ ಟೈಪ್ ಮಾಡಿ...';
+            if (previewWrap) previewWrap.style.display = 'none';
+            if (retainEnglish) retainEnglish.disabled = true;
+        } else {
+            if (srcLabel) srcLabel.innerHTML = '<i class="fas fa-file-import me-1"></i> ASCII ಮೂಲ';
+            if (resLabel) resLabel.innerHTML = '<i class="fas fa-file-export me-1"></i> Unicode ಫಲಿತಾಂಶ <small class="text-muted">(ಸಂಪಾದಿಸಬಹುದು)</small>';
+            if (help) help.innerHTML = 'ಎಡಭಾಗದಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ — ಅದರ ASCII ಎನ್ಕೋಡಿಂಗ್ ಎಡಭಾಗದಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ ಮತ್ತು Unicode ಪರಿವರ್ತನೆ ಬಲಭಾಗದಲ್ಲಿ ಲೈವ್ ಆಗಿ ಕಾಣಿಸುತ್ತದೆ. ಕನ್ನಡ ಟೈಪ್ ಮಾಡಲು ಮೇಲಿನ <strong>ಕೀಬೋರ್ಡ್</strong> ಆಯ್ಕೆಯಿಂದ KGP, InScript, ಅಥವಾ ಲಿಪ್ಯಂತರಣ ಆರಿಸಿ. ಇಂಗ್ಲಿಷ್ ಪಠ್ಯ ಇದ್ದಂತೆಯೇ ಉಳಿಯುತ್ತದೆ.';
+            source.placeholder = 'ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ — ASCII ಎನ್ಕೋಡಿಂಗ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತೋರಿಸಲ್ಪಡುತ್ತದೆ...';
+            if (previewWrap) previewWrap.style.display = '';
+            if (retainEnglish) retainEnglish.disabled = false;
+        }
+        if (typeof liveApplyEditorFont === 'function') liveApplyEditorFont();
+        if (typeof window.applyLiveKeyboard === 'function') window.applyLiveKeyboard();
+    }
+
+    function toAscii(text, font) {
+        if (!text) return text;
+        var hasUnicode = /[\u0C80-\u0CFF]/.test(text);
+        if (!hasUnicode) return text;
+        if (font === 'shree') return unicodeToShreelipi(text);
+        if (font === 'prakashak') return unicodeToPrakash(text);
+        if (font === 'akruti') return unicodeToAkruti(text);
+        return unicodeToASCII(text);
+    }
+
+    function update() {
+        if (composing || converting) return;
+        var text = source.value;
+        var font = fontType.value;
+        var retain = retainEnglish.checked;
+        var dir = currentDirection();
         document.getElementById('live-source-count').textContent = text.length + ' ಅಕ್ಷರ';
 
         if (!text.trim()) {
             result.value = '';
+            if (previewBox) previewBox.textContent = '';
             document.getElementById('live-result-count').textContent = '0 ಅಕ್ಷರ';
             return;
         }
 
         try {
-            const converted = convert(text, 'keep', 'a2u', retain, font);
-            result.value = converted;
-            document.getElementById('live-result-count').textContent = converted.length + ' ಅಕ್ಷರ';
+            if (dir === 'u2a') {
+                // Left pane keeps Unicode as typed; right pane shows ASCII.
+                // Latin/English text passes through the u2a maps untouched.
+                var ascii = convert(text, 'keep', 'u2a', true, font);
+                result.value = ascii;
+                document.getElementById('live-result-count').textContent = ascii.length + ' ಅಕ್ಷರ';
+            } else {
+                // ASCII simulator: normalize Unicode typed via IME into ASCII in place
+                var asciiText = toAscii(text, font);
+                if (asciiText !== text) {
+                    var pos = source.selectionStart + (asciiText.length - text.length);
+                    converting = true;
+                    source.value = asciiText;
+                    try { source.setSelectionRange(pos, pos); } catch(e2) {}
+                    converting = false;
+                    text = asciiText;
+                    document.getElementById('live-source-count').textContent = text.length + ' ಅಕ್ಷರ';
+                }
+                var converted = convert(text, 'keep', 'a2u', retain, font);
+                result.value = converted;
+                document.getElementById('live-result-count').textContent = converted.length + ' ಅಕ್ಷರ';
+                // Preview: how this ASCII text renders inside a legacy-font editor
+                if (previewBox) previewBox.textContent = converted;
+            }
         } catch(e) {
             result.value = 'ದೋಷ: ' + e.message;
         }
     }
 
+    function onDirectionChange() {
+        var dir = currentDirection();
+        // Carry the text across the mode switch so nothing is lost
+        var text = source.value;
+        if (text.trim()) {
+            try {
+                converting = true;
+                if (dir === 'u2a') {
+                    // Coming from ASCII mode: left pane becomes Unicode
+                    if (!/[ಀ-೿]/.test(text)) {
+                        source.value = convert(text, 'keep', 'a2u', true, fontType.value);
+                    }
+                } else {
+                    // Coming from Unicode mode: left pane becomes ASCII
+                    source.value = toAscii(text, fontType.value);
+                }
+                converting = false;
+            } catch(e) { converting = false; }
+        }
+        applyDirectionUI();
+        update();
+    }
+
+    // Reverse editing: typing in the result pane updates the source pane
+    function updateFromResult() {
+        if (composing || converting) return;
+        var text = result.value;
+        var font = fontType.value;
+        var dir = currentDirection();
+        document.getElementById('live-result-count').textContent = text.length + ' ಅಕ್ಷರ';
+
+        try {
+            converting = true;
+            if (!text.trim()) {
+                source.value = '';
+                if (previewBox) previewBox.textContent = '';
+            } else if (dir === 'u2a') {
+                // Right pane holds ASCII -> left pane gets Unicode
+                source.value = convert(text, 'keep', 'a2u', true, font);
+            } else {
+                // Right pane holds Unicode -> left pane gets ASCII
+                source.value = convert(text, 'keep', 'u2a', true, font);
+                if (previewBox) previewBox.textContent = text;
+            }
+            document.getElementById('live-source-count').textContent = source.value.length + ' ಅಕ್ಷರ';
+            converting = false;
+        } catch(e) {
+            converting = false;
+        }
+    }
+
+    source.addEventListener('compositionstart', function() { composing = true; });
+    source.addEventListener('compositionend', function() { composing = false; update(); });
     source.addEventListener('input', update);
+    result.addEventListener('compositionstart', function() { composing = true; });
+    result.addEventListener('compositionend', function() { composing = false; updateFromResult(); });
+    result.addEventListener('input', updateFromResult);
     fontType.addEventListener('change', update);
     retainEnglish.addEventListener('change', update);
+    if (directionEl) directionEl.addEventListener('change', onDirectionChange);
 
+    applyDirectionUI();
     if (source.value.trim()) update();
 });
 
-function downloadLiveSource() {
-    const text = document.getElementById('live-source').value;
-    if (!text) { showToast('ಮೊದಲು ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ', 'error'); return; }
-    downloadBlob(text, 'source.txt');
-    showToast('ASCII ಡೌನ್ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
+// ============================================================
+// LIVE EDITOR TOOLBARS - both panes: file open, font, copy,
+// download, expand, clear
+// ============================================================
+var liveEditorPrefs = {
+    source: { size: 0 },  // 0 = use pane default
+    result: { size: 0 }
+};
+var liveFileTarget = 'source';
+
+// Editor font registry. To embed a legacy ASCII font later:
+// 1. add @font-face in css/style.css, 2. add an entry + <option> here.
+var LIVE_EDITOR_FONTS = {
+    mono: "'Courier New', 'IBM Plex Mono', 'Menlo', monospace",
+    plex: "'IBM Plex Sans', sans-serif",
+    anek: "'Anek Kannada', sans-serif"
+};
+
+// Which format a pane currently holds ('unicode' or 'ascii')
+function livePaneFormat(side) {
+    var dirEl = document.getElementById('live-direction');
+    var isU2a = dirEl && dirEl.value === 'u2a';
+    var holdsUnicode = (side === 'source') ? isU2a : !isU2a;
+    return holdsUnicode ? 'unicode' : 'ascii';
 }
 
-function downloadLiveResult() {
-    const text = document.getElementById('live-result').textContent;
-    if (!text) { showToast('ಮೊದಲು ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ', 'error'); return; }
-    downloadBlob(text, 'converted.txt');
-    showToast('Unicode ಡೌನ್ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
+function liveApplyEditorFont(side) {
+    (side ? [side] : ['source', 'result']).forEach(function(s) {
+        var el = document.getElementById('live-' + s);
+        if (!el) return;
+        var sel = document.getElementById('live-editor-font-' + s);
+        var choice = sel ? sel.value : 'auto';
+        var holdsUnicode = livePaneFormat(s) === 'unicode';
+        var family, size;
+        if (choice === 'auto') {
+            family = holdsUnicode ? LIVE_EDITOR_FONTS.anek : LIVE_EDITOR_FONTS.mono;
+            size = liveEditorPrefs[s].size || (holdsUnicode ? 17 : 13);
+        } else {
+            family = LIVE_EDITOR_FONTS[choice] || LIVE_EDITOR_FONTS.mono;
+            size = liveEditorPrefs[s].size || (choice === 'anek' ? 17 : 13);
+        }
+        el.style.setProperty('font-family', family, 'important');
+        el.style.setProperty('font-size', size + 'px', 'important');
+    });
 }
 
-function downloadLiveBoth() {
-    const sourceText = document.getElementById('live-source').value;
-    const resultText = document.getElementById('live-result').textContent;
-    if (!sourceText || !resultText) { showToast('ಮೊದಲು ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ', 'error'); return; }
-
-    const font = document.getElementById('live-font-type').value;
-    const label2 = font === 'nudi' ? 'Nudi / Baraha' : font.charAt(0).toUpperCase() + font.slice(1);
-    const content = `=== ASCII (${label2}) ===\n${sourceText}\n\n=== Unicode (Converted) ===\n${resultText}`;
-    downloadBlob(content, 'both.txt');
-    showToast('ಎರಡೂ ಫೈಲ್‌ಗಳು ಡೌನ್ಲೋಡ್ ಆಗುತ್ತಿವೆ', 'success');
+function liveFontSizeFor(side, delta) {
+    var el = document.getElementById('live-' + side);
+    var current = liveEditorPrefs[side].size ||
+        (el ? parseInt(getComputedStyle(el).fontSize, 10) : 13) || 13;
+    liveEditorPrefs[side].size = Math.min(28, Math.max(10, current + delta));
+    liveApplyEditorFont(side);
 }
 
-function copyLiveResult() {
-    const text = document.getElementById('live-result').textContent;
-    if (!text) { showToast('ಮೊದಲು ಪರಿವರ್ತಿಸಿ', 'error'); return; }
-    navigator.clipboard.writeText(text).then(() => {
+function liveCopy(side) {
+    var el = document.getElementById('live-' + side);
+    if (!el || !el.value) { showToast('ಪಠ್ಯ ಖಾಲಿ ಇದೆ', 'error'); return; }
+    navigator.clipboard.writeText(el.value).then(function() {
         showToast('ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ಕಾಪಿ ಆಗಿದೆ', 'success');
     });
 }
+
+function liveDownload(side) {
+    var el = document.getElementById('live-' + side);
+    if (!el || !el.value) { showToast('ಪಠ್ಯ ಖಾಲಿ ಇದೆ', 'error'); return; }
+    downloadBlob(el.value, 'kannada-' + livePaneFormat(side) + '.txt');
+    showToast('ಡೌನ್‌ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
+}
+
+// Format-based downloads (ascii / unicode / both), independent of which
+// pane currently holds which format
+function liveFormats() {
+    var dirEl = document.getElementById('live-direction');
+    var isU2a = dirEl && dirEl.value === 'u2a';
+    var src = document.getElementById('live-source');
+    var res = document.getElementById('live-result');
+    return {
+        ascii: (isU2a ? res : src) ? (isU2a ? res.value : src.value) : '',
+        unicode: (isU2a ? src : res) ? (isU2a ? src.value : res.value) : ''
+    };
+}
+
+function liveDownloadFormat(fmt) {
+    var f = liveFormats();
+    if (fmt === 'ascii') {
+        if (!f.ascii) { showToast('ASCII ಪಠ್ಯ ಖಾಲಿ ಇದೆ', 'error'); return; }
+        downloadBlob(f.ascii, 'kannada-ascii.txt');
+    } else if (fmt === 'unicode') {
+        if (!f.unicode) { showToast('Unicode ಪಠ್ಯ ಖಾಲಿ ಇದೆ', 'error'); return; }
+        downloadBlob(f.unicode, 'kannada-unicode.txt');
+    } else {
+        if (!f.ascii && !f.unicode) { showToast('ಪಠ್ಯ ಖಾಲಿ ಇದೆ', 'error'); return; }
+        var font = document.getElementById('live-font-type');
+        var label = font && font.value !== 'nudi'
+            ? font.value.charAt(0).toUpperCase() + font.value.slice(1)
+            : 'Nudi / Baraha';
+        downloadBlob(
+            '=== ASCII (' + label + ') ===\n' + f.ascii + '\n\n=== Unicode ===\n' + f.unicode,
+            'kannada-both.txt'
+        );
+    }
+    showToast('ಡೌನ್‌ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
+}
+
+function liveExpand(side) {
+    var el = document.getElementById('live-' + side);
+    if (el) el.classList.toggle('pane-expanded');
+}
+
+function liveClearPane(side) {
+    var el = document.getElementById('live-' + side);
+    if (!el) return;
+    el.value = '';
+    el.dispatchEvent(new Event('input'));
+    el.focus();
+}
+
+function liveOpenFileFor(side) {
+    liveFileTarget = side || 'source';
+    var inp = document.getElementById('live-file-input');
+    if (inp) inp.click();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var inp = document.getElementById('live-file-input');
+    if (!inp) return;
+
+    function loadIntoEditor(text, name, note) {
+        var side = liveFileTarget;
+        var el = document.getElementById('live-' + side);
+        var dirSel = document.getElementById('live-direction');
+        if (!el) return;
+        if (!text || !text.trim()) {
+            showToast('ಫೈಲ್‌ನಲ್ಲಿ ಪಠ್ಯ ಸಿಗಲಿಲ್ಲ' + (note ? ' (' + note + ')' : ''), 'error');
+            return;
+        }
+        // Pick the direction that makes this pane match the file's format:
+        // source holds Unicode in u2a; result holds Unicode in a2u.
+        var isUnicode = /[ಀ-೿]/.test(text);
+        var wanted = (side === 'source')
+            ? (isUnicode ? 'u2a' : 'a2u')
+            : (isUnicode ? 'a2u' : 'u2a');
+        if (dirSel && dirSel.value !== wanted) {
+            dirSel.value = wanted;
+            dirSel.dispatchEvent(new Event('change'));
+        }
+        el.value = text;
+        el.dispatchEvent(new Event('input'));
+        showToast('ಫೈಲ್ ಲೋಡ್ ಆಗಿದೆ: ' + name + (note ? ' — ' + note : ''), 'success');
+    }
+
+    // DOCX is a zip; embedded images live under word/media/. A latin1 decode
+    // of the raw bytes lets us check for that path cheaply without unzipping.
+    function docxHasImages(arrayBuffer) {
+        try {
+            return new TextDecoder('latin1').decode(arrayBuffer).indexOf('word/media/') !== -1;
+        } catch (e) { return false; }
+    }
+
+    inp.addEventListener('change', function() {
+        var f = inp.files[0];
+        if (!f) return;
+        var ext = f.name.split('.').pop().toLowerCase();
+        if (ext === 'docx') {
+            var r = new FileReader();
+            r.onload = function(e) {
+                var m = (typeof mammoth !== 'undefined') ? mammoth : window.mammoth;
+                if (!m || typeof m.extractRawText !== 'function') {
+                    showToast('DOCX ಲೈಬ್ರರಿ ಲಭ್ಯವಿಲ್ಲ — ಪುಟ ರಿಫ್ರೆಶ್ ಮಾಡಿ', 'error');
+                    return;
+                }
+                var note = docxHasImages(e.target.result)
+                    ? 'ಚಿತ್ರಗಳನ್ನು ಬಿಡಲಾಗಿದೆ (ಪಠ್ಯ ಮಾತ್ರ)'
+                    : '';
+                m.extractRawText({ arrayBuffer: e.target.result })
+                    .then(function(res) { loadIntoEditor(res.value, f.name, note); })
+                    .catch(function(err) { showToast('DOCX ಓದುವುದು ವಿಫಲ: ' + err.message, 'error'); });
+            };
+            r.readAsArrayBuffer(f);
+        } else {
+            var r2 = new FileReader();
+            r2.onload = function(e) {
+                var text;
+                try {
+                    // Unicode files decode cleanly as UTF-8; legacy Nudi/ASCII
+                    // files contain high-bytes that fail strict UTF-8 and are
+                    // decoded as windows-1252 instead.
+                    text = new TextDecoder('utf-8', { fatal: true }).decode(e.target.result);
+                } catch (err) {
+                    text = new TextDecoder('windows-1252').decode(e.target.result);
+                }
+                loadIntoEditor(text, f.name);
+            };
+            r2.readAsArrayBuffer(f);
+        }
+        inp.value = '';
+    });
+});
 
 function downloadBlob(content, filename) {
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });

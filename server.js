@@ -190,6 +190,22 @@ const PURE_ASCII_WORD_RE = /^[a-zA-Z'-]+$/;
 const NUDI_SINGLE_UPPER = new Set(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']);
 const NUDI_SINGLE_LOWER = new Set(['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']);
 
+// Uppercase letters that have standalone Nudi a2u mappings (not needing À/ï/É etc.)
+const NUDI_A2U_STANDALONE = new Set(['A','B','C','D','E','F','G','H','J','K','L','M','N','Q','R','T','V','X','Y']);
+
+// Common English uppercase words where every letter has a standalone Nudi a2u mapping.
+// These should be retained as English rather than converted as Nudi.
+const EN_UPPER_NUDI_CONFLICT = new Set([
+    'AM','AN','AT','BE','BY','HE','MY',
+    'AND','BAD','BAT','BED','BET','CAB','CAN','CAR','CAT','DAD',
+    'EAT','ERA','FAR','FAT','FED','GAG','GAL','GET','HAD','HAT',
+    'HEN','HER','JAB','JAG','JAM','JAR','JET','LAB','LAD','LAG',
+    'LET','MAD','MAN','MAT','MEN','MET','NAG','NET','RAG','RAM',
+    'RAN','RAT','RED','TAB','TAG','TAN','TAR','TAX','TED','TEN',
+    'THE','VAN','VAT','VET','YAM','YEN','YET',
+    'HTML','XML'
+]);
+
 function _isEnglishToken(token, fullText, tokenStart) {
     if (!PURE_ASCII_WORD_RE.test(token)) return false;
     if (LATIN_EXT_RE.test(token)) return false;
@@ -200,6 +216,20 @@ function _isEnglishToken(token, fullText, tokenStart) {
     const charBefore = tokenStart > 0 ? fullText[tokenStart - 1] : '';
     const charAfter = tokenStart + token.length < fullText.length ? fullText[tokenStart + token.length] : '';
     if (LATIN_EXT_RE.test(charBefore) || LATIN_EXT_RE.test(charAfter)) return false;
+    // All-uppercase short tokens where every char is a valid standalone Nudi a2u key
+    // are likely Nudi ASCII encoding, not English words.
+    if (token.length >= 2 && token.length <= 4 && token === token.toUpperCase()) {
+        let allNudiStandalone = true;
+        for (let i = 0; i < token.length; i++) {
+            if (!NUDI_A2U_STANDALONE.has(token[i])) {
+                allNudiStandalone = false;
+                break;
+            }
+        }
+        if (allNudiStandalone && !EN_UPPER_NUDI_CONFLICT.has(token)) {
+            return false;
+        }
+    }
     return true;
 }
 
