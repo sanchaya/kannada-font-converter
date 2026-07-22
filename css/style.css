@@ -207,9 +207,19 @@ textarea.form-control-custom {
 
 textarea.form-control-custom#input-text,
 textarea.form-control-custom#output-text,
-textarea.form-control-custom#live-source,
 textarea.form-control-custom#live-result {
     font-size: 1.1rem;
+}
+
+textarea.form-control-custom#live-source {
+    font-family: 'Courier New', 'IBM Plex Mono', 'Menlo', monospace !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    color: #1a1a2e;
+}
+
+textarea.form-control-custom#live-result {
+    font-family: 'Anek Kannada', sans-serif !important;
 }
 
 .btn-convert {
