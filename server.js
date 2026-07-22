@@ -14,7 +14,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 // In-memory store for conversions (use Redis in production)
 const conversions = new Map();
@@ -317,7 +317,6 @@ function asciiToUnicode(text, retainEnglish = false) {
 
 function unicodeToASCII(text) {
     let result = text;
-    result = result.replace(/ಕ್ಷ/g, 'x').replace(/ಜ್ಞ/g, 'Y');
     
     const ASCII_DEERGA = "Ã";
     const ASCII_VATT = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî";
@@ -437,7 +436,7 @@ app.get('/api/health', (req, res) => {
 
 // Serve index.html for all other routes (SPA)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
