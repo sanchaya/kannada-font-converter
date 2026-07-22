@@ -1310,67 +1310,40 @@ function downloadUrlOutput(format) {
 }
 
 // ============================================================
-// LIVE EDITOR - ASCII Nudi visual editor with Unicode preview
+// LIVE EDITOR - Real-time ASCII to Unicode conversion
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     const source = document.getElementById('live-source');
-    const rendered = document.getElementById('live-rendered');
     const result = document.getElementById('live-result');
     const fontType = document.getElementById('live-font-type');
     const retainEnglish = document.getElementById('live-retain-english');
-    const showRaw = document.getElementById('live-show-raw');
     if (!source) return;
-
-    let rawDisplay = null;
 
     function update() {
         const text = source.value;
         const font = fontType.value;
         const retain = retainEnglish.checked;
 
-        document.getElementById('live-source-count').textContent = text.length + ' ASCII ಅಕ್ಷರ';
+        document.getElementById('live-source-count').textContent = text.length + ' ಅಕ್ಷರ';
 
         if (!text.trim()) {
-            rendered.innerHTML = '';
-            result.innerHTML = '';
-            document.getElementById('live-result-count').textContent = '0 Unicode ಅಕ್ಷರ';
-            if (rawDisplay) rawDisplay.textContent = '';
+            result.value = '';
+            document.getElementById('live-result-count').textContent = '0 ಅಕ್ಷರ';
             return;
         }
 
         try {
             const converted = convert(text, 'keep', 'a2u', retain, font);
-            rendered.textContent = converted;
-            result.textContent = converted;
-            document.getElementById('live-result-count').textContent = converted.length + ' Unicode ಅಕ್ಷರ';
-            if (rawDisplay) rawDisplay.textContent = text;
+            result.value = converted;
+            document.getElementById('live-result-count').textContent = converted.length + ' ಅಕ್ಷರ';
         } catch(e) {
-            rendered.innerHTML = '<span class="text-danger">' + e.message + '</span>';
-            result.innerHTML = '<span class="text-danger">' + e.message + '</span>';
+            result.value = 'ದೋಷ: ' + e.message;
         }
     }
 
     source.addEventListener('input', update);
-    source.addEventListener('scroll', function() {
-        rendered.scrollTop = source.scrollTop;
-    });
-
     fontType.addEventListener('change', update);
     retainEnglish.addEventListener('change', update);
-
-    showRaw.addEventListener('change', function() {
-        if (this.checked) {
-            if (!rawDisplay) {
-                rawDisplay = document.createElement('div');
-                rawDisplay.className = 'live-editor-raw show';
-                source.parentNode.insertBefore(rawDisplay, source.nextSibling);
-            }
-            rawDisplay.textContent = source.value;
-            rawDisplay.classList.add('show');
-        } else {
-            if (rawDisplay) rawDisplay.classList.remove('show');
-        }
-    });
 
     if (source.value.trim()) update();
 });

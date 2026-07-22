@@ -324,7 +324,7 @@
                 </div>
 
                 <div class="tab-pane-custom" id="tab-live">
-                    <p class="text-muted mb-3">ASCII ಯಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ — ಕನ್ನಡದಲ್ಲಿ ನೋಡಿ. ನಿಮ್ಮ ASCII ಇನ್‌ಪುಟ್ ಅನ್ನು ಹಳೆಯ ನುಡಿ/ಬರಹ ಫಾಂಟ್‌ಗಳಂತೆ ತೋರಿಸಲಾಗುತ್ತದೆ.</p>
+                    <p class="text-muted mb-3">ಎಡಭಾಗದಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ — ಬಲಭಾಗದಲ್ಲಿ Unicode ಪರಿವರ್ತನೆ ಲೈವ್ ಆಗಿ ಕಾಣಿಸುತ್ತದೆ.</p>
                     
                     <div class="settings-panel mb-3 d-flex flex-wrap align-items-center gap-3">
                         <div class="d-flex align-items-center gap-2">
@@ -340,26 +340,19 @@
                             <input class="form-check-input" type="checkbox" id="live-retain-english">
                             <label class="form-check-label" for="live-retain-english">ಇಂಗ್ಲಿಷ್ ಉಳಿಸಿ</label>
                         </div>
-                        <div class="form-check mb-0">
-                            <input class="form-check-input" type="checkbox" id="live-show-raw">
-                            <label class="form-check-label" for="live-show-raw">ಕಚ್ಚಾ ASCII ತೋರಿಸು</label>
-                        </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <label class="form-label-custom mb-0">
-                                    <i class="fas fa-pencil-alt me-1"></i> ASCII ಸಂಪಾದಕ
+                                    <i class="fas fa-file-import me-1"></i> ASCII ಇನ್‌ಪುಟ್
                                 </label>
-                                <small class="text-muted" id="live-source-count">0 ASCII ಅಕ್ಷರ</small>
+                                <small class="text-muted" id="live-source-count">0 ಅಕ್ಷರ</small>
                             </div>
-                            <div class="live-editor-container" id="live-editor-container">
-                                <div class="live-rendered" id="live-rendered"></div>
-                                <textarea class="live-editor-overlay" id="live-source"
-                                    placeholder="ಇಲ್ಲಿ ASCII ಟೈಪ್ ಮಾಡಿ (ಉದಾ: PÀ£ï£ÀqÀ)..."
-                                    spellcheck="false"></textarea>
-                            </div>
+                            <textarea class="form-control-custom" id="live-source"
+                                placeholder="ಇಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ (ಉದಾ: PÀ£ï£ÀqÀ)..."
+                                style="min-height:400px;font-family:monospace;font-size:13px;line-height:1.7;" spellcheck="false"></textarea>
                             <div class="d-flex gap-2 mt-2 flex-wrap">
                                 <button class="btn-outline-custom" onclick="downloadLiveSource()">
                                     <i class="fas fa-download"></i> ASCII ಡೌನ್‌ಲೋಡ್
@@ -371,10 +364,11 @@
                                 <label class="form-label-custom mb-0">
                                     <i class="fas fa-file-export me-1"></i> Unicode ಔಟ್‌ಪುಟ್
                                 </label>
-                                <small class="text-muted" id="live-result-count">0 Unicode ಅಕ್ಷರ</small>
+                                <small class="text-muted" id="live-result-count">0 ಅಕ್ಷರ</small>
                             </div>
-                            <div class="live-preview" id="live-result"
-                                style="min-height:400px;font-family:'Anek Kannada',sans-serif;font-size:1.2rem;line-height:1.8;white-space:pre-wrap;word-wrap:break-word;overflow-y:auto;"></div>
+                            <textarea class="form-control-custom" id="live-result" readonly
+                                style="min-height:400px;font-family:'Anek Kannada',sans-serif;font-size:1.2rem;line-height:1.8;"
+                                placeholder="Unicode ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ..."></textarea>
                             <div class="d-flex gap-2 mt-2 flex-wrap">
                                 <button class="btn-outline-custom" onclick="copyLiveResult()">
                                     <i class="fas fa-copy"></i> ಕಾಪಿ
