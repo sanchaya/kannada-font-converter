@@ -1310,53 +1310,65 @@ function downloadUrlOutput(format) {
 }
 
 // ============================================================
-// LIVE EDITOR - Real-time ASCII/Unicode conversion
+// LIVE EDITOR - ASCII Nudi visual editor with Unicode preview
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     const source = document.getElementById('live-source');
+    const rendered = document.getElementById('live-rendered');
     const result = document.getElementById('live-result');
-    const direction = document.getElementById('live-direction');
     const fontType = document.getElementById('live-font-type');
+    const showRaw = document.getElementById('live-show-raw');
     if (!source) return;
+
+    let rawDisplay = null;
 
     function update() {
         const text = source.value;
-        const dir = direction.value;
         const font = fontType.value;
 
-        document.getElementById('live-source-count').textContent = text.length + ' ಅಕ್ಷರ';
+        document.getElementById('live-source-count').textContent = text.length + ' ASCII ಅಕ್ಷರ';
 
         if (!text.trim()) {
+            rendered.innerHTML = '';
             result.innerHTML = '';
-            document.getElementById('live-result-count').textContent = '0 ಅಕ್ಷರ';
+            document.getElementById('live-result-count').textContent = '0 Unicode ಅಕ್ಷರ';
+            if (rawDisplay) rawDisplay.textContent = '';
             return;
         }
 
         try {
-            const converted = convert(text, 'keep', dir, false, font);
+            const converted = convert(text, 'keep', 'a2u', false, font);
+            rendered.textContent = converted;
             result.textContent = converted;
-            document.getElementById('live-result-count').textContent = converted.length + ' ಅಕ್ಷರ';
+            document.getElementById('live-result-count').textContent = converted.length + ' Unicode ಅಕ್ಷರ';
+            if (rawDisplay) rawDisplay.textContent = text;
         } catch(e) {
-            result.innerHTML = '<span class="text-danger">ದೋಷ: ' + e.message + '</span>';
+            rendered.innerHTML = '<span class="text-danger">' + e.message + '</span>';
+            result.innerHTML = '<span class="text-danger">' + e.message + '</span>';
         }
     }
 
     source.addEventListener('input', update);
-
-    direction.addEventListener('change', function() {
-        const isA2U = this.value === 'a2u';
-        document.getElementById('live-source-label').textContent = isA2U ? 'ASCII ಪಠ್ಯ' : 'Unicode ಪಠ್ಯ';
-        document.getElementById('live-result-label').textContent = isA2U ? 'Unicode ಪಠ್ಯ' : 'ASCII ಪಠ್ಯ';
-        source.placeholder = isA2U
-            ? 'ಇಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ...'
-            : 'ಇಲ್ಲಿ Unicode ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ...';
-        source.value = result.textContent;
-        update();
+    source.addEventListener('scroll', function() {
+        rendered.scrollTop = source.scrollTop;
     });
 
     fontType.addEventListener('change', update);
 
-    // Trigger initial update if there's default text
+    showRaw.addEventListener('change', function() {
+        if (this.checked) {
+            if (!rawDisplay) {
+                rawDisplay = document.createElement('div');
+                rawDisplay.className = 'live-editor-raw show';
+                source.parentNode.insertBefore(rawDisplay, source.nextSibling);
+            }
+            rawDisplay.textContent = source.value;
+            rawDisplay.classList.add('show');
+        } else {
+            if (rawDisplay) rawDisplay.classList.remove('show');
+        }
+    });
+
     if (source.value.trim()) update();
 });
 
@@ -1368,8 +1380,7 @@ function downloadLiveSource() {
 }
 
 function downloadLiveResult() {
-    const el = document.getElementById('live-result');
-    const text = el.textContent;
+    const text = document.getElementById('live-result').textContent;
     if (!text) { showToast('ಮೊದಲು ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ', 'error'); return; }
     downloadBlob(text, 'converted.txt');
     showToast('Unicode ಡೌನ್ಲೋಡ್ ಶುರುವಾಗಿದೆ', 'success');
@@ -1380,10 +1391,9 @@ function downloadLiveBoth() {
     const resultText = document.getElementById('live-result').textContent;
     if (!sourceText || !resultText) { showToast('ಮೊದಲು ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ', 'error'); return; }
 
-    const dir = document.getElementById('live-direction').value;
-    const label1 = dir === 'a2u' ? 'ASCII (Source)' : 'Unicode (Source)';
-    const label2 = dir === 'a2u' ? 'Unicode (Converted)' : 'ASCII (Converted)';
-    const content = `=== ${label1} ===\n${sourceText}\n\n=== ${label2} ===\n${resultText}`;
+    const font = document.getElementById('live-font-type').value;
+    const label2 = font === 'nudi' ? 'Nudi / Baraha' : font.charAt(0).toUpperCase() + font.slice(1);
+    const content = `=== ASCII (${label2}) ===\n${sourceText}\n\n=== Unicode (Converted) ===\n${resultText}`;
     downloadBlob(content, 'both.txt');
     showToast('ಎರಡೂ ಫೈಲ್‌ಗಳು ಡೌನ್ಲೋಡ್ ಆಗುತ್ತಿವೆ', 'success');
 }

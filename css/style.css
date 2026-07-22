@@ -320,11 +320,69 @@ textarea.form-control-custom {
 }
 .footer-link:hover { color: #c8c8d8; }
 
-.live-editor {
-    font-family: 'Courier New', 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    line-height: 1.7;
+.live-editor-container {
+    position: relative;
+    min-height: 400px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--third-color);
+    overflow: hidden;
+}
+
+.live-editor-container:focus-within {
+    border-color: var(--text-color3);
+    box-shadow: 0 0 0 3px rgba(55, 71, 163, 0.1);
+}
+
+.live-rendered {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 0.75rem 1rem;
+    font-family: 'Anek Kannada', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    color: var(--dark);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.live-rendered:empty::before {
+    content: 'ಇಲ್ಲಿ ASCII ಟೈಪ್ ಮಾಡಿ — ಕನ್ನಡದಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ';
+    color: #aaa;
+    pointer-events: none;
+}
+
+.live-editor-overlay {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background: transparent;
+    color: transparent;
+    caret-color: #333;
+    border: none;
+    border-radius: 0;
+    outline: none;
     resize: vertical;
+    padding: 0.75rem 1rem;
+    font-family: 'Courier New', 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    line-height: 1.8;
+    z-index: 2;
+    overflow-y: auto;
+    tab-size: 4;
+}
+
+.live-editor-overlay::placeholder {
+    color: transparent;
+}
+
+.live-editor-overlay:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
 }
 
 .live-preview {
@@ -339,11 +397,33 @@ textarea.form-control-custom {
     word-wrap: break-word;
     overflow-y: auto;
     color: var(--dark);
+    min-height: 400px;
 }
 
 .live-preview:empty::before {
     content: 'ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ...';
     color: #aaa;
+}
+
+.live-editor-raw {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #f0f0f0;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #666;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.live-editor-raw.show {
+    display: block;
 }
 
 @media (max-width: 768px) {
