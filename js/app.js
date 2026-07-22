@@ -1317,6 +1317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const rendered = document.getElementById('live-rendered');
     const result = document.getElementById('live-result');
     const fontType = document.getElementById('live-font-type');
+    const retainEnglish = document.getElementById('live-retain-english');
     const showRaw = document.getElementById('live-show-raw');
     if (!source) return;
 
@@ -1325,6 +1326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function update() {
         const text = source.value;
         const font = fontType.value;
+        const retain = retainEnglish.checked;
 
         document.getElementById('live-source-count').textContent = text.length + ' ASCII ಅಕ್ಷರ';
 
@@ -1337,7 +1339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const converted = convert(text, 'keep', 'a2u', false, font);
+            const converted = convert(text, 'keep', 'a2u', retain, font);
             rendered.textContent = converted;
             result.textContent = converted;
             document.getElementById('live-result-count').textContent = converted.length + ' Unicode ಅಕ್ಷರ';
@@ -1354,6 +1356,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     fontType.addEventListener('change', update);
+    retainEnglish.addEventListener('change', update);
 
     showRaw.addEventListener('change', function() {
         if (this.checked) {
