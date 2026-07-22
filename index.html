@@ -76,6 +76,11 @@
                         <i class="fas fa-link me-1"></i> URL
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" onclick="switchTab('tab-live', this)">
+                        <i class="fas fa-edit me-1"></i> ಲೈವ್ ಸಂಪಾದಕ
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content tab-content-custom">
@@ -315,6 +320,69 @@
                         <button class="btn-outline-custom" onclick="downloadUrlOutput('txt')">
                             <i class="fas fa-download"></i> TXT
                         </button>
+                    </div>
+                </div>
+
+                <div class="tab-pane-custom" id="tab-live">
+                    <p class="text-muted mb-3">ASCII ಮತ್ತು Unicode ನಡುವೆ ಲೈವ್ ಆಗಿ ಪರಿವರ್ತಿಸಿ. ಎಡಭಾಗದಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ, ಬಲಭಾಗದಲ್ಲಿ ಫಲಿತಾಂಶ ನೋಡಿ.</p>
+                    
+                    <div class="settings-panel mb-3 d-flex flex-wrap align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-exchange-alt me-1"></i>ದಿಕ್ಕು:</label>
+                            <select class="form-select form-select-sm" id="live-direction" style="width:auto;">
+                                <option value="a2u">ASCII → Unicode</option>
+                                <option value="u2a">Unicode → ASCII</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label-custom mb-0"><i class="fas fa-font me-1"></i>ಫಾಂಟ್:</label>
+                            <select class="form-select form-select-sm" id="live-font-type" style="width:auto;">
+                                <option value="nudi">Nudi / Baraha</option>
+                                <option value="shree">ShreeLipi</option>
+                                <option value="prakashak">Prakashak</option>
+                                <option value="akruti">Akruti</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label-custom mb-0">
+                                    <i class="fas fa-file-import me-1"></i> <span id="live-source-label">ASCII ಪಠ್ಯ</span>
+                                </label>
+                                <small class="text-muted" id="live-source-count">0 ಅಕ್ಷರ</small>
+                            </div>
+                            <textarea class="form-control-custom live-editor" id="live-source"
+                                placeholder="ಇಲ್ಲಿ ASCII ಪಠ್ಯವನ್ನು ಟೈಪ್ ಮಾಡಿ..."
+                                style="min-height:400px;font-family:monospace;font-size:13px;line-height:1.7;"></textarea>
+                            <div class="d-flex gap-2 mt-2 flex-wrap">
+                                <button class="btn-outline-custom" onclick="downloadLiveSource()">
+                                    <i class="fas fa-download"></i> ASCII ಡೌನ್‌ಲೋಡ್
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label-custom mb-0">
+                                    <i class="fas fa-file-export me-1"></i> <span id="live-result-label">Unicode ಪಠ್ಯ</span>
+                                </label>
+                                <small class="text-muted" id="live-result-count">0 ಅಕ್ಷರ</small>
+                            </div>
+                            <div class="live-preview" id="live-result"
+                                style="min-height:400px;font-family:'Anek Kannada',sans-serif;font-size:1.2rem;line-height:1.8;white-space:pre-wrap;word-wrap:break-word;overflow-y:auto;"></div>
+                            <div class="d-flex gap-2 mt-2 flex-wrap">
+                                <button class="btn-outline-custom" onclick="copyLiveResult()">
+                                    <i class="fas fa-copy"></i> ಕಾಪಿ
+                                </button>
+                                <button class="btn-outline-custom" onclick="downloadLiveResult()">
+                                    <i class="fas fa-download"></i> Unicode ಡೌನ್‌ಲೋಡ್
+                                </button>
+                                <button class="btn-outline-custom" onclick="downloadLiveBoth()">
+                                    <i class="fas fa-file-archive"></i> ಎರಡೂ
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

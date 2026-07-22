@@ -320,6 +320,32 @@ textarea.form-control-custom {
 }
 .footer-link:hover { color: #c8c8d8; }
 
+.live-editor {
+    font-family: 'Courier New', 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    resize: vertical;
+}
+
+.live-preview {
+    background: var(--text-background);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-family: 'Anek Kannada', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    color: var(--dark);
+}
+
+.live-preview:empty::before {
+    content: 'ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ...';
+    color: #aaa;
+}
+
 @media (max-width: 768px) {
     .hero h1 { font-size: 1.75rem; }
     .main-container { padding: 1rem; }
