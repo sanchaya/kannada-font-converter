@@ -97,12 +97,41 @@ for (const font of FONTS) {
             back = convert(ascii, 'keep', 'a2u', true, font);
         } catch (e) { err = e.message; }
         if (err || back !== text) {
-            failures.push({ label, text, ascii, back, err });
+            // Attribute the failure to a direction:
+            //  - Kannada characters left in the ASCII output (or an exception
+            //    during u2a) -> the Unicode->ASCII side is incomplete
+            //  - clean ASCII that does not round-trip -> ASCII->Unicode side
+            const dir = (err || /[ಀ-೿]/.test(ascii || '')) ? 'u2a' : 'a2u';
+            failures.push({ label, text, ascii, back, err, dir });
         }
     }
     results[font] = failures;
     totalFail += failures.length;
 }
+
+// ---- write stats.json (rendered by status.html) ----
+const stats = {
+    generated: new Date().toISOString().slice(0, 10),
+    casesPerFont: cases.length,
+    fonts: {}
+};
+for (const font of FONTS) {
+    const fails = results[font];
+    const byLabel = {};
+    let u2aFail = 0, a2uFail = 0;
+    fails.forEach(f => {
+        byLabel[f.label] = (byLabel[f.label] || 0) + 1;
+        if (f.dir === 'u2a') u2aFail++; else a2uFail++;
+    });
+    stats.fonts[font] = {
+        pass: cases.length - fails.length,
+        fail: fails.length,
+        u2aFail: u2aFail,
+        a2uFail: a2uFail,
+        categories: byLabel
+    };
+}
+fs.writeFileSync(path.join(__dirname, 'stats.json'), JSON.stringify(stats, null, 2));
 
 // ---- write ISSUES.md ----
 const lines = [];

@@ -1,0 +1,63 @@
+{
+  "generated": "2026-07-23",
+  "casesPerFont": 2077,
+  "fonts": {
+    "nudi": {
+      "pass": 2076,
+      "fail": 1,
+      "u2aFail": 0,
+      "a2uFail": 1,
+      "categories": {
+        "vowel": 1
+      }
+    },
+    "shree": {
+      "pass": 699,
+      "fail": 1378,
+      "u2aFail": 4,
+      "a2uFail": 1374,
+      "categories": {
+        "vowel": 13,
+        "anusvara": 34,
+        "visarga": 34,
+        "syllable": 13,
+        "conjunct": 1090,
+        "conjunct+matra": 175,
+        "word": 17,
+        "mixed": 2
+      }
+    },
+    "prakashak": {
+      "pass": 257,
+      "fail": 1820,
+      "u2aFail": 537,
+      "a2uFail": 1283,
+      "categories": {
+        "vowel": 3,
+        "syllable": 433,
+        "anusvara": 32,
+        "visarga": 25,
+        "halant-final": 8,
+        "conjunct": 956,
+        "conjunct+matra": 340,
+        "word": 20,
+        "mixed": 3
+      }
+    },
+    "akruti": {
+      "pass": 338,
+      "fail": 1739,
+      "u2aFail": 253,
+      "a2uFail": 1486,
+      "categories": {
+        "halant-final": 28,
+        "syllable": 374,
+        "anusvara": 21,
+        "conjunct": 952,
+        "conjunct+matra": 340,
+        "word": 21,
+        "mixed": 3
+      }
+    }
+  }
+}

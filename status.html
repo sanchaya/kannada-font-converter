@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಪರಿವರ್ತನೆ ಸ್ಥಿತಿ - ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</title>
+    <meta name="description" content="ಪ್ರತಿ ಫಾಂಟ್‌ಗೆ ASCII ↔ Unicode ಪರಿವರ್ತನೆ ಎಷ್ಟು ನಿಖರವಾಗಿದೆ - ಸ್ವಯಂಚಾಲಿತ ಪರೀಕ್ಷಾ ಫಲಿತಾಂಶಗಳು">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/android-chrome-192x192.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=1.0.1">
+    <style>
+        .font-card {
+            border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 1.25rem 1.5rem; margin-bottom: 1rem; background: var(--third-color);
+        }
+        .font-card h6 { font-weight: 600; margin-bottom: 0.25rem; }
+        .pass-rate { font-size: 1.6rem; font-weight: 700; font-family: 'IBM Plex Sans', sans-serif; }
+        .pass-good { color: var(--success); }
+        .pass-mid { color: var(--accent); }
+        .pass-low { color: var(--danger); }
+        .progress { height: 10px; border-radius: 6px; background: var(--text-background); }
+        .dir-split { font-size: 0.85rem; color: var(--span-color); }
+        .cat-table { font-size: 0.83rem; }
+        .status-note { font-size: 0.88rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://converter.sanchaya.net/">
+                <img src="img/app-icon-light.png" alt="ಸಂಚಯ">
+                <span class="brand-text">
+                    <span class="brand-title">ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ <span class="brand-version">v1.0.1</span></span>
+                    <span class="brand-subtitle">Nudi, Baraha, ShreeLipi ಮತ್ತು ಇತರ ಹಳೆಯ ASCII ಫಾಂಟ್‌ಗಳನ್ನು Unicode ಗೆ ಪರಿವರ್ತಿಸಿ</span>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-exchange-alt me-1"></i> ಪರಿವರ್ತಕ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="keyboards.html"><i class="fas fa-keyboard me-1"></i> ಕೀಬೋರ್ಡ್</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mappings.html"><i class="fas fa-table me-1"></i> ಮ್ಯಾಪಿಂಗ್</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="status.html"><i class="fas fa-chart-simple me-1"></i> ಸ್ಥಿತಿ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i> ಬಗ್ಗೆ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="converter-card">
+            <div class="card-header-custom">
+                <i class="fas fa-chart-simple"></i>
+                <h5>ಪರಿವರ್ತನೆ ಸ್ಥಿತಿ</h5>
+            </div>
+            <div class="card-body-custom">
+                <p class="text-muted status-note mb-2">
+                    ಪ್ರತಿ ಫಾಂಟ್‌ಗೆ ನಾವು <strong id="case-count">2,077</strong> ಪರೀಕ್ಷಾ ಪ್ರಕರಣಗಳನ್ನು ನಡೆಸುತ್ತೇವೆ -
+                    ಎಲ್ಲಾ ವ್ಯಂಜನ × ಸ್ವರ ಚಿಹ್ನೆ ಸಂಯೋಜನೆಗಳು, ಹಲಂತ ರೂಪಗಳು, ಅನುಸ್ವಾರ/ವಿಸರ್ಗ,
+                    ಎಲ್ಲಾ ಒತ್ತಕ್ಷರ (ಸಂಯುಕ್ತಾಕ್ಷರ) ಜೋಡಿಗಳು, ನಿಜವಾದ ಪದಗಳು, ಮತ್ತು ಇಂಗ್ಲಿಷ್/ಸಂಖ್ಯೆ ಮಿಶ್ರಿತ ಪಠ್ಯ.
+                    ಪ್ರತಿ ಪ್ರಕರಣ Unicode → ASCII → Unicode ಸುತ್ತು ಪೂರೈಸಿ ಮೂಲಕ್ಕೆ ಸಮನಾಗಬೇಕು.
+                </p>
+                <p class="text-muted status-note mb-4">
+                    <strong>Unicode → ASCII (u2a)</strong> ವೈಫಲ್ಯ = ಕನ್ನಡ ಅಕ್ಷರ ASCII ಗೆ ಪರಿವರ್ತನೆಯಾಗದೆ ಉಳಿದಿದೆ;
+                    <strong>ASCII → Unicode (a2u)</strong> ವೈಫಲ್ಯ = ASCII ಸರಿಯಾಗಿ ಬಂದರೂ ಹಿಂತಿರುಗಿ ಪರಿವರ್ತಿಸಿದಾಗ ಮೂಲ ಪಠ್ಯ ಸಿಗಲಿಲ್ಲ.
+                    ಕೊನೆಯ ಪರೀಕ್ಷೆ: <strong id="generated-date">-</strong>
+                </p>
+
+                <div id="status-cards">
+                    <p class="text-muted">ಲೋಡ್ ಆಗುತ್ತಿದೆ...</p>
+                </div>
+
+                <div class="alert alert-info status-note mt-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>ತಿಳಿದಿರುವ ಮಿತಿ:</strong> Nudi ವಿನ್ಯಾಸದಲ್ಲಿ ಒಂಟಿಯಾಗಿ ನಿಂತ ಸ್ವರ "ಎ" ದ ASCII ಸಂಕೇತ
+                    ಅಂಕಿ "2" ಆಗಿದೆ - ನಿಜವಾದ ಸಂಖ್ಯೆ 2 ರಿಂದ ಇದನ್ನು ಪ್ರತ್ಯೇಕಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.
+                    ಪದದ ಒಳಗೆ ಬರುವ ಎ (ಉದಾ: ಎಲ್ಲಿ) ಸರಿಯಾಗಿ ಪರಿವರ್ತನೆಯಾಗುತ್ತದೆ.
+                </div>
+
+                <p class="status-note text-muted mb-0">
+                    ವಿವರವಾದ ವೈಫಲ್ಯ ಪಟ್ಟಿ:
+                    <a href="https://github.com/sanchaya/kannada-font-converter/blob/main/test/ISSUES.md" target="_blank" rel="noopener">test/ISSUES.md</a> ·
+                    ತಪ್ಪು ಕಂಡರೆ <a href="https://github.com/sanchaya/kannada-font-converter/issues/new?template=bug_report.yml" target="_blank" rel="noopener">ದೋಷ ವರದಿ ಮಾಡಿ</a> -
+                    ನಿಮ್ಮ ಮಾದರಿಗಳು ಈ ಪರೀಕ್ಷೆಗಳನ್ನು ಇನ್ನಷ್ಟು ಬಲಪಡಿಸುತ್ತವೆ.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2026 ಸಂಚಯ ಮತ್ತು ಸಂಚಿ ಫೌಂಡೇಶನ್.</p>
+            <div>
+                <a href="https://sanchaya.org" class="footer-link" target="_blank">sanchaya.org</a>
+                <a href="https://fonts.sanchaya.net" class="footer-link" target="_blank">ಫಾಂಟ್ಸ್ ಸಂಚಯ</a>
+                <a href="https://github.com/sanchaya/kannada-font-converter/issues/new?template=bug_report.yml" class="footer-link" target="_blank" rel="noopener"><i class="fas fa-bug me-1"></i>ದೋಷ ವರದಿ ಮಾಡಿ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        var FONT_LABELS = {
+            nudi: 'Nudi / Baraha',
+            shree: 'ShreeLipi',
+            prakashak: 'Prakashak',
+            akruti: 'Akruti'
+        };
+        var CAT_LABELS = {
+            'vowel': 'ಸ್ವರಗಳು',
+            'syllable': 'ಅಕ್ಷರಗಳು (ವ್ಯಂಜನ+ಮಾತ್ರೆ)',
+            'halant-final': 'ಹಲಂತ ರೂಪಗಳು',
+            'anusvara': 'ಅನುಸ್ವಾರ',
+            'visarga': 'ವಿಸರ್ಗ',
+            'conjunct': 'ಒತ್ತಕ್ಷರಗಳು',
+            'conjunct+matra': 'ಒತ್ತಕ್ಷರ + ಮಾತ್ರೆ',
+            'word': 'ಪದಗಳು',
+            'mixed': 'ಇಂಗ್ಲಿಷ್/ಸಂಖ್ಯೆ ಮಿಶ್ರಿತ'
+        };
+
+        function pctClass(p) { return p >= 95 ? 'pass-good' : (p >= 60 ? 'pass-mid' : 'pass-low'); }
+        function barClass(p) { return p >= 95 ? 'bg-success' : (p >= 60 ? 'bg-warning' : 'bg-danger'); }
+
+        function render(stats) {
+            document.getElementById('generated-date').textContent = stats.generated;
+            document.getElementById('case-count').textContent = stats.casesPerFont.toLocaleString();
+            var html = '';
+            Object.keys(stats.fonts).forEach(function(key) {
+                var f = stats.fonts[key];
+                var total = stats.casesPerFont;
+                var pct = Math.floor((f.pass / total) * 1000) / 10;
+                var cats = Object.entries(f.categories || {});
+                html += '<div class="font-card">' +
+                    '<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">' +
+                        '<div><h6 class="mb-0">' + (FONT_LABELS[key] || key) + '</h6>' +
+                        '<span class="dir-split">u2a ವೈಫಲ್ಯ: ' + f.u2aFail + ' · a2u ವೈಫಲ್ಯ: ' + f.a2uFail + '</span></div>' +
+                        '<div class="text-end"><span class="pass-rate ' + pctClass(pct) + '">' + pct + '%</span>' +
+                        '<div class="dir-split">' + f.pass.toLocaleString() + ' / ' + total.toLocaleString() + ' ಉತ್ತೀರ್ಣ</div></div>' +
+                    '</div>' +
+                    '<div class="progress mt-2 mb-2"><div class="progress-bar ' + barClass(pct) + '" style="width:' + pct + '%"></div></div>';
+                if (cats.length) {
+                    html += '<details><summary style="cursor:pointer;font-size:0.85rem;color:var(--span-color);">ವೈಫಲ್ಯ ವಿವರ (' + f.fail + ')</summary>' +
+                        '<div class="table-responsive mt-2"><table class="table table-sm table-bordered cat-table mb-0">' +
+                        '<thead class="table-light"><tr><th>ವರ್ಗ</th><th>ವೈಫಲ್ಯ</th></tr></thead><tbody>';
+                    cats.forEach(function(c) {
+                        html += '<tr><td>' + (CAT_LABELS[c[0]] || c[0]) + '</td><td>' + c[1] + '</td></tr>';
+                    });
+                    html += '</tbody></table></div></details>';
+                } else {
+                    html += '<span class="dir-split"><i class="fas fa-circle-check me-1" style="color:var(--success);"></i>ಎಲ್ಲಾ ಪ್ರಕರಣಗಳು ಉತ್ತೀರ್ಣ</span>';
+                }
+                html += '</div>';
+            });
+            document.getElementById('status-cards').innerHTML = html;
+        }
+
+        fetch('test/stats.json?v=' + Date.now())
+            .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(render)
+            .catch(function() {
+                document.getElementById('status-cards').innerHTML =
+                    '<p class="text-muted">ಸ್ಥಿತಿ ದತ್ತಾಂಶ ಲೋಡ್ ಆಗಲಿಲ್ಲ. <a href="https://github.com/sanchaya/kannada-font-converter/blob/main/test/ISSUES.md" target="_blank" rel="noopener">GitHub ನಲ್ಲಿ ವರದಿ ನೋಡಿ</a>.</p>';
+            });
+    })();
+    </script>
+</body>
+</html>
