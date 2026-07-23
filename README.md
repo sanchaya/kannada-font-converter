@@ -140,7 +140,7 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 - **Output**: Unicode Kannada or ASCII (per selected font)
 - **Files**: TXT, DOCX (read; images skipped), TXT (write)
 
-All 13 source encodings identified from the reviewed KGP macros are now ported (see `tools/MACRO-REVIEW.md`).
+All 14 source encodings identified from the reviewed KGP macros are now ported (see `tools/MACRO-REVIEW.md`).
 
 ## Dependencies (CDN)
 
