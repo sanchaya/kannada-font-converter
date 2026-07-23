@@ -11,6 +11,7 @@ Live at **[converter.sanchaya.net](https://converter.sanchaya.net)** (GitHub Pag
 | `index.html` | The converter - five sections: ಪಠ್ಯ (text), ಫೈಲ್ (file), ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ (mixed-text detection), URL, ಲೈವ್ ಸಂಪಾದಕ (live editor) |
 | `keyboards.html` | Kannada keyboard layout reference - KGP/Nudi, InScript, Transliteration |
 | `mappings.html` | ASCII ↔ Unicode character mapping tables for all four fonts, rendered live from the converter's own data (with search) |
+| `status.html` | Conversion accuracy dashboard - per-font pass rates from the automated test suite, split by direction (a2u / u2a) |
 | `about.html` | About the project |
 
 ## Features
@@ -26,6 +27,8 @@ Live at **[converter.sanchaya.net](https://converter.sanchaya.net)** (GitHub Pag
   - **Downloads**: one-click ASCII / Unicode / both (labeled sections in a single file)
   - **Keyboard dropdown**: KGP/ನುಡಿ (default), InScript, ಲಿಪ್ಯಂತರಣ, or plain English typing - the single control for jquery.ime on the live panes (the floating IME selector is disabled there to avoid conflicts)
 - **Guided tours**: the ಮಾರ್ಗದರ್ಶಿ button walks through the active section step by step (driver.js)
+- **Status dashboard**: per-font conversion accuracy from 2,077 automated round-trip tests, split by direction (see `status.html`)
+- **One-click bug reports**: the ದೋಷ ವರದಿ button opens a GitHub issue prefilled with the current text, output, font, and direction
 - **Mixed-text detection**: highlights which parts of a document are ASCII vs Unicode
 - **URL conversion**: fetch a legacy-font web page and convert it (CORS proxy fallback chain)
 - **Number formats**: Kannada (೦೧೨), English (012), or keep original
@@ -77,11 +80,20 @@ curl -X POST http://localhost:3001/api/convert \
 ├── index.html          # Converter UI (5 sections)
 ├── keyboards.html      # Keyboard layout reference
 ├── mappings.html       # Font mapping tables (rendered from app.js data)
+├── status.html         # Conversion accuracy dashboard (reads test/stats.json)
 ├── about.html          # About page
 ├── css/style.css       # Shared styles
 ├── js/app.js           # Conversion engine + UI logic
 ├── js/tour.js          # Guided tours (driver.js)
 ├── server.js           # Optional Express server (API/history)
+├── test/
+│   ├── permutations.js # Round-trip test harness (2,077 cases per font)
+│   ├── ISSUES.md       # Auto-generated failure log
+│   └── stats.json      # Auto-generated stats (feeds status.html)
+├── tools/
+│   ├── extract-macros.py    # KGP .dot macro rule-table extractor
+│   ├── macro-extracts/      # Extracted conversion tables (13 encodings)
+│   └── MACRO-REVIEW.md      # Macro review + font porting plan
 ├── img/                # Branding + keyboard images
 └── .autopilot/         # Maintenance notes
 ```
@@ -135,6 +147,8 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 - **Input**: Nudi ASCII, Baraha ASCII, ShreeLipi ASCII, Prakashak ASCII, Akruti ASCII, Unicode Kannada
 - **Output**: Unicode Kannada or ASCII (per selected font)
 - **Files**: TXT, DOCX (read; images skipped), TXT (write)
+- **Planned**: ISM (KNTT-Nandi), Surabhi, WinKey, Dharma ILs, Janna, Suchi, and
+  Shree Deccan support, ported from the KGP macro tables - see `tools/MACRO-REVIEW.md`
 
 ## Dependencies (CDN)
 
