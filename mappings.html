@@ -122,6 +122,17 @@
             }).sort(function(a, b) { return a[0].charCodeAt(0) - b[0].charCodeAt(0); });
         }
 
+        // Same as buildPivotEntries, but for the four fonts whose macro
+        // targets Nudi Bi (Suchi Kan, ISM KNB TT-Nandi, Akruti Bi, WinKey
+        // KanEng) - these need the extra Nudi Bi->Mono hop.
+        function buildPivotEntriesViaBi(map) {
+            return Object.keys(map).map(function(codeStr) {
+                var ch = String.fromCharCode(Number(codeStr));
+                var uni = pivotAsciiToUnicodeViaBi(ch, map, false);
+                return [ch, uni];
+            }).sort(function(a, b) { return a[0].charCodeAt(0) - b[0].charCodeAt(0); });
+        }
+
         // Sections are built from the converter's own data structures in app.js
         var FONTS = {
             nudi: {
@@ -155,6 +166,66 @@
                 label: 'Surabhi (KND)',
                 sections: [
                     { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, KND-series)', data: buildPivotEntries(SURABHI_X2NUDI) }
+                ]
+            },
+            ismkntt: {
+                label: 'ISM (KNTT-Nandi)',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(ISMKNTT_X2NUDI) }
+                ]
+            },
+            dharma: {
+                label: 'Dharma ILs',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(DHARMA_X2NUDI) }
+                ]
+            },
+            janna: {
+                label: 'Janna Mono',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(JANNA_X2NUDI) }
+                ]
+            },
+            srilipi850: {
+                label: 'SriLipi 850',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(SRILIPI850_X2NUDI) }
+                ]
+            },
+            shreedeccan: {
+                label: 'Shree Deccan',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(SHREEDECCAN_X2NUDI) }
+                ]
+            },
+            surabhikn: {
+                label: 'Surabhi KN',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ)', data: buildPivotEntries(SURABHIKN_X2NUDI) }
+                ]
+            },
+            suchikan: {
+                label: 'Suchi Kan',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, NudiBi ಮೂಲಕ)', data: buildPivotEntriesViaBi(SUCHI_X2NUDIBI) }
+                ]
+            },
+            ismknbtt: {
+                label: 'ISM (KNB TT-Nandi)',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, NudiBi ಮೂಲಕ)', data: buildPivotEntriesViaBi(ISMKNBTT_X2NUDIBI) }
+                ]
+            },
+            akrutibi: {
+                label: 'Akruti Bi',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, NudiBi ಮೂಲಕ)', data: buildPivotEntriesViaBi(AKRUTIBI_X2NUDIBI) }
+                ]
+            },
+            winkey: {
+                label: 'WinKey KanEng',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, NudiBi ಮೂಲಕ)', data: buildPivotEntriesViaBi(WINKEY_X2NUDIBI) }
                 ]
             }
         };

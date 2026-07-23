@@ -68,6 +68,165 @@
         "conjunct+matra": 25,
         "word": 6
       }
+    },
+    "ismkntt": {
+      "pass": 1524,
+      "fail": 553,
+      "u2aFail": 0,
+      "a2uFail": 553,
+      "categories": {
+        "syllable": 188,
+        "anusvara": 7,
+        "visarga": 7,
+        "halant-final": 3,
+        "conjunct": 195,
+        "conjunct+matra": 150,
+        "word": 2,
+        "mixed": 1
+      }
+    },
+    "dharma": {
+      "pass": 1611,
+      "fail": 466,
+      "u2aFail": 1,
+      "a2uFail": 465,
+      "categories": {
+        "anusvara": 12,
+        "visarga": 14,
+        "halant-final": 6,
+        "syllable": 60,
+        "conjunct": 317,
+        "conjunct+matra": 53,
+        "word": 4
+      }
+    },
+    "janna": {
+      "pass": 1731,
+      "fail": 346,
+      "u2aFail": 0,
+      "a2uFail": 346,
+      "categories": {
+        "syllable": 69,
+        "anusvara": 18,
+        "visarga": 18,
+        "halant-final": 4,
+        "conjunct": 196,
+        "conjunct+matra": 37,
+        "word": 4
+      }
+    },
+    "srilipi850": {
+      "pass": 1911,
+      "fail": 166,
+      "u2aFail": 0,
+      "a2uFail": 166,
+      "categories": {
+        "halant-final": 3,
+        "syllable": 31,
+        "conjunct": 102,
+        "conjunct+matra": 30
+      }
+    },
+    "shreedeccan": {
+      "pass": 1982,
+      "fail": 95,
+      "u2aFail": 0,
+      "a2uFail": 95,
+      "categories": {
+        "syllable": 13,
+        "halant-final": 1,
+        "anusvara": 1,
+        "visarga": 1,
+        "conjunct": 67,
+        "conjunct+matra": 10,
+        "word": 1,
+        "mixed": 1
+      }
+    },
+    "surabhikn": {
+      "pass": 814,
+      "fail": 1263,
+      "u2aFail": 1,
+      "a2uFail": 1262,
+      "categories": {
+        "vowel": 1,
+        "syllable": 195,
+        "anusvara": 28,
+        "visarga": 20,
+        "halant-final": 8,
+        "conjunct": 792,
+        "conjunct+matra": 202,
+        "word": 15,
+        "mixed": 2
+      }
+    },
+    "suchikan": {
+      "pass": 530,
+      "fail": 1547,
+      "u2aFail": 30,
+      "a2uFail": 1517,
+      "categories": {
+        "vowel": 13,
+        "syllable": 221,
+        "halant-final": 17,
+        "anusvara": 34,
+        "visarga": 34,
+        "conjunct": 868,
+        "conjunct+matra": 340,
+        "word": 18,
+        "mixed": 2
+      }
+    },
+    "ismknbtt": {
+      "pass": 459,
+      "fail": 1618,
+      "u2aFail": 24,
+      "a2uFail": 1594,
+      "categories": {
+        "vowel": 13,
+        "syllable": 243,
+        "halant-final": 20,
+        "anusvara": 34,
+        "visarga": 34,
+        "conjunct": 918,
+        "conjunct+matra": 335,
+        "word": 18,
+        "mixed": 3
+      }
+    },
+    "akrutibi": {
+      "pass": 214,
+      "fail": 1863,
+      "u2aFail": 30,
+      "a2uFail": 1833,
+      "categories": {
+        "vowel": 13,
+        "syllable": 354,
+        "halant-final": 16,
+        "anusvara": 34,
+        "visarga": 34,
+        "conjunct": 1049,
+        "conjunct+matra": 340,
+        "word": 20,
+        "mixed": 3
+      }
+    },
+    "winkey": {
+      "pass": 321,
+      "fail": 1756,
+      "u2aFail": 30,
+      "a2uFail": 1726,
+      "categories": {
+        "vowel": 13,
+        "syllable": 345,
+        "halant-final": 20,
+        "anusvara": 34,
+        "visarga": 34,
+        "conjunct": 947,
+        "conjunct+matra": 340,
+        "word": 20,
+        "mixed": 3
+      }
     }
   }
 }
