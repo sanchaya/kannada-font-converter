@@ -1,0 +1,67 @@
+name: ದೋಷ ವರದಿ / Bug report
+description: ಪರಿವರ್ತನೆ ತಪ್ಪಾಗಿದೆಯೇ ಅಥವಾ ಏನಾದರೂ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲವೇ? ಇಲ್ಲಿ ತಿಳಿಸಿ. / Report a conversion error or broken feature.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: section
+    attributes:
+      label: ಯಾವ ವಿಭಾಗ? / Which section?
+      options:
+        - ಪಠ್ಯ (Text)
+        - ಫೈಲ್ (File)
+        - ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ (Mixed-text detection)
+        - URL
+        - ಲೈವ್ ಸಂಪಾದಕ (Live editor)
+        - ಕೀಬೋರ್ಡ್ / ಮ್ಯಾಪಿಂಗ್ ಪುಟ (Keyboards / Mappings page)
+        - ಇತರೆ (Other)
+    validations:
+      required: true
+  - type: dropdown
+    id: font
+    attributes:
+      label: ಫಾಂಟ್ / Font
+      options:
+        - Nudi / Baraha
+        - ShreeLipi
+        - Prakashak
+        - Akruti
+        - ಗೊತ್ತಿಲ್ಲ / Not sure
+  - type: dropdown
+    id: direction
+    attributes:
+      label: ದಿಕ್ಕು / Direction
+      options:
+        - ASCII → Unicode
+        - Unicode → ASCII
+        - ಎರಡೂ / Both
+  - type: textarea
+    id: input-text
+    attributes:
+      label: ಮೂಲ ಪಠ್ಯ / Input text
+      description: ತಪ್ಪಾಗಿ ಪರಿವರ್ತನೆಯಾದ ಪಠ್ಯದ ಸಣ್ಣ ಮಾದರಿ ಇಲ್ಲಿ ಅಂಟಿಸಿ. / Paste a small sample of the text that converts wrongly.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: ನಿರೀಕ್ಷಿತ ಫಲಿತಾಂಶ / Expected output
+      render: text
+  - type: textarea
+    id: actual
+    attributes:
+      label: ಬಂದ ಫಲಿತಾಂಶ / Actual output
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: ಬ್ರೌಸರ್ ಮತ್ತು ಸಾಧನ / Browser and device
+      placeholder: "e.g. Chrome 126, Windows 11 / Android"
+  - type: textarea
+    id: more
+    attributes:
+      label: ಹೆಚ್ಚಿನ ವಿವರ / Anything else
+      description: ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಇದ್ದರೆ ಇಲ್ಲಿ ಎಳೆದು ಹಾಕಿ. / Drag in screenshots if you have them.
