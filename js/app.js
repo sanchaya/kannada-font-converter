@@ -178,7 +178,14 @@ function _makePlaceholder(idx) {
 }
 const _placeholderRe = /\uFF62([a-z]+)\uFF63/g;
 
-const LATIN_EXT_RE = /[\u00C0-\u00FF]/;
+// Matches any non-ASCII character. Used to detect when a run of plain
+// ASCII letters is directly touching a Nudi-ASCII byte (which almost
+// always renders as an extended Latin-1/Windows-1252 character, e.g.
+// \u00B8,\u00A5,\u00A7,\u00A9,\u00B1... in the 0x80-0xBF block, not just the 0xC0-0xFF block this
+// used to check) - such a token is part of the Nudi encoding, not a
+// standalone English word, regardless of what code point the adjacent
+// byte happens to be.
+const LATIN_EXT_RE = /[^\x00-\x7F]/;
 const PURE_ASCII_WORD_RE = /^[a-zA-Z'-]+$/;
 const NUDI_SINGLE_UPPER = new Set(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z']);
 const NUDI_SINGLE_LOWER = new Set(['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']);

@@ -80,16 +80,16 @@ Current status:
 | Font | Round-trip pass rate | Notes |
 |------|---------------------|-------|
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
-| ShreeLipi | 1910 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
+| ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
 | Prakashak | 912 / 2077 | Pivot-ported (Praja). Weakest of the direct-to-Mono fonts - conjunct/vattakshara forms still fail on the u2a side |
 | Akruti | 1549 / 2077 | Pivot-ported (Mono) |
-| Surabhi (KND) | 1840 / 2077 | Pivot-ported - not previously supported at all |
+| Surabhi (KND) | 1842 / 2077 | Pivot-ported - not previously supported at all |
 | ISM (KNTT-Nandi) | 1524 / 2077 | Pivot-ported - new font family |
-| Dharma ILs | 1611 / 2077 | Pivot-ported - new font family |
-| Janna Mono | 1731 / 2077 | Pivot-ported - new font family |
+| Dharma ILs | 1612 / 2077 | Pivot-ported - new font family |
+| Janna Mono | 1772 / 2077 | Pivot-ported - new font family |
 | SriLipi 850 | 1911 / 2077 | Pivot-ported - second ShreeLipi variant |
-| Shree Deccan | 1982 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
-| Surabhi KN | 814 / 2077 | Pivot-ported - second Surabhi variant |
+| Shree Deccan | 1983 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
+| Surabhi KN | 849 / 2077 | Pivot-ported - second Surabhi variant |
 | Suchi Kan | 530 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 459 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 214 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
@@ -115,6 +115,19 @@ Other recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (win
 files now convert), vattakshara conjunct reordering (PÀå -> ಕ್ಯ, QÌ -> ಕ್ಕಿ,
 while final halants like ನನ್ stay intact), standalone number preservation, and
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
+
+**English-retention false positive (fixed)**: a Nudi ASCII fragment like
+`Dj` (= ಆ + ರ, the start of common words like ಆರಿಸಬಹುದು) could be wrongly
+classified as a standalone English word and left unconverted on the way
+back to Unicode - `ಆರಿಸಬಹುದು` round-tripped to `Djಸಬಹುದು`. The English-token
+detector only recognized a token as "touching" Nudi encoding if the
+adjacent byte was in the U+00C0-00FF range; Nudi ASCII output actually
+uses the whole U+00A1-00FF block (¸, ¥, §, ©, ...), so adjacency to those
+went undetected. Widened the check to any non-ASCII character. This runs
+unconditionally on the u2a side of every pivot font (not just when
+"retain English" is checked), so several pivot fonts' permutation counts
+improved too: ShreeLipi 1910->1911, Surabhi 1840->1842, Dharma 1611->1612,
+Janna 1731->1772, Shree Deccan 1982->1983, Surabhi KN 814->849.
 
 ## Reporting bugs
 
