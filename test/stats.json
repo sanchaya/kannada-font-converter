@@ -3,21 +3,18 @@
   "casesPerFont": 2077,
   "fonts": {
     "nudi": {
-      "pass": 2076,
-      "fail": 1,
+      "pass": 2077,
+      "fail": 0,
       "u2aFail": 0,
-      "a2uFail": 1,
-      "categories": {
-        "vowel": 1
-      }
+      "a2uFail": 0,
+      "categories": {}
     },
     "shree": {
-      "pass": 1909,
-      "fail": 168,
+      "pass": 1910,
+      "fail": 167,
       "u2aFail": 0,
-      "a2uFail": 168,
+      "a2uFail": 167,
       "categories": {
-        "vowel": 1,
         "halant-final": 3,
         "syllable": 31,
         "conjunct": 102,
@@ -26,12 +23,11 @@
       }
     },
     "prakashak": {
-      "pass": 911,
-      "fail": 1166,
+      "pass": 912,
+      "fail": 1165,
       "u2aFail": 7,
-      "a2uFail": 1159,
+      "a2uFail": 1158,
       "categories": {
-        "vowel": 1,
         "syllable": 164,
         "anusvara": 24,
         "visarga": 24,
@@ -43,12 +39,12 @@
       }
     },
     "akruti": {
-      "pass": 1548,
-      "fail": 529,
+      "pass": 1549,
+      "fail": 528,
       "u2aFail": 1,
-      "a2uFail": 528,
+      "a2uFail": 527,
       "categories": {
-        "vowel": 2,
+        "vowel": 1,
         "syllable": 84,
         "anusvara": 34,
         "visarga": 34,
@@ -59,12 +55,11 @@
       }
     },
     "surabhi": {
-      "pass": 1839,
-      "fail": 238,
+      "pass": 1840,
+      "fail": 237,
       "u2aFail": 1,
-      "a2uFail": 237,
+      "a2uFail": 236,
       "categories": {
-        "vowel": 1,
         "anusvara": 6,
         "visarga": 6,
         "syllable": 26,

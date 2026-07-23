@@ -79,7 +79,7 @@ Current status:
 
 | Font | Round-trip pass rate | Notes |
 |------|---------------------|-------|
-| Nudi / Baraha | 2076 / 2077 | Only bare standalone ಎ fails: its Nudi code is the digit `2`, which is inherently ambiguous with a real numeral |
+| Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
 | ShreeLipi | 1909 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
 | Prakashak | 911 / 2077 | Pivot-ported (Praja). Weakest of the ported fonts - conjunct/vattakshara forms still fail on the u2a side |
 | Akruti | 1548 / 2077 | Pivot-ported (Mono) |
