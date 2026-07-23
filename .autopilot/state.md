@@ -23,9 +23,17 @@ Static HTML + JS app (client-side conversion) with an optional Express server fo
 Hosted on GitHub Pages at converter.sanchaya.net. Node server is secondary.
 
 ## Build/test commands
-- No automated tests exist (Tier B finding - see below)
+- `node test/permutations.js` - 2,077-case round-trip suite per font; writes test/ISSUES.md.
+  RUN AFTER EVERY CONVERSION CHANGE (guards against regression loops).
 - Static smoke: open index.html in browser
 - Server: `PORT=3001 node server.js`
+
+## Conversion backlog (from test/ISSUES.md, 2026-07-23)
+- nudi: 2076/2077 pass. Only bare standalone ಎ (code '2', ambiguous with numeral). Accepted limitation.
+- shree: 699/2077 - conjunct/vattakshara maps largely missing (1090 conjunct fails)
+- prakashak: 257/2077 - syllable + conjunct maps incomplete
+- akruti: 338/2077 - syllable + conjunct maps incomplete
+Work these one font at a time; re-run the suite after each change.
 
 ## Do not touch
 _(nothing flagged yet)_

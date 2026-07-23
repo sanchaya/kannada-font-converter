@@ -86,6 +86,41 @@ curl -X POST http://localhost:3001/api/convert \
 └── .autopilot/         # Maintenance notes
 ```
 
+## Testing
+
+A permutation harness sweeps every consonant x vowel-sign syllable, halant form,
+anusvara/visarga form, and all two-consonant conjuncts (2,077 cases per font)
+through Unicode -> ASCII -> Unicode round-trips:
+
+```bash
+node test/permutations.js          # writes test/ISSUES.md, exits non-zero on failures
+node test/permutations.js --full   # all conjunct+matra combinations
+```
+
+**Run this after every conversion fix** - it regenerates `test/ISSUES.md` and is
+the guard against fixing one case while silently breaking another.
+
+Current status (see `test/ISSUES.md` for details):
+
+| Font | Round-trip pass rate | Notes |
+|------|---------------------|-------|
+| Nudi / Baraha | 2076 / 2077 | Only bare standalone ಎ fails: its Nudi code is the digit `2`, which is inherently ambiguous with a real numeral |
+| ShreeLipi | 699 / 2077 | Conjunct (vattakshara) mappings largely missing |
+| Prakashak | 257 / 2077 | Syllable and conjunct mappings incomplete |
+| Akruti | 338 / 2077 | Syllable and conjunct mappings incomplete |
+
+Recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (windows-1252
+files now convert), vattakshara conjunct reordering (PÀå -> ಕ್ಯ, QÌ -> ಕ್ಕಿ,
+while final halants like ನನ್ stay intact), standalone number preservation, and
+anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
+
+## Reporting bugs
+
+Use the ದೋಷ ವರದಿ button in the app (prefills the GitHub issue with the current
+text, output, font, and direction) or the footer link on any page. The issue
+form collects the original text, the authoring font, the conversion direction,
+and expected vs actual output.
+
 ## Adding an embedded legacy font (future)
 
 The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js/app.js`. To render the ASCII pane in an actual legacy font: add an `@font-face` rule in `css/style.css`, then add one entry to the registry and a matching `<option>` in the toolbar selects.

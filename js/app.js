@@ -308,6 +308,9 @@ const EN_UPPER_NUDI_CONFLICT = new Set([
 function _isEnglishToken(token, fullText, tokenStart) {
     if (!PURE_ASCII_WORD_RE.test(token)) return false;
     if (LATIN_EXT_RE.test(token)) return false;
+    // Lowercase consonant code + anusvara/visarga code (dA=ಜಂ, kB=ಞಃ, ...)
+    // is Nudi encoding, not an English word.
+    if (/^[a-z][AB]$/.test(token)) return false;
     if (token.length === 1) {
         if (NUDI_SINGLE_UPPER.has(token) || NUDI_SINGLE_LOWER.has(token)) return false;
         return false;
