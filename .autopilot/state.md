@@ -28,6 +28,13 @@ Hosted on GitHub Pages at converter.sanchaya.net. Node server is secondary.
 - Static smoke: open index.html in browser
 - Server: `PORT=3001 node server.js`
 
+## KGP macro adoption (see tools/MACRO-REVIEW.md)
+Six KGP Word macro templates reviewed; rule tables extracted to tools/macro-extracts/*.json.
+13 source encodings available (incl. NEW: ISM/KNTT-Nandi, Surabhi, WinKey, Dharma ILs,
+Janna, Suchi, ShreeDeccan). Strategy: port X->NudiMono tables, pivot through existing
+Nudi a2u engine. Porting order: Prakashak(Praja) -> Akruti -> SriLipi KAN-850 ->
+Surabhi KND -> rest. Run test/permutations.js after each port.
+
 ## Conversion backlog (from test/ISSUES.md, 2026-07-23)
 - nudi: 2076/2077 pass. Only bare standalone ಎ (code '2', ambiguous with numeral). Accepted limitation.
 - shree: 699/2077 - conjunct/vattakshara maps largely missing (1090 conjunct fails)

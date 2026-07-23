@@ -1,0 +1,6929 @@
+{
+ "SurabhiKNDSeriesToNudiMono": {
+  "rules": [
+   {
+    "cases": [
+     32
+    ],
+    "case_expr": "32",
+    "output": " ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     33
+    ],
+    "case_expr": "33",
+    "output": "!",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     34
+    ],
+    "case_expr": "34",
+    "output": "'",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     35
+    ],
+    "case_expr": "35",
+    "output": "#",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     36
+    ],
+    "case_expr": "36",
+    "output": "²ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     37
+    ],
+    "case_expr": "37",
+    "output": "%",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     38
+    ],
+    "case_expr": "38",
+    "output": "&",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     39
+    ],
+    "case_expr": "39",
+    "output": "`",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     40
+    ],
+    "case_expr": "40",
+    "output": "(",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     41
+    ],
+    "case_expr": "41",
+    "output": ")",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     42
+    ],
+    "case_expr": "42",
+    "output": "*",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     43
+    ],
+    "case_expr": "43",
+    "output": "+",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     44
+    ],
+    "case_expr": "44",
+    "output": ",",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     45
+    ],
+    "case_expr": "45",
+    "output": "-",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     46
+    ],
+    "case_expr": "46",
+    "output": ".",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     47
+    ],
+    "case_expr": "47",
+    "output": "/",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     48
+    ],
+    "case_expr": "48",
+    "output": "0",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     49
+    ],
+    "case_expr": "49",
+    "output": "1",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     50
+    ],
+    "case_expr": "50",
+    "output": "2",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     51
+    ],
+    "case_expr": "51",
+    "output": "3",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     52
+    ],
+    "case_expr": "52",
+    "output": "4",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     53
+    ],
+    "case_expr": "53",
+    "output": "5",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     54
+    ],
+    "case_expr": "54",
+    "output": "6",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     55
+    ],
+    "case_expr": "55",
+    "output": "7",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     56
+    ],
+    "case_expr": "56",
+    "output": "8",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     57
+    ],
+    "case_expr": "57",
+    "output": ":",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     58
+    ],
+    "case_expr": "58",
+    "output": ":",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     59
+    ],
+    "case_expr": "59",
+    "output": ";",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     60
+    ],
+    "case_expr": "60",
+    "output": "<",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     61
+    ],
+    "case_expr": "61",
+    "output": "=",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     62
+    ],
+    "case_expr": "62",
+    "output": ">",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     63
+    ],
+    "case_expr": "63",
+    "output": "?",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     64
+    ],
+    "case_expr": "64",
+    "output": "0",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     65
+    ],
+    "case_expr": "65",
+    "output": "1",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     66
+    ],
+    "case_expr": "66",
+    "output": "2",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     67
+    ],
+    "case_expr": "67",
+    "output": "3",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     68
+    ],
+    "case_expr": "68",
+    "output": "4",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     69
+    ],
+    "case_expr": "69",
+    "output": "5",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     70
+    ],
+    "case_expr": "70",
+    "output": "6",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     71
+    ],
+    "case_expr": "71",
+    "output": "7",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     72
+    ],
+    "case_expr": "72",
+    "output": "8",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     73
+    ],
+    "case_expr": "73",
+    "output": "9",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     74
+    ],
+    "case_expr": "74",
+    "output": "C",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     75
+    ],
+    "case_expr": "75",
+    "output": "D",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     76
+    ],
+    "case_expr": "76",
+    "output": "E",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     77
+    ],
+    "case_expr": "77",
+    "output": "F",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     78
+    ],
+    "case_expr": "78",
+    "output": "G",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     79
+    ],
+    "case_expr": "79",
+    "output": "H",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     80
+    ],
+    "case_expr": "80",
+    "output": "I",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     81
+    ],
+    "case_expr": "81",
+    "output": "J",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     82
+    ],
+    "case_expr": "82",
+    "output": "K",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     83
+    ],
+    "case_expr": "83",
+    "output": "L",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     84
+    ],
+    "case_expr": "84",
+    "output": "M",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     85
+    ],
+    "case_expr": "85",
+    "output": "N",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     86
+    ],
+    "case_expr": "86",
+    "output": "O",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     87
+    ],
+    "case_expr": "87",
+    "output": "A",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     88
+    ],
+    "case_expr": "88",
+    "output": "B",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     89
+    ],
+    "case_expr": "89",
+    "output": "P",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     90
+    ],
+    "case_expr": "90",
+    "output": "Q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     91
+    ],
+    "case_expr": "91",
+    "output": "Ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     92
+    ],
+    "case_expr": "92",
+    "output": "Ìæ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     93
+    ],
+    "case_expr": "93",
+    "output": "R",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     94
+    ],
+    "case_expr": "94",
+    "output": "S",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     95
+    ],
+    "case_expr": "95",
+    "output": "T",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     96
+    ],
+    "case_expr": "96",
+    "output": "Í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     97
+    ],
+    "case_expr": "97",
+    "output": "U",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     98
+    ],
+    "case_expr": "98",
+    "output": "V",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     99
+    ],
+    "case_expr": "99",
+    "output": "Î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     100
+    ],
+    "case_expr": "100",
+    "output": "W",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     101
+    ],
+    "case_expr": "101",
+    "output": "X",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     102
+    ],
+    "case_expr": "102",
+    "output": "Ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     103
+    ],
+    "case_expr": "103",
+    "output": "Y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     104
+    ],
+    "case_expr": "104",
+    "output": "Ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     105
+    ],
+    "case_expr": "105",
+    "output": "Z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     106
+    ],
+    "case_expr": "106",
+    "output": "a",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     107
+    ],
+    "case_expr": "107",
+    "output": "Ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     108
+    ],
+    "case_expr": "108",
+    "output": "b",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     109
+    ],
+    "case_expr": "109",
+    "output": "c",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     110
+    ],
+    "case_expr": "110",
+    "output": "Ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     111
+    ],
+    "case_expr": "111",
+    "output": "d",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     112
+    ],
+    "case_expr": "112",
+    "output": "e",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     113
+    ],
+    "case_expr": "113",
+    "output": "f",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     114
+    ],
+    "case_expr": "114",
+    "output": "Ó",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     115
+    ],
+    "case_expr": "115",
+    "output": "Ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     116
+    ],
+    "case_expr": "116",
+    "output": "k",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     117
+    ],
+    "case_expr": "117",
+    "output": "Õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     118
+    ],
+    "case_expr": "118",
+    "output": "l",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     119
+    ],
+    "case_expr": "119",
+    "output": "m",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     120
+    ],
+    "case_expr": "120",
+    "output": "n",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     121
+    ],
+    "case_expr": "121",
+    "output": "Ö",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     122
+    ],
+    "case_expr": "122",
+    "output": "Öç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     123
+    ],
+    "case_expr": "123",
+    "output": "o",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     124
+    ],
+    "case_expr": "124",
+    "output": "p",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     125
+    ],
+    "case_expr": "125",
+    "output": "×",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     126
+    ],
+    "case_expr": "126",
+    "output": "q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     127
+    ],
+    "case_expr": "127",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     128
+    ],
+    "case_expr": "128",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     129
+    ],
+    "case_expr": "129",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     130
+    ],
+    "case_expr": "130",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     131
+    ],
+    "case_expr": "131",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     132
+    ],
+    "case_expr": "132",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     133
+    ],
+    "case_expr": "133",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     134
+    ],
+    "case_expr": "134",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     135
+    ],
+    "case_expr": "135",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     136
+    ],
+    "case_expr": "136",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     137
+    ],
+    "case_expr": "137",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     138
+    ],
+    "case_expr": "138",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     139
+    ],
+    "case_expr": "139",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     140
+    ],
+    "case_expr": "140",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     141
+    ],
+    "case_expr": "141",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     142
+    ],
+    "case_expr": "142",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     143
+    ],
+    "case_expr": "143",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     144
+    ],
+    "case_expr": "144",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     145
+    ],
+    "case_expr": "145",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     146
+    ],
+    "case_expr": "146",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     147
+    ],
+    "case_expr": "147",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     148
+    ],
+    "case_expr": "148",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     149
+    ],
+    "case_expr": "149",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     150
+    ],
+    "case_expr": "150",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     151
+    ],
+    "case_expr": "151",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     152
+    ],
+    "case_expr": "152",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     153
+    ],
+    "case_expr": "153",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     154
+    ],
+    "case_expr": "154",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     155
+    ],
+    "case_expr": "155",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     156
+    ],
+    "case_expr": "156",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     157
+    ],
+    "case_expr": "157",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     158
+    ],
+    "case_expr": "158",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     159
+    ],
+    "case_expr": "159",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     160
+    ],
+    "case_expr": "160",
+    "output": "ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     161
+    ],
+    "case_expr": "161",
+    "output": "r",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     162
+    ],
+    "case_expr": "162",
+    "output": "Ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     163
+    ],
+    "case_expr": "163",
+    "output": "qs",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     164
+    ],
+    "case_expr": "164",
+    "output": "rs",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     165
+    ],
+    "case_expr": "165",
+    "output": "Ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     166
+    ],
+    "case_expr": "166",
+    "output": "t",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     167
+    ],
+    "case_expr": "167",
+    "output": "u",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     168
+    ],
+    "case_expr": "168",
+    "output": "tÂ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     169
+    ],
+    "case_expr": "169",
+    "output": "Ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     170
+    ],
+    "case_expr": "170",
+    "output": "Û",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     171
+    ],
+    "case_expr": "171",
+    "output": "v",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     172
+    ],
+    "case_expr": "172",
+    "output": "w",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     173
+    ],
+    "case_expr": "173",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     174
+    ],
+    "case_expr": "174",
+    "output": "Ûø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     175
+    ],
+    "case_expr": "175",
+    "output": "ÛÊ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     176
+    ],
+    "case_expr": "176",
+    "output": "Ûå",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     177
+    ],
+    "case_expr": "177",
+    "output": "Ûç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     178
+    ],
+    "case_expr": "178",
+    "output": "x",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     179
+    ],
+    "case_expr": "179",
+    "output": "y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     180
+    ],
+    "case_expr": "180",
+    "output": "Ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     181
+    ],
+    "case_expr": "181",
+    "output": "z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     182
+    ],
+    "case_expr": "182",
+    "output": "¢",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     183
+    ],
+    "case_expr": "183",
+    "output": "Ý",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     184
+    ],
+    "case_expr": "184",
+    "output": "zs",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     185
+    ],
+    "case_expr": "185",
+    "output": "¢s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     186
+    ],
+    "case_expr": "186",
+    "output": "Þ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     187
+    ],
+    "case_expr": "187",
+    "output": "£",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     188
+    ],
+    "case_expr": "188",
+    "output": "¤",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     189
+    ],
+    "case_expr": "189",
+    "output": "ß",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     190
+    ],
+    "case_expr": "190",
+    "output": "¥",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     191
+    ],
+    "case_expr": "191",
+    "output": "¦",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     192
+    ],
+    "case_expr": "192",
+    "output": "à",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     193
+    ],
+    "case_expr": "193",
+    "output": "àæ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     194
+    ],
+    "case_expr": "194",
+    "output": "¥s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     195
+    ],
+    "case_expr": "195",
+    "output": "¦s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     196
+    ],
+    "case_expr": "196",
+    "output": "á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     197
+    ],
+    "case_expr": "197",
+    "output": "§",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     198
+    ],
+    "case_expr": "198",
+    "output": "¨",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     199
+    ],
+    "case_expr": "199",
+    "output": "©",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     200
+    ],
+    "case_expr": "200",
+    "output": "â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     201
+    ],
+    "case_expr": "201",
+    "output": "¨s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     202
+    ],
+    "case_expr": "202",
+    "output": "©s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     203
+    ],
+    "case_expr": "203",
+    "output": "ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     204
+    ],
+    "case_expr": "204",
+    "output": "ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     205
+    ],
+    "case_expr": "205",
+    "output": "AÄ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     206
+    ],
+    "case_expr": "206",
+    "output": "¬",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     207
+    ],
+    "case_expr": "207",
+    "output": "å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     208
+    ],
+    "case_expr": "208",
+    "output": "g",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     209
+    ],
+    "case_expr": "209",
+    "output": "j",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     210
+    ],
+    "case_expr": "210",
+    "output": "ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     211
+    ],
+    "case_expr": "211",
+    "output": "ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     212
+    ],
+    "case_expr": "212",
+    "output": "®",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     213
+    ],
+    "case_expr": "213",
+    "output": "¯",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     214
+    ],
+    "case_expr": "214",
+    "output": "°",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     215
+    ],
+    "case_expr": "215",
+    "output": "è",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     216
+    ],
+    "case_expr": "216",
+    "output": "ª",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     217
+    ],
+    "case_expr": "217",
+    "output": "«",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     218
+    ],
+    "case_expr": "218",
+    "output": "é",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     219
+    ],
+    "case_expr": "219",
+    "output": "¿",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     220
+    ],
+    "case_expr": "220",
+    "output": "ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     221
+    ],
+    "case_expr": "221",
+    "output": "±",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     222
+    ],
+    "case_expr": "222",
+    "output": "²",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     223
+    ],
+    "case_expr": "223",
+    "output": "ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     224
+    ],
+    "case_expr": "224",
+    "output": "µ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     225
+    ],
+    "case_expr": "225",
+    "output": "¶",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     226
+    ],
+    "case_expr": "226",
+    "output": "ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     227
+    ],
+    "case_expr": "227",
+    "output": "¸",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     228
+    ],
+    "case_expr": "228",
+    "output": "¹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     229
+    ],
+    "case_expr": "229",
+    "output": "ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     230
+    ],
+    "case_expr": "230",
+    "output": "º",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     231
+    ],
+    "case_expr": "231",
+    "output": "»",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     232
+    ],
+    "case_expr": "232",
+    "output": "í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     233
+    ],
+    "case_expr": "233",
+    "output": "¼",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     234
+    ],
+    "case_expr": "234",
+    "output": "½",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     235
+    ],
+    "case_expr": "235",
+    "output": "î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     236
+    ],
+    "case_expr": "236",
+    "output": "¾",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     237
+    ],
+    "case_expr": "237",
+    "output": "ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     238
+    ],
+    "case_expr": "238",
+    "output": "ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     239
+    ],
+    "case_expr": "239",
+    "output": "À",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     240
+    ],
+    "case_expr": "240",
+    "output": "Ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     241
+    ],
+    "case_expr": "241",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     242
+    ],
+    "case_expr": "242",
+    "output": "Á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     243
+    ],
+    "case_expr": "243",
+    "output": "Â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     244
+    ],
+    "case_expr": "244",
+    "output": "Ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     245
+    ],
+    "case_expr": "245",
+    "output": "Ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     246
+    ],
+    "case_expr": "246",
+    "output": "Å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     247
+    ],
+    "case_expr": "247",
+    "output": "Æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     248
+    ],
+    "case_expr": "248",
+    "output": "Ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     249
+    ],
+    "case_expr": "249",
+    "output": "È",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     250
+    ],
+    "case_expr": "250",
+    "output": "ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     251
+    ],
+    "case_expr": "251",
+    "output": "É",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     252
+    ],
+    "case_expr": "252",
+    "output": "Ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     253
+    ],
+    "case_expr": "253",
+    "output": "Ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     254
+    ],
+    "case_expr": "254",
+    "output": "ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     255
+    ],
+    "case_expr": "255",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(134)\nEnd Select\nSelection.Font.Name = \"Nudi 01 k\"\nEnd If\nSelection.MoveRight Unit:=wdCharacter, Count:=1\nengchar = 0\na1:\nLoop\nSelection.MoveRight Unit:=wdCharacter, Count:=1, Extend:=wdExtend\nSelection.Delete Unit:=wdCharacter, Count:=1"
+   }
+  ],
+  "simple": 189,
+  "complex": 1
+ },
+ "SurubhiKNToNudiMono": {
+  "rules": [
+   {
+    "cases": [
+     32
+    ],
+    "case_expr": "32",
+    "output": " ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     33
+    ],
+    "case_expr": "33",
+    "output": "!",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     34
+    ],
+    "case_expr": "34",
+    "output": "'",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     35
+    ],
+    "case_expr": "35",
+    "output": "#",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     36
+    ],
+    "case_expr": "36",
+    "output": "²æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     37
+    ],
+    "case_expr": "37",
+    "output": "%",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     38
+    ],
+    "case_expr": "38",
+    "output": "&",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     39
+    ],
+    "case_expr": "39",
+    "output": "`",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     40
+    ],
+    "case_expr": "40",
+    "output": "(",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     41
+    ],
+    "case_expr": "41",
+    "output": ")",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     42
+    ],
+    "case_expr": "42",
+    "output": "*",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     43
+    ],
+    "case_expr": "43",
+    "output": "+",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     44
+    ],
+    "case_expr": "44",
+    "output": ",",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     45
+    ],
+    "case_expr": "45",
+    "output": "-",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     46
+    ],
+    "case_expr": "46",
+    "output": ".",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     47
+    ],
+    "case_expr": "47",
+    "output": "/",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     48
+    ],
+    "case_expr": "48",
+    "output": "0",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     49
+    ],
+    "case_expr": "49",
+    "output": "1",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     50
+    ],
+    "case_expr": "50",
+    "output": "2",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     51
+    ],
+    "case_expr": "51",
+    "output": "3",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     52
+    ],
+    "case_expr": "52",
+    "output": "4",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     53
+    ],
+    "case_expr": "53",
+    "output": "5",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     54
+    ],
+    "case_expr": "54",
+    "output": "6",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     55
+    ],
+    "case_expr": "55",
+    "output": "7",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     56
+    ],
+    "case_expr": "56",
+    "output": "8",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     57
+    ],
+    "case_expr": "57",
+    "output": "9",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     58
+    ],
+    "case_expr": "58",
+    "output": ":",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     59
+    ],
+    "case_expr": "59",
+    "output": "_",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     60
+    ],
+    "case_expr": "60",
+    "output": "<",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     61
+    ],
+    "case_expr": "61",
+    "output": "=",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     62
+    ],
+    "case_expr": "62",
+    "output": ">",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     63
+    ],
+    "case_expr": "63",
+    "output": "?",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     64
+    ],
+    "case_expr": "64",
+    "output": "@",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     65
+    ],
+    "case_expr": "65",
+    "output": "D",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     66
+    ],
+    "case_expr": "66",
+    "output": "â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     67
+    ],
+    "case_expr": "67",
+    "output": "Ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     68
+    ],
+    "case_expr": "68",
+    "output": "Ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     69
+    ],
+    "case_expr": "69",
+    "output": "dÕ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     70
+    ],
+    "case_expr": "70",
+    "output": "Ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     71
+    ],
+    "case_expr": "71",
+    "output": "Î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     72
+    ],
+    "case_expr": "72",
+    "output": "R",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     73
+    ],
+    "case_expr": "73",
+    "output": "Ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     74
+    ],
+    "case_expr": "74",
+    "output": "Ó",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     75
+    ],
+    "case_expr": "75",
+    "output": "Ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     76
+    ],
+    "case_expr": "76",
+    "output": "è",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     77
+    ],
+    "case_expr": "77",
+    "output": "ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     78
+    ],
+    "case_expr": "78",
+    "output": "ß",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     79
+    ],
+    "case_expr": "79",
+    "output": "ÄÁ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     80
+    ],
+    "case_expr": "80",
+    "output": "à",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     81
+    ],
+    "case_expr": "81",
+    "output": "ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     82
+    ],
+    "case_expr": "82",
+    "output": "ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     83
+    ],
+    "case_expr": "83",
+    "output": "ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     84
+    ],
+    "case_expr": "84",
+    "output": "Ö",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     85
+    ],
+    "case_expr": "85",
+    "output": "G",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     86
+    ],
+    "case_expr": "86",
+    "output": "é",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     87
+    ],
+    "case_expr": "87",
+    "output": "Û",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     88
+    ],
+    "case_expr": "88",
+    "output": "î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     89
+    ],
+    "case_expr": "89",
+    "output": "É",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     90
+    ],
+    "case_expr": "90",
+    "output": "Ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     91
+    ],
+    "case_expr": "91",
+    "output": "[",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     92
+    ],
+    "case_expr": "92",
+    "output": "É",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     93
+    ],
+    "case_expr": "93",
+    "output": "]",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     94
+    ],
+    "case_expr": "94",
+    "output": "^",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     95
+    ],
+    "case_expr": "95",
+    "output": "I",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     96
+    ],
+    "case_expr": "96",
+    "output": "µ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     97
+    ],
+    "case_expr": "97",
+    "output": "C",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     98
+    ],
+    "case_expr": "98",
+    "output": "§",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     99
+    ],
+    "case_expr": "99",
+    "output": "Z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     100
+    ],
+    "case_expr": "100",
+    "output": "q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     101
+    ],
+    "case_expr": "101",
+    "output": "E",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     102
+    ],
+    "case_expr": "102",
+    "output": "Á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     103
+    ],
+    "case_expr": "103",
+    "output": "U",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     104
+    ],
+    "case_expr": "104",
+    "output": "º",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     105
+    ],
+    "case_expr": "105",
+    "output": "J",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     106
+    ],
+    "case_expr": "106",
+    "output": "d",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     107
+    ],
+    "case_expr": "107",
+    "output": "P",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     108
+    ],
+    "case_expr": "108",
+    "output": "®",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     109
+    ],
+    "case_expr": "109",
+    "output": "A",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     110
+    ],
+    "case_expr": "110",
+    "output": "£",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     111
+    ],
+    "case_expr": "111",
+    "output": "M",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     112
+    ],
+    "case_expr": "112",
+    "output": "¥",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     113
+    ],
+    "case_expr": "113",
+    "output": "±",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     114
+    ],
+    "case_expr": "114",
+    "output": "g",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     115
+    ],
+    "case_expr": "115",
+    "output": "¸",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     116
+    ],
+    "case_expr": "116",
+    "output": "l",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     117
+    ],
+    "case_expr": "117",
+    "output": "i",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     118
+    ],
+    "case_expr": "118",
+    "output": "ª",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     119
+    ],
+    "case_expr": "119",
+    "output": "v",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     120
+    ],
+    "case_expr": "120",
+    "output": "¼",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     121
+    ],
+    "case_expr": "121",
+    "output": "À",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     122
+    ],
+    "case_expr": "122",
+    "output": "t",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     123
+    ],
+    "case_expr": "123",
+    "output": "{",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     124
+    ],
+    "case_expr": "124",
+    "output": "ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     125
+    ],
+    "case_expr": "125",
+    "output": "}",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     126
+    ],
+    "case_expr": "126",
+    "output": "ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     127
+    ],
+    "case_expr": "127",
+    "output": ";",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     145
+    ],
+    "case_expr": "145",
+    "output": "`",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     146
+    ],
+    "case_expr": "146",
+    "output": "'",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     147
+    ],
+    "case_expr": "147",
+    "output": "``",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     148
+    ],
+    "case_expr": "148",
+    "output": "''",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     150
+    ],
+    "case_expr": "150",
+    "output": "-",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     151
+    ],
+    "case_expr": "151",
+    "output": "--",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     152
+    ],
+    "case_expr": "152",
+    "output": "ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     153
+    ],
+    "case_expr": "153",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     154
+    ],
+    "case_expr": "154",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     155
+    ],
+    "case_expr": "155",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     156
+    ],
+    "case_expr": "156",
+    "output": "Ai",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     157
+    ],
+    "case_expr": "157",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     158
+    ],
+    "case_expr": "158",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     159
+    ],
+    "case_expr": "159",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     160
+    ],
+    "case_expr": "160",
+    "output": null,
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     161
+    ],
+    "case_expr": "161",
+    "output": "¾",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     162
+    ],
+    "case_expr": "162",
+    "output": "f",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     163
+    ],
+    "case_expr": "163",
+    "output": "V",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     164
+    ],
+    "case_expr": "164",
+    "output": "F",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     165
+    ],
+    "case_expr": "165",
+    "output": "×",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     166
+    ],
+    "case_expr": "166",
+    "output": "àç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     167
+    ],
+    "case_expr": "167",
+    "output": "ìç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     168
+    ],
+    "case_expr": "168",
+    "output": "b",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     169
+    ],
+    "case_expr": "169",
+    "output": "a",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     170
+    ],
+    "case_expr": "170",
+    "output": "¶",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     171
+    ],
+    "case_expr": "171",
+    "output": "ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     172
+    ],
+    "case_expr": "172",
+    "output": "Ìø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     173
+    ],
+    "case_expr": "173",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     174
+    ],
+    "case_expr": "174",
+    "output": "j",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     175
+    ],
+    "case_expr": "175",
+    "output": "á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     176
+    ],
+    "case_expr": "176",
+    "output": "Œ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     177
+    ],
+    "case_expr": "177",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(162) & Chr(252) ' or 115"
+   },
+   {
+    "cases": [
+     178
+    ],
+    "case_expr": "178",
+    "output": "©",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     179
+    ],
+    "case_expr": "179",
+    "output": "n",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     180
+    ],
+    "case_expr": "180",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(122) & Chr(252) ' or 115"
+   },
+   {
+    "cases": [
+     181
+    ],
+    "case_expr": "181",
+    "output": "B",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     182
+    ],
+    "case_expr": "182",
+    "output": "÷",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     183
+    ],
+    "case_expr": "183",
+    "output": "‹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     184
+    ],
+    "case_expr": "184",
+    "output": "»",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     185
+    ],
+    "case_expr": "185",
+    "output": "¿",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     186
+    ],
+    "case_expr": "186",
+    "output": "ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     187
+    ],
+    "case_expr": "187",
+    "output": "ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     188
+    ],
+    "case_expr": "188",
+    "output": "Ûø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     189
+    ],
+    "case_expr": "189",
+    "output": "ÛÊ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     190
+    ],
+    "case_expr": "190",
+    "output": "Ûå",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     191
+    ],
+    "case_expr": "191",
+    "output": "Ìç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     192
+    ],
+    "case_expr": "192",
+    "output": "T",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     193
+    ],
+    "case_expr": "193",
+    "output": "Í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     194
+    ],
+    "case_expr": "194",
+    "output": "R",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     195
+    ],
+    "case_expr": "195",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(165) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     196
+    ],
+    "case_expr": "196",
+    "output": "ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     197
+    ],
+    "case_expr": "197",
+    "output": "Ûç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     198
+    ],
+    "case_expr": "198",
+    "output": "u",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     199
+    ],
+    "case_expr": "199",
+    "output": "Ý",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     200
+    ],
+    "case_expr": "200",
+    "output": "Þ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     201
+    ],
+    "case_expr": "201",
+    "output": "Y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     202
+    ],
+    "case_expr": "202",
+    "output": "Ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     203
+    ],
+    "case_expr": "203",
+    "output": "«",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     204
+    ],
+    "case_expr": "204",
+    "output": "½",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     205
+    ],
+    "case_expr": "205",
+    "output": "È",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     206
+    ],
+    "case_expr": "206",
+    "output": "Â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     207
+    ],
+    "case_expr": "207",
+    "output": "c",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     208
+    ],
+    "case_expr": "208",
+    "output": "Öç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     209
+    ],
+    "case_expr": "209",
+    "output": "¨",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     210
+    ],
+    "case_expr": "210",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(168) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     211
+    ],
+    "case_expr": "211",
+    "output": "O",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     212
+    ],
+    "case_expr": "212",
+    "output": "Q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     213
+    ],
+    "case_expr": "213",
+    "output": "X",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     214
+    ],
+    "case_expr": "214",
+    "output": "W",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     215
+    ],
+    "case_expr": "215",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     216
+    ],
+    "case_expr": "216",
+    "output": "¯",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     217
+    ],
+    "case_expr": "217",
+    "output": "á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     218
+    ],
+    "case_expr": "218",
+    "output": "H",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     219
+    ],
+    "case_expr": "219",
+    "output": "p",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     220
+    ],
+    "case_expr": "220",
+    "output": "ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     221
+    ],
+    "case_expr": "221",
+    "output": "o",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     222
+    ],
+    "case_expr": "222",
+    "output": "m",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     223
+    ],
+    "case_expr": "223",
+    "output": "¹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     224
+    ],
+    "case_expr": "224",
+    "output": "Ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     225
+    ],
+    "case_expr": "225",
+    "output": "í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     226
+    ],
+    "case_expr": "226",
+    "output": "x",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     227
+    ],
+    "case_expr": "227",
+    "output": "y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     228
+    ],
+    "case_expr": "228",
+    "output": "²",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     229
+    ],
+    "case_expr": "229",
+    "output": "w",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     230
+    ],
+    "case_expr": "230",
+    "output": "tÂ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     231
+    ],
+    "case_expr": "231",
+    "output": "z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     232
+    ],
+    "case_expr": "232",
+    "output": "¢",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     233
+    ],
+    "case_expr": "233",
+    "output": "k",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     234
+    ],
+    "case_expr": "234",
+    "output": "Õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     235
+    ],
+    "case_expr": "235",
+    "output": "e",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     236
+    ],
+    "case_expr": "236",
+    "output": "Ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     237
+    ],
+    "case_expr": "237",
+    "output": "K",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     238
+    ],
+    "case_expr": "238",
+    "output": "L",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     239
+    ],
+    "case_expr": "239",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(113) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     240
+    ],
+    "case_expr": "240",
+    "output": "Ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     241
+    ],
+    "case_expr": "241",
+    "output": "¤",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     242
+    ],
+    "case_expr": "242",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(166) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     243
+    ],
+    "case_expr": "243",
+    "output": "N",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     244
+    ],
+    "case_expr": "244",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(114) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     245
+    ],
+    "case_expr": "245",
+    "output": "r",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     246
+    ],
+    "case_expr": "246",
+    "output": "¦",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     247
+    ],
+    "case_expr": "247",
+    "output": "‹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     248
+    ],
+    "case_expr": "248",
+    "output": "°",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     249
+    ],
+    "case_expr": "249",
+    "output": "Å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     250
+    ],
+    "case_expr": "250",
+    "output": "Æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     251
+    ],
+    "case_expr": "251",
+    "output": "Ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     252
+    ],
+    "case_expr": "252",
+    "output": "i",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     253
+    ],
+    "case_expr": "253",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(169) & Chr(252) 'or 115"
+   },
+   {
+    "cases": [
+     254
+    ],
+    "case_expr": "254",
+    "output": "ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     255
+    ],
+    "case_expr": "255",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(47)\nEnd Select\nSelection.Font.Name = \"Nudi 01 k\"\nEnd If\nSelection.MoveRight Unit:=wdCharacter, Count:=1\nengchar = 0\na1:\nLoop\nSelection.MoveRight Unit:=wdCharacter, Count:=1, Extend:=wdExtend\nSelection.Delete Unit:=wdCharacter, Count:=1"
+   }
+  ],
+  "simple": 189,
+  "complex": 10
+ },
+ "NudiMonoToNudiBi": {
+  "rules": [
+   {
+    "cases": [
+     32
+    ],
+    "case_expr": "32",
+    "output": " ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     33
+    ],
+    "case_expr": "33",
+    "output": "!",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     34
+    ],
+    "case_expr": "34",
+    "output": "\"",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     35
+    ],
+    "case_expr": "35",
+    "output": "#",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     36
+    ],
+    "case_expr": "36",
+    "output": "$",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     37
+    ],
+    "case_expr": "37",
+    "output": "%",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     38
+    ],
+    "case_expr": "38",
+    "output": "&",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     39
+    ],
+    "case_expr": "39",
+    "output": "'",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     40
+    ],
+    "case_expr": "40",
+    "output": "(",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     41
+    ],
+    "case_expr": "41",
+    "output": ")",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     42
+    ],
+    "case_expr": "42",
+    "output": "*",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     43
+    ],
+    "case_expr": "43",
+    "output": "+",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     44
+    ],
+    "case_expr": "44",
+    "output": ",",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     45
+    ],
+    "case_expr": "45",
+    "output": "-",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     46
+    ],
+    "case_expr": "46",
+    "output": ".",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     47
+    ],
+    "case_expr": "47",
+    "output": "/",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     48
+    ],
+    "case_expr": "48",
+    "output": "0",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     49
+    ],
+    "case_expr": "49",
+    "output": "1",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     50
+    ],
+    "case_expr": "50",
+    "output": "2",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     51
+    ],
+    "case_expr": "51",
+    "output": "3",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     52
+    ],
+    "case_expr": "52",
+    "output": "4",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     53
+    ],
+    "case_expr": "53",
+    "output": "5",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     54
+    ],
+    "case_expr": "54",
+    "output": "6",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     55
+    ],
+    "case_expr": "55",
+    "output": "7",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     56
+    ],
+    "case_expr": "56",
+    "output": "8",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     57
+    ],
+    "case_expr": "57",
+    "output": "9",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     58
+    ],
+    "case_expr": "58",
+    "output": ":",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     59
+    ],
+    "case_expr": "59",
+    "output": ";",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     60
+    ],
+    "case_expr": "60",
+    "output": "<",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     61
+    ],
+    "case_expr": "61",
+    "output": "=",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     62
+    ],
+    "case_expr": "62",
+    "output": ">",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     63
+    ],
+    "case_expr": "63",
+    "output": "?",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     64
+    ],
+    "case_expr": "64",
+    "output": "@",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     65
+    ],
+    "case_expr": "65",
+    "output": "�",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     66
+    ],
+    "case_expr": "66",
+    "output": "‚",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     67
+    ],
+    "case_expr": "67",
+    "output": "ƒ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     68
+    ],
+    "case_expr": "68",
+    "output": "„",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     69
+    ],
+    "case_expr": "69",
+    "output": "…",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     70
+    ],
+    "case_expr": "70",
+    "output": "†",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     71
+    ],
+    "case_expr": "71",
+    "output": "‡",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     72
+    ],
+    "case_expr": "72",
+    "output": "ˆ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     73
+    ],
+    "case_expr": "73",
+    "output": "‰",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     74
+    ],
+    "case_expr": "74",
+    "output": "Š",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     75
+    ],
+    "case_expr": "75",
+    "output": "‹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     76
+    ],
+    "case_expr": "76",
+    "output": "Œ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     77
+    ],
+    "case_expr": "77",
+    "output": "�",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     78
+    ],
+    "case_expr": "78",
+    "output": "�",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     79
+    ],
+    "case_expr": "79",
+    "output": "�",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     80
+    ],
+    "case_expr": "80",
+    "output": "‘",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     81
+    ],
+    "case_expr": "81",
+    "output": "’",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     82
+    ],
+    "case_expr": "82",
+    "output": "“",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     83
+    ],
+    "case_expr": "83",
+    "output": "”",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     84
+    ],
+    "case_expr": "84",
+    "output": "•",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     85
+    ],
+    "case_expr": "85",
+    "output": "–",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     86
+    ],
+    "case_expr": "86",
+    "output": "—",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     87
+    ],
+    "case_expr": "87",
+    "output": "˜",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     88
+    ],
+    "case_expr": "88",
+    "output": "™",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     89
+    ],
+    "case_expr": "89",
+    "output": "š",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     90
+    ],
+    "case_expr": "90",
+    "output": "›",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     97
+    ],
+    "case_expr": "97",
+    "output": "œ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     98
+    ],
+    "case_expr": "98",
+    "output": "�",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     99
+    ],
+    "case_expr": "99",
+    "output": "Ÿ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     100
+    ],
+    "case_expr": "100",
+    "output": "¡",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     101
+    ],
+    "case_expr": "101",
+    "output": "¢",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     102
+    ],
+    "case_expr": "102",
+    "output": "£",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     103
+    ],
+    "case_expr": "103",
+    "output": "¤",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     104
+    ],
+    "case_expr": "104",
+    "output": "¥",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     105
+    ],
+    "case_expr": "105",
+    "output": "¦",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     106
+    ],
+    "case_expr": "106",
+    "output": "§",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     107
+    ],
+    "case_expr": "107",
+    "output": "¨",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     108
+    ],
+    "case_expr": "108",
+    "output": "©",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     109
+    ],
+    "case_expr": "109",
+    "output": "ª",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     110
+    ],
+    "case_expr": "110",
+    "output": "«",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     111
+    ],
+    "case_expr": "111",
+    "output": "¬",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     112
+    ],
+    "case_expr": "112",
+    "output": "­",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     113
+    ],
+    "case_expr": "113",
+    "output": "®",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     114
+    ],
+    "case_expr": "114",
+    "output": "¯",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     115
+    ],
+    "case_expr": "115",
+    "output": "°",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     116
+    ],
+    "case_expr": "116",
+    "output": "±",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     117
+    ],
+    "case_expr": "117",
+    "output": "²",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     118
+    ],
+    "case_expr": "118",
+    "output": "³",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     119
+    ],
+    "case_expr": "119",
+    "output": "´",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     120
+    ],
+    "case_expr": "120",
+    "output": "µ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     121
+    ],
+    "case_expr": "121",
+    "output": "¶",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     122
+    ],
+    "case_expr": "122",
+    "output": "·",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     132
+    ],
+    "case_expr": "132",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     133
+    ],
+    "case_expr": "133",
+    "output": "_",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     134
+    ],
+    "case_expr": "134",
+    "output": "|",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     135
+    ],
+    "case_expr": "135",
+    "output": "||",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     137
+    ],
+    "case_expr": "137",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     138
+    ],
+    "case_expr": "138",
+    "output": "--",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     139
+    ],
+    "case_expr": "139",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     162
+    ],
+    "case_expr": "162",
+    "output": "¸",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     163
+    ],
+    "case_expr": "163",
+    "output": "¹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     164
+    ],
+    "case_expr": "164",
+    "output": "º",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     165
+    ],
+    "case_expr": "165",
+    "output": "»",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     166
+    ],
+    "case_expr": "166",
+    "output": "¼",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     167
+    ],
+    "case_expr": "167",
+    "output": "½",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     168
+    ],
+    "case_expr": "168",
+    "output": "¾",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     169
+    ],
+    "case_expr": "169",
+    "output": "¿",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     170
+    ],
+    "case_expr": "170",
+    "output": "À",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     171
+    ],
+    "case_expr": "171",
+    "output": "Á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     172
+    ],
+    "case_expr": "172",
+    "output": "Â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     174
+    ],
+    "case_expr": "174",
+    "output": "Ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     175
+    ],
+    "case_expr": "175",
+    "output": "Ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     176
+    ],
+    "case_expr": "176",
+    "output": "Å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     177
+    ],
+    "case_expr": "177",
+    "output": "Æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     178
+    ],
+    "case_expr": "178",
+    "output": "Ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     181
+    ],
+    "case_expr": "181",
+    "output": "È",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     182
+    ],
+    "case_expr": "182",
+    "output": "É",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     184
+    ],
+    "case_expr": "184",
+    "output": "Ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     185
+    ],
+    "case_expr": "185",
+    "output": "Ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     186
+    ],
+    "case_expr": "186",
+    "output": "Ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     187
+    ],
+    "case_expr": "187",
+    "output": "Í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     188
+    ],
+    "case_expr": "188",
+    "output": "Î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     189
+    ],
+    "case_expr": "189",
+    "output": "Ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     190
+    ],
+    "case_expr": "190",
+    "output": "¤Ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     191
+    ],
+    "case_expr": "191",
+    "output": "ÎÐ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     192
+    ],
+    "case_expr": "192",
+    "output": "Ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     193
+    ],
+    "case_expr": "193",
+    "output": "Ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     194
+    ],
+    "case_expr": "194",
+    "output": "Ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     195
+    ],
+    "case_expr": "195",
+    "output": "Ó",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     196
+    ],
+    "case_expr": "196",
+    "output": "Ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     197
+    ],
+    "case_expr": "197",
+    "output": "Õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     198
+    ],
+    "case_expr": "198",
+    "output": "Ö",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     199
+    ],
+    "case_expr": "199",
+    "output": "×",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     200
+    ],
+    "case_expr": "200",
+    "output": "Ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     201
+    ],
+    "case_expr": "201",
+    "output": "Ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     202
+    ],
+    "case_expr": "202",
+    "output": "Ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     203
+    ],
+    "case_expr": "203",
+    "output": "Û",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     204
+    ],
+    "case_expr": "204",
+    "output": "Ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     205
+    ],
+    "case_expr": "205",
+    "output": "Ý",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     206
+    ],
+    "case_expr": "206",
+    "output": "Þ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     207
+    ],
+    "case_expr": "207",
+    "output": "ß",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     208
+    ],
+    "case_expr": "208",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     209
+    ],
+    "case_expr": "209",
+    "output": "à",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     210
+    ],
+    "case_expr": "210",
+    "output": "á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     211
+    ],
+    "case_expr": "211",
+    "output": "â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     212
+    ],
+    "case_expr": "212",
+    "output": "ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     213
+    ],
+    "case_expr": "213",
+    "output": "ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     214
+    ],
+    "case_expr": "214",
+    "output": "å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     215
+    ],
+    "case_expr": "215",
+    "output": "æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     216
+    ],
+    "case_expr": "216",
+    "output": "ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     217
+    ],
+    "case_expr": "217",
+    "output": "è",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     218
+    ],
+    "case_expr": "218",
+    "output": "é",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     219
+    ],
+    "case_expr": "219",
+    "output": "ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     220
+    ],
+    "case_expr": "220",
+    "output": "ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     221
+    ],
+    "case_expr": "221",
+    "output": "ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     222
+    ],
+    "case_expr": "222",
+    "output": "í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     223
+    ],
+    "case_expr": "223",
+    "output": "î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     224
+    ],
+    "case_expr": "224",
+    "output": "ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     225
+    ],
+    "case_expr": "225",
+    "output": "ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     226
+    ],
+    "case_expr": "226",
+    "output": "ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     227
+    ],
+    "case_expr": "227",
+    "output": "ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     228
+    ],
+    "case_expr": "228",
+    "output": "ó",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     229
+    ],
+    "case_expr": "229",
+    "output": "ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     230
+    ],
+    "case_expr": "230",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     231
+    ],
+    "case_expr": "231",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     232
+    ],
+    "case_expr": "232",
+    "output": "ö",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     233
+    ],
+    "case_expr": "233",
+    "output": "÷",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     234
+    ],
+    "case_expr": "234",
+    "output": "ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     235
+    ],
+    "case_expr": "235",
+    "output": "ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     236
+    ],
+    "case_expr": "236",
+    "output": "ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     237
+    ],
+    "case_expr": "237",
+    "output": "û",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     238
+    ],
+    "case_expr": "238",
+    "output": "ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     239
+    ],
+    "case_expr": "239",
+    "output": "ý",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     240
+    ],
+    "case_expr": "240",
+    "output": "þ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     241
+    ],
+    "case_expr": "241",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     242
+    ],
+    "case_expr": "242",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     243
+    ],
+    "case_expr": "243",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     244
+    ],
+    "case_expr": "244",
+    "output": "Ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     245
+    ],
+    "case_expr": "245",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     246
+    ],
+    "case_expr": "246",
+    "output": "ÿ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     247
+    ],
+    "case_expr": "247",
+    "output": "ÿ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     248
+    ],
+    "case_expr": "248",
+    "output": "Ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     249
+    ],
+    "case_expr": "249",
+    "output": "õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     250
+    ],
+    "case_expr": "250",
+    "output": "ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     251
+    ],
+    "case_expr": "251",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1"
+   },
+   {
+    "cases": [
+     252
+    ],
+    "case_expr": "252",
+    "output": "°",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     253
+    ],
+    "case_expr": "253",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = \"\"\nGoTo a1\nEnd Select\nIf engchar = 1 Then\nSelection.Font.Name = \"Nudi BAkshara2\"\nEnd If\nEnd If\nSelection.MoveRight Unit:=wdCharacter, Count:=1\na1:\nengchar = 0\nLoop\nSelection.MoveRight Unit:=wdCharacter, Count:=1, Extend:=wdExtend\nSelection.Delete Unit:=wdCharacter, Count:=1"
+   }
+  ],
+  "simple": 171,
+  "complex": 9
+ },
+ "NudiBI2NudiMono": {
+  "rules": [
+   {
+    "cases": [
+     32
+    ],
+    "case_expr": "32",
+    "output": " ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     33
+    ],
+    "case_expr": "33",
+    "output": "!",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     34
+    ],
+    "case_expr": "34",
+    "output": "\"",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     35
+    ],
+    "case_expr": "35",
+    "output": "#",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     36
+    ],
+    "case_expr": "36",
+    "output": "$",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     37
+    ],
+    "case_expr": "37",
+    "output": "%",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     38
+    ],
+    "case_expr": "38",
+    "output": "&",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     39
+    ],
+    "case_expr": "39",
+    "output": "'",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     40
+    ],
+    "case_expr": "40",
+    "output": "(",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     41
+    ],
+    "case_expr": "41",
+    "output": ")",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     42
+    ],
+    "case_expr": "42",
+    "output": "*",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     43
+    ],
+    "case_expr": "43",
+    "output": "+",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     44
+    ],
+    "case_expr": "44",
+    "output": ",",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     45
+    ],
+    "case_expr": "45",
+    "output": "-",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     46
+    ],
+    "case_expr": "46",
+    "output": ".",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     47
+    ],
+    "case_expr": "47",
+    "output": "/",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     48
+    ],
+    "case_expr": "48",
+    "output": "0",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     49
+    ],
+    "case_expr": "49",
+    "output": "1",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     50
+    ],
+    "case_expr": "50",
+    "output": "2",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     51
+    ],
+    "case_expr": "51",
+    "output": "3",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     52
+    ],
+    "case_expr": "52",
+    "output": "4",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     53
+    ],
+    "case_expr": "53",
+    "output": "5",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     54
+    ],
+    "case_expr": "54",
+    "output": "6",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     55
+    ],
+    "case_expr": "55",
+    "output": "7",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     56
+    ],
+    "case_expr": "56",
+    "output": "8",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     57
+    ],
+    "case_expr": "57",
+    "output": "9",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     58
+    ],
+    "case_expr": "58",
+    "output": ":",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     59
+    ],
+    "case_expr": "59",
+    "output": ";",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     60
+    ],
+    "case_expr": "60",
+    "output": "<",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     61
+    ],
+    "case_expr": "61",
+    "output": "=",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     62
+    ],
+    "case_expr": "62",
+    "output": ">",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     63
+    ],
+    "case_expr": "63",
+    "output": "?",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     64
+    ],
+    "case_expr": "64",
+    "output": "@",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     129
+    ],
+    "case_expr": "129",
+    "output": "A",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     130
+    ],
+    "case_expr": "130",
+    "output": "B",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     131
+    ],
+    "case_expr": "131",
+    "output": "C",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     132
+    ],
+    "case_expr": "132",
+    "output": "D",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     133
+    ],
+    "case_expr": "133",
+    "output": "E",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     134
+    ],
+    "case_expr": "134",
+    "output": "F",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     135
+    ],
+    "case_expr": "135",
+    "output": "G",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     136
+    ],
+    "case_expr": "136",
+    "output": "H",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     137
+    ],
+    "case_expr": "137",
+    "output": "I",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     138
+    ],
+    "case_expr": "138",
+    "output": "J",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     139
+    ],
+    "case_expr": "139",
+    "output": "K",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     140
+    ],
+    "case_expr": "140",
+    "output": "L",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     141
+    ],
+    "case_expr": "141",
+    "output": "M",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     143
+    ],
+    "case_expr": "143",
+    "output": "N",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     144
+    ],
+    "case_expr": "144",
+    "output": "O",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     145
+    ],
+    "case_expr": "145",
+    "output": "P",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     146
+    ],
+    "case_expr": "146",
+    "output": "Q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     147
+    ],
+    "case_expr": "147",
+    "output": "R",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     148
+    ],
+    "case_expr": "148",
+    "output": "S",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     149
+    ],
+    "case_expr": "149",
+    "output": "T",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     150
+    ],
+    "case_expr": "150",
+    "output": "U",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     151
+    ],
+    "case_expr": "151",
+    "output": "V",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     152
+    ],
+    "case_expr": "152",
+    "output": "W",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     153
+    ],
+    "case_expr": "153",
+    "output": "X",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     154
+    ],
+    "case_expr": "154",
+    "output": "Y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     155
+    ],
+    "case_expr": "155",
+    "output": "Z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     156
+    ],
+    "case_expr": "156",
+    "output": "a",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     157
+    ],
+    "case_expr": "157",
+    "output": "b",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     159
+    ],
+    "case_expr": "159",
+    "output": "c",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     161
+    ],
+    "case_expr": "161",
+    "output": "d",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     162
+    ],
+    "case_expr": "162",
+    "output": "e",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     163
+    ],
+    "case_expr": "163",
+    "output": "f",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     164
+    ],
+    "case_expr": "164",
+    "output": "g",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     165
+    ],
+    "case_expr": "165",
+    "output": "h",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     166
+    ],
+    "case_expr": "166",
+    "output": "i",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     167
+    ],
+    "case_expr": "167",
+    "output": "j",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     168
+    ],
+    "case_expr": "168",
+    "output": "k",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     169
+    ],
+    "case_expr": "169",
+    "output": "l",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     170
+    ],
+    "case_expr": "170",
+    "output": "m",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     171
+    ],
+    "case_expr": "171",
+    "output": "n",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     172
+    ],
+    "case_expr": "172",
+    "output": "o",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     173
+    ],
+    "case_expr": "173",
+    "output": "p",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     174
+    ],
+    "case_expr": "174",
+    "output": "q",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     175
+    ],
+    "case_expr": "175",
+    "output": "r",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     176
+    ],
+    "case_expr": "176",
+    "output": "s",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     177
+    ],
+    "case_expr": "177",
+    "output": "t",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     178
+    ],
+    "case_expr": "178",
+    "output": "u",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     179
+    ],
+    "case_expr": "179",
+    "output": "v",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     180
+    ],
+    "case_expr": "180",
+    "output": "w",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     181
+    ],
+    "case_expr": "181",
+    "output": "x",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     182
+    ],
+    "case_expr": "182",
+    "output": "y",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     183
+    ],
+    "case_expr": "183",
+    "output": "z",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     184
+    ],
+    "case_expr": "184",
+    "output": "¢",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     185
+    ],
+    "case_expr": "185",
+    "output": "£",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     186
+    ],
+    "case_expr": "186",
+    "output": "¤",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     187
+    ],
+    "case_expr": "187",
+    "output": "¥",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     188
+    ],
+    "case_expr": "188",
+    "output": "¦",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     189
+    ],
+    "case_expr": "189",
+    "output": "§",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     190
+    ],
+    "case_expr": "190",
+    "output": "¨",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     191
+    ],
+    "case_expr": "191",
+    "output": "©",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     192
+    ],
+    "case_expr": "192",
+    "output": "ª",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     193
+    ],
+    "case_expr": "193",
+    "output": "«",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     194
+    ],
+    "case_expr": "194",
+    "output": "¬",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     195
+    ],
+    "case_expr": "195",
+    "output": "®",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     196
+    ],
+    "case_expr": "196",
+    "output": "¯",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     197
+    ],
+    "case_expr": "197",
+    "output": "°",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     198
+    ],
+    "case_expr": "198",
+    "output": "±",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     199
+    ],
+    "case_expr": "199",
+    "output": "²",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     200
+    ],
+    "case_expr": "200",
+    "output": "µ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     201
+    ],
+    "case_expr": "201",
+    "output": "¶",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     202
+    ],
+    "case_expr": "202",
+    "output": "¸",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     203
+    ],
+    "case_expr": "203",
+    "output": "¹",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     204
+    ],
+    "case_expr": "204",
+    "output": "º",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     205
+    ],
+    "case_expr": "205",
+    "output": "»",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     206
+    ],
+    "case_expr": "206",
+    "output": "¼",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     207
+    ],
+    "case_expr": "207",
+    "output": "½",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     208
+    ],
+    "case_expr": "208",
+    "output": "À",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     209
+    ],
+    "case_expr": "209",
+    "output": "Á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     210
+    ],
+    "case_expr": "210",
+    "output": "Â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     211
+    ],
+    "case_expr": "211",
+    "output": "Ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     212
+    ],
+    "case_expr": "212",
+    "output": "Ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     213
+    ],
+    "case_expr": "213",
+    "output": "Å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     214
+    ],
+    "case_expr": "214",
+    "output": "Æ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     215
+    ],
+    "case_expr": "215",
+    "output": "Ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     216
+    ],
+    "case_expr": "216",
+    "output": "È",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     217
+    ],
+    "case_expr": "217",
+    "output": "É",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     218
+    ],
+    "case_expr": "218",
+    "output": "Ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     219
+    ],
+    "case_expr": "219",
+    "output": "Ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     220
+    ],
+    "case_expr": "220",
+    "output": "Ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     221
+    ],
+    "case_expr": "221",
+    "output": "Í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     222
+    ],
+    "case_expr": "222",
+    "output": "Î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     223
+    ],
+    "case_expr": "223",
+    "output": "Ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     224
+    ],
+    "case_expr": "224",
+    "output": "Ñ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     225
+    ],
+    "case_expr": "225",
+    "output": "Ò",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     226
+    ],
+    "case_expr": "226",
+    "output": "Ó",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     227
+    ],
+    "case_expr": "227",
+    "output": "Ô",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     228
+    ],
+    "case_expr": "228",
+    "output": "Õ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     229
+    ],
+    "case_expr": "229",
+    "output": "Ö",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     230
+    ],
+    "case_expr": "230",
+    "output": "×",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     231
+    ],
+    "case_expr": "231",
+    "output": "Ø",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     232
+    ],
+    "case_expr": "232",
+    "output": "Ù",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     233
+    ],
+    "case_expr": "233",
+    "output": "Ú",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     234
+    ],
+    "case_expr": "234",
+    "output": "Û",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     235
+    ],
+    "case_expr": "235",
+    "output": "Ü",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     236
+    ],
+    "case_expr": "236",
+    "output": "Ý",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     237
+    ],
+    "case_expr": "237",
+    "output": "Þ",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     238
+    ],
+    "case_expr": "238",
+    "output": "ß",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     239
+    ],
+    "case_expr": "239",
+    "output": "à",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     240
+    ],
+    "case_expr": "240",
+    "output": "á",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     241
+    ],
+    "case_expr": "241",
+    "output": "â",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     242
+    ],
+    "case_expr": "242",
+    "output": "ã",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     243
+    ],
+    "case_expr": "243",
+    "output": "ä",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     244
+    ],
+    "case_expr": "244",
+    "output": "å",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     245
+    ],
+    "case_expr": "245",
+    "output": "ç",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     246
+    ],
+    "case_expr": "246",
+    "output": "è",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     247
+    ],
+    "case_expr": "247",
+    "output": "é",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     248
+    ],
+    "case_expr": "248",
+    "output": "ê",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     249
+    ],
+    "case_expr": "249",
+    "output": "ë",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     250
+    ],
+    "case_expr": "250",
+    "output": "ì",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     251
+    ],
+    "case_expr": "251",
+    "output": "í",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     252
+    ],
+    "case_expr": "252",
+    "output": "î",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     253
+    ],
+    "case_expr": "253",
+    "output": "ï",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     254
+    ],
+    "case_expr": "254",
+    "output": "ð",
+    "complex": false,
+    "raw": null
+   },
+   {
+    "cases": [
+     255
+    ],
+    "case_expr": "255",
+    "output": null,
+    "complex": true,
+    "raw": "Selection.Text = Chr(246)\nengchar = 1\nEnd Select\nIf engchar = 1 Then\nSelection.Font.Name = \"Nudi 01 k\"\nElse\nSelection.Font.Name = \"Arial\"\nEnd If\nEnd If\nSelection.MoveRight Unit:=wdCharacter, Count:=1\nengchar = 0\nLoop\nSelection.MoveRight Unit:=wdCharacter, Count:=1, Extend:=wdExtend\nSelection.Delete Unit:=wdCharacter, Count:=1"
+   }
+  ],
+  "simple": 156,
+  "complex": 1
+ }
+}
