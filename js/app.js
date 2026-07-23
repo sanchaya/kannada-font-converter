@@ -251,6 +251,8 @@ const VATTAKSHARA_MAP = {
     'ë': 'ಷ್', 'ì': 'ಸ್', 'í': 'ಹ್', 'î': 'ಳ್'
 };
 
+const VATT_MARKER = '\u0001';
+
 const OTHER_MAP = {
     'ø': 'ೃ',
     'ñ': 'ೄ',
@@ -331,9 +333,13 @@ function _isEnglishToken(token, fullText, tokenStart) {
 }
 
 function _replace_vattakshara(txt) {
+    // Subjoined (vattakshara) consonants are emitted with a U+0001 marker
+    // instead of a bare halant so _fix_conjuncts can reorder them into
+    // proper conjuncts (base + ್ + consonant) without touching genuine
+    // word-final halants like ನನ್.
     Object.entries(VATTAKSHARA_MAP).forEach(([k, v]) => {
         const baseConsonant = v.slice(0, -1);
-        txt = txt.split(k).join(baseConsonant + '್');
+        txt = txt.split(k).join(VATT_MARKER + baseConsonant);
     });
     Object.entries(OTHER_MAP).forEach(([k, v]) => {
         txt = txt.split(k).join(v);
@@ -343,6 +349,18 @@ function _replace_vattakshara(txt) {
 
 function _fix_conjuncts(txt) {
     let result = txt;
+    // Reorder vattakshara markers into conjuncts. In Nudi the subscript
+    // consonant is typed after the base akshara (including its vowel sign):
+    //   PÀå  = ಕ + [ya-vattu]      -> ಕ್ಯ
+    //   QÌ   = ಕಿ + [ka-vattu]     -> ಕ್ಕಿ
+    // i.e. base + matra? + C  ->  base + ್ + C + matra
+    // Repeated to resolve chains (base + two vattus -> triple conjunct).
+    const re = new RegExp('([ಕ-ಹೞ])([ಾಿೀುೂೃೄೆೇೈೊೋೌ]?)' + VATT_MARKER + '([ಕ-ಹೞ])');
+    while (re.test(result)) {
+        result = result.replace(new RegExp(re.source, 'g'), '$1್$3$2');
+    }
+    // Any marker left without a preceding base falls back to a plain halant
+    result = result.replace(new RegExp(VATT_MARKER, 'g'), '್');
     result = result.replace(/([ಕ-ಹ])(್){2,}/g, '$1$2');
     return result;
 }
@@ -651,8 +669,11 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
     if (fontType === 'akruti') {
         return akrutiToUnicode(text, retainEnglish);
     }
-    
-    let result = text;
+
+    // Nudi files decoded from windows-1252 contain MICRO SIGN (U+00B5) for ಷ,
+    // while the mapping tables use GREEK SMALL MU (U+03BC). The two glyphs are
+    // visually identical; normalize so both convert correctly.
+    let result = text.replace(/µ/g, 'μ');
     const englishTexts = [];
 
     if (retainEnglish) {
@@ -801,10 +822,14 @@ function unicodeToASCII(text, fontType = 'nudi') {
     
     // Replace halant
     result = result.split('್').join('ï');
-    
+
     // Convert numbers
     result = result.replace(/[೦-೯]/g, (c) => EN_DIGITS['೦೧೨೩೪೫೬೭೮೯'.indexOf(c)]);
-    
+
+    // Emit MICRO SIGN (U+00B5, valid windows-1252) instead of GREEK SMALL MU
+    // (U+03BC) so the ASCII output is byte-accurate for legacy Nudi tools.
+    result = result.replace(/μ/g, 'µ');
+
     return result;
 }
 

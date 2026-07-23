@@ -154,6 +154,8 @@ const VATTAKSHARA_MAP = {
     'ë': 'ಷ್', 'ì': 'ಸ್', 'í': 'ಹ್', 'î': 'ಳ್'
 };
 
+const VATT_MARKER = '\u0001';
+
 const OTHER_MAP = {
     'ø': 'ೃ',
     'ñ': 'ೄ',
@@ -234,9 +236,11 @@ function _isEnglishToken(token, fullText, tokenStart) {
 }
 
 function _replace_vattakshara(txt) {
+    // Subjoined (vattakshara) consonants get a U+0001 marker so _fix_conjuncts
+    // can reorder them into conjuncts without touching genuine final halants.
     Object.entries(VATTAKSHARA_MAP).forEach(([k, v]) => {
         const baseConsonant = v.slice(0, -1);
-        txt = txt.split(k).join(baseConsonant + '್');
+        txt = txt.split(k).join(VATT_MARKER + baseConsonant);
     });
     Object.entries(OTHER_MAP).forEach(([k, v]) => {
         txt = txt.split(k).join(v);
@@ -246,6 +250,12 @@ function _replace_vattakshara(txt) {
 
 function _fix_conjuncts(txt) {
     let result = txt;
+    // base + matra? + C  ->  base + ್ + C + matra (repeat for chains)
+    const re = new RegExp('([ಕ-ಹೞ])([ಾಿೀುೂೃೄೆೇೈೊೋೌ]?)' + VATT_MARKER + '([ಕ-ಹೞ])');
+    while (re.test(result)) {
+        result = result.replace(new RegExp(re.source, 'g'), '$1್$3$2');
+    }
+    result = result.replace(new RegExp(VATT_MARKER, 'g'), '್');
     result = result.replace(/([ಕ-ಹ])(್){2,}/g, '$1$2');
     return result;
 }
@@ -278,7 +288,9 @@ function _replace_a2u_anuswara_visarga(txt) {
 }
 
 function asciiToUnicode(text, retainEnglish = false) {
-    let result = text;
+    // Normalize MICRO SIGN (U+00B5, from windows-1252 decoded files) to
+    // GREEK SMALL MU (U+03BC) used by the mapping tables (ಷ codes).
+    let result = text.replace(/µ/g, 'μ');
     const englishTexts = [];
 
     if (retainEnglish) {
