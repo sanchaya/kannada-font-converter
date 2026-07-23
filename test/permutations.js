@@ -83,7 +83,7 @@ function buildCases() {
 }
 
 // ---- run ----
-const FONTS = ['nudi', 'shree', 'prakashak', 'akruti'];
+const FONTS = ['nudi', 'shree', 'prakashak', 'akruti', 'surabhi'];
 const cases = buildCases();
 const results = {};
 let totalFail = 0;

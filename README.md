@@ -1,6 +1,6 @@
 # ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ
 
-Kannada Font Converter - Convert between Legacy ASCII (Nudi/Baraha/ShreeLipi/Prakashak/Akruti) and Unicode.
+Kannada Font Converter - Convert between Legacy ASCII (Nudi/Baraha/ShreeLipi/Prakashak/Akruti/Surabhi) and Unicode.
 
 Live at **[converter.sanchaya.net](https://converter.sanchaya.net)** (GitHub Pages, fully client-side).
 
@@ -10,13 +10,13 @@ Live at **[converter.sanchaya.net](https://converter.sanchaya.net)** (GitHub Pag
 |------|-------------|
 | `index.html` | The converter - five sections: ಪಠ್ಯ (text), ಫೈಲ್ (file), ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ (mixed-text detection), URL, ಲೈವ್ ಸಂಪಾದಕ (live editor) |
 | `keyboards.html` | Kannada keyboard layout reference - KGP/Nudi, InScript, Transliteration |
-| `mappings.html` | ASCII ↔ Unicode character mapping tables for all four fonts, rendered live from the converter's own data (with search) |
+| `mappings.html` | ASCII ↔ Unicode character mapping tables for all five fonts, rendered live from the converter's own data (with search) |
 | `status.html` | Conversion accuracy dashboard - per-font pass rates from the automated test suite, split by direction (a2u / u2a) |
 | `about.html` | About the project |
 
 ## Features
 
-- **Text Conversion**: ASCII ↔ Unicode (a2u / u2a / auto-detect) for Nudi/Baraha, ShreeLipi, Prakashak, and Akruti encodings
+- **Text Conversion**: ASCII ↔ Unicode (a2u / u2a / auto-detect) for Nudi/Baraha, ShreeLipi, Prakashak, Akruti, and Surabhi (KND) encodings. ShreeLipi, Prakashak, Akruti, and Surabhi are pivot-based - ported from the KGP Word-macro rule tables and routed through the Nudi engine (see `tools/MACRO-REVIEW.md`)
 - **English & number retention**: Latin text passes through unchanged; standalone numbers (including decimals) are preserved - digits that are part of the ASCII encoding still convert correctly
 - **Live Editor** - a dual-pane editor that works in both directions:
   - *ASCII simulator mode*: behaves like a legacy Nudi editor - anything typed (including Kannada via IME) is normalized to ASCII on the left, with live Unicode on the right and a preview of how the ASCII renders in a legacy-font editor
@@ -117,11 +117,27 @@ Current status (see `test/ISSUES.md` for details):
 | Font | Round-trip pass rate | Notes |
 |------|---------------------|-------|
 | Nudi / Baraha | 2076 / 2077 | Only bare standalone ಎ fails: its Nudi code is the digit `2`, which is inherently ambiguous with a real numeral |
-| ShreeLipi | 699 / 2077 | Conjunct (vattakshara) mappings largely missing |
-| Prakashak | 257 / 2077 | Syllable and conjunct mappings incomplete |
-| Akruti | 338 / 2077 | Syllable and conjunct mappings incomplete |
+| ShreeLipi | 1909 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
+| Prakashak | 911 / 2077 | Pivot-ported (Praja). Weakest of the ported fonts - conjunct/vattakshara forms still fail on the u2a side |
+| Akruti | 1548 / 2077 | Pivot-ported (Mono) |
+| Surabhi (KND) | 1839 / 2077 | New font, pivot-ported - not previously supported at all |
 
-Recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (windows-1252
+ShreeLipi, Prakashak, Akruti, and Surabhi were ported from the KGP macro rule
+tables this pass (replacing the old, much weaker hand-built maps - previously
+699/257/338 out of 2077, and Surabhi didn't exist). The architecture: each
+source byte substitutes into a Nudi ASCII fragment, then the existing,
+well-tested Nudi engine does the Nudi <-> Unicode conversion. A small number
+of macro rules involved true cursor-based reordering rather than a per-byte
+substitution and are left as pass-through (documented in
+`tools/pivot-maps.generated.js`); most remaining failures are u2a (Unicode ->
+ASCII) round-trips for conjunct/vattakshara forms specifically, since the
+Nudi engine's own ASCII output for complex syllables doesn't always match the
+literal per-byte fragment shapes the macros assumed. See `tools/MACRO-REVIEW.md`
+for the full review and remaining porting candidates (ISM/KNTT-Nandi, WinKey,
+Dharma ILs, Janna, Suchi, Shree Deccan, and a second SriLipi/Surabhi/Akruti
+variant each).
+
+Other recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (windows-1252
 files now convert), vattakshara conjunct reordering (PÀå -> ಕ್ಯ, QÌ -> ಕ್ಕಿ,
 while final halants like ನನ್ stay intact), standalone number preservation, and
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
@@ -144,11 +160,14 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 
 ## Supported Formats
 
-- **Input**: Nudi ASCII, Baraha ASCII, ShreeLipi ASCII, Prakashak ASCII, Akruti ASCII, Unicode Kannada
+- **Input**: Nudi ASCII, Baraha ASCII, ShreeLipi ASCII, Prakashak ASCII, Akruti ASCII, Surabhi (KND) ASCII, Unicode Kannada
 - **Output**: Unicode Kannada or ASCII (per selected font)
 - **Files**: TXT, DOCX (read; images skipped), TXT (write)
-- **Planned**: ISM (KNTT-Nandi), Surabhi, WinKey, Dharma ILs, Janna, Suchi, and
-  Shree Deccan support, ported from the KGP macro tables - see `tools/MACRO-REVIEW.md`
+- **Planned**: ISM (KNTT-Nandi), WinKey, Dharma ILs, Janna, Suchi, Shree Deccan,
+  and a second SriLipi/Surabhi/Akruti variant each, ported from the same KGP
+  macro tables - see `tools/MACRO-REVIEW.md`. Note that server.js (the optional
+  Node API) currently only implements the Nudi engine; the pivot-based fonts
+  are client-side (js/app.js) only.
 
 ## Dependencies (CDN)
 

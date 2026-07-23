@@ -123,54 +123,6 @@ const consonantMaps = [
 ];
 
 // ============================================================
-// SHREELIPI ASCII TO UNICODE MAPPING
-// ============================================================
-
-const SHREE_VOWEL_MAP = {
-    'A': 'ಅ', 'B': 'ಆ', 'C': 'ಇ', 'D': 'ಈ', 'E': 'ಉ', 'F': 'ಊ',
-    'Má': 'ಋ', 'G': 'ಎ', 'H': 'ಏ', 'I': 'ಐ', 'J': 'ಒ', 'K': 'ಓ', 'L': 'ಔ',
-    'í': 'ಂ', '@': 'ಃ'
-};
-
-const SHREE_CONSONANT_MAP = {
-    'PÜ': 'ಕ', 'S': 'ಖ', 'WÜ': 'ಗ', 'Z': 'ಘ', '_': 'ಙ',
-    'aÜ': 'ಚ', 'dÜ': 'ಛ', 'g': 'ಜ', 'ÃÜká': 'ಝ', 'm': 'ಞ',
-    'o': 'ಟ', 'sÜ': 'ಠ', 'vÜ': 'ಡ', 'yÜ': 'ಢ', '|': 'ಣ',
-    'ñÜ': 'ತ', '¥Ü': 'ಥ', '¨Ü': 'ದ', '«Ü': 'ಧ', '®Ü': 'ನ',
-    '±Ü': 'ಪ', '¶Ü': 'ಫ', 'Ÿ': 'ಬ', '»Ü': 'ಭ', 'ÊÜá': 'ಮ',
-    '¿á': 'ಯ', 'ÃÜ': 'ರ', 'Æ': 'ಲ', 'ÊÜ': 'ವ', 'ÍÜ': 'ಶ',
-    'ÐÜ': 'ಷ', 'ÓÜ': 'ಸ', 'ÖÜ': 'ಹ', 'ÙÜ': 'ಳ',
-    'Ý': 'ಾ', 'Q': 'ಕಿ', 'Qà': 'ಕೀ',
-    'á': 'ು', 'ã': 'ೂ', 'ê': 'ೃ', 'æ': 'ೆ', 'æà': 'ೇ',
-    'æç': 'ೈ', 'æã': 'ೊ', 'æãà': 'ೋ', 'è': 'ೌ',
-    'U': 'ಖಿ', 'Uà': 'ಖೀ', 'X': 'ಗಿ', 'Xà': 'ಗೀ', '\\': 'ಘಿ', '\\à': 'ಘೀ',
-    'b': 'ಚಿ', 'bà': 'ಚೀ', 'e': 'ಛಿ', 'eà': 'ಛೀ', 'i': 'ಜಿ', 'ià': 'ಜೀ',
-    'Äká': 'ಝಿ', 'Äkáà': 'ಝೀ', 'q': 'ಟಿ', 'qà': 'ಟೀ', 't': 'ಠಿ', 'tà': 'ಠೀ',
-    'w': 'ಡಿ', 'wà': 'ಡೀ', '{': 'ಢಿ', '{à': 'ಢೀ', '~': 'ಣಿ', '~à': 'ಣೀ',
-    '£': 'ತಿ', '£à': 'ತೀ', '¦': 'ಥಿ', '¦à': 'ಥೀ', '©': 'ದಿ', '©à': 'ದೀ',
-    '˜': 'ಧಿ', '˜à': 'ಧೀ', '¯': 'ನಿ', '¯à': 'ನೀ', '²': 'ಪಿ', '²à': 'ಪೀ',
-    '¹': 'ಬಿ', '¹à': 'ಬೀ', '¼': 'ಭಿ', '¼à': 'ಭೀ', 'Î': 'ಶಿ', 'Îà': 'ಶೀ',
-    'Ñ': 'ಷಿ', 'Ñà': 'ಷೀ', 'Ô': 'ಸಿ', 'Ôà': 'ಸೀ', '×': 'ಹಿ', '×à': 'ಹೀ',
-    'Ú': 'ಳಿ', 'Úà': 'ಳೀ',
-    'R': '್', '…': '್', 'V': '್', 'Y': '್', '^': '್', '`': '್',
-    'c': '್', 'f': '್', 'j': '್', 'l': '್', 'n': '್', 'r': '್',
-    'u': '್', 'x': '್', 'z': '್', '¡': '್', '¤': '್', '§': '್',
-    'ª': '್', 'œ': '್', '°': '್', '³': '್', '#': '್', 'º': '್',
-    '½': '್', '¾': '್', 'Â': '್', 'Å': '್', 'É': '್', 'Ì': '್',
-    'Ï': '್', 'Õ': '್', 'Ø': '್', 'Û': '್', 'ì': 'ರ್'
-};
-
-const SHREE_VOWEL_SIGNS = {
-    'Ý': 'ಾ', 'Q': 'ಕಿ', 'Qà': 'ಕೀ',
-    'á': 'ು', 'ã': 'ೂ', 'ê': 'ೃ', 'æ': 'ೆ', 'æà': 'ೇ',
-    'æç': 'ೈ', 'æã': 'ೊ', 'æãà': 'ೋ', 'è': 'ೌ'
-};
-
-function getShreeKeys() {
-    return Object.keys(SHREE_CONSONANT_MAP).sort((a, b) => b.length - a.length);
-}
-
-// ============================================================
 // APPLY MAPPINGS
 // ============================================================
 
@@ -179,67 +131,9 @@ consonantMaps.forEach(m => A2U_MAP[m[0]] = m[1]);
 
 const A2U_KEYS = Object.keys(A2U_MAP).sort((a, b) => b.length - a.length);
 
-const SHREE_A2U_KEYS = getShreeKeys();
-
-// ============================================================
-// PRAKASH FONT MAPPING
-// ============================================================
-
-const PRAKASH_MAP = {
-    'ka': 'ಕ', 'K': 'ಖ', 'ga': 'ಗ', 'G': 'ಘ', 'ja': 'ಜ',
-    'Ta': 'ಟ', 'Ta': 'ಠ', 'Da': 'ಡ', 'Da': 'ಢ', 'Na': 'ಣ',
-    'ta': 'ತ', 'tha': 'ಥ', 'da': 'ದ', 'dha': 'ಧ', 'na': 'ನ',
-    'pa': 'ಪ', 'fa': 'ಫ', 'ba': 'ಬ', 'bha': 'ಭ', 'ma': 'ಮ',
-    'ya': 'ಯ', 'ra': 'ರ', 'la': 'ಲ', 'va': 'ವ', 'Sha': 'ಶ',
-    'sha': 'ಷ', 'Sa': 'ಸ', 'ha': 'ಹ', 'La': 'ಳ',
-    'A': 'ಅ', 'AA': 'ಆ', 'i': 'ಇ', 'I': 'ಈ', 'u': 'ಉ', 'U': 'ಊ',
-    'Ri': 'ಋ', 'e': 'ಎ', 'E': 'ಏ', 'ai': 'ಐ', 'o': 'ಒ', 'O': 'ಓ', 'au': 'ಔ',
-    'AM': 'ಂ', 'AH': 'ಃ',
-    'kI': 'ಕಿ', 'kI': 'ಕೀ', 'gI': 'ಗಿ', 'gI': 'ಗೀ', 'jI': 'ಜಿ', 'jI': 'ಜೀ',
-    'ki': 'ಕಿ', 'ki': 'ಕೀ', 'gi': 'ಗಿ', 'gi': 'ಗೀ', 'ji': 'ಜಿ', 'ji': 'ಜೀ',
-    'kU': 'ಕು', 'kU': 'ಕೂ', 'gU': 'ಗು', 'gU': 'ಗೂ', 'jU': 'ಜು', 'jU': 'ಜೂ'
-};
-
-const PRAKASH_VOWEL_SIGNS = {
-    'A': 'ಾ', 'i': 'ಿ', 'I': 'ೀ', 'u': 'ು', 'U': 'ೂ', 'Ri': 'ೃ',
-    'e': 'ೆ', 'E': 'ೇ', 'ai': 'ೈ', 'o': 'ೊ', 'O': 'ೋ', 'au': 'ೌ'
-};
-
-const PRAKASH_VATT = {
-    'k': 'ಕ್', 'K': 'ಖ್', 'g': 'ಗ್', 'G': 'ಘ್', 'j': 'ಜ್',
-    'T': 'ಟ್', 'D': 'ಡ್', 'N': 'ಣ್', 't': 'ತ್', 'd': 'ದ್', 'n': 'ನ್',
-    'p': 'ಪ್', 'f': 'ಫ್', 'b': 'ಬ್', 'm': 'ಮ್', 'y': 'ಯ್', 'r': 'ರ್',
-    'l': 'ಲ್', 'v': 'ವ್', 'S': 'ಶ್', 's': 'ಷ್', 'h': 'ಹ್', 'L': 'ಳ್'
-};
-
-// ============================================================
-// AKRUTI FONT MAPPING
-// ============================================================
-
-const AKRUTI_MAP = {
-    'k': 'ಕ', 'K': 'ಖ', 'g': 'ಗ', 'G': 'ಘ', 'j': 'ಜ',
-    't': 'ಟ', 'T': 'ಠ', 'd': 'ಡ', 'D': 'ಢ', 'n': 'ಣ',
-    'w': 'ತ', 'W': 'ಥ', 'x': 'ದ', 'X': 'ಧ', 'y': 'ನ',
-    'p': 'ಪ', 'P': 'ಫ', 'b': 'ಬ', 'B': 'ಭ', 'm': 'ಮ',
-    'r': 'ಯ', 'R': 'ರ', 'l': 'ಲ', 'v': 'ವ', 'S': 'ಶ',
-    's': 'ಷ', 'z': 'ಸ', 'h': 'ಹ', 'L': 'ಳ',
-    'a': 'ಅ', 'A': 'ಆ', 'i': 'ಇ', 'I': 'ಈ', 'u': 'ಉ', 'U': 'ಊ',
-    'q': 'ಋ', 'e': 'ಎ', 'E': 'ಏ', 'o': 'ಒ', 'O': 'ಓ', 'H': 'ಔ',
-    'F': 'ಂ', ':': 'ಃ'
-};
-
-const AKRUTI_VOWEL_SIGNS = {
-    'A': 'ಾ', 'i': 'ಿ', 'I': 'ೀ', 'u': 'ು', 'U': 'ೂ', 'q': 'ೃ',
-    'e': 'ೆ', 'E': 'ೇ', 'o': 'ೊ', 'O': 'ೋ', 'w': 'ೌ'
-};
-
-const AKRUTI_VATT = {
-    'k': 'ಕ್', 'K': 'ಖ್', 'g': 'ಗ್', 'G': 'ಘ್', 'j': 'ಜ್',
-    't': 'ಟ್', 'T': 'ಠ್', 'd': 'ಡ್', 'D': 'ಢ್', 'n': 'ಣ್',
-    'w': 'ತ್', 'W': 'ಥ್', 'x': 'ದ್', 'X': 'ಧ್', 'y': 'ನ್',
-    'p': 'ಪ್', 'P': 'ಫ್', 'b': 'ಬ್', 'B': 'ಭ್', 'm': 'ಮ್',
-    'r': 'ರ್', 'l': 'ಲ್', 'v': 'ವ್', 'S': 'ಶ್', 's': 'ಷ್', 'z': 'ಸ್', 'h': 'ಹ್', 'L': 'ಳ್'
-};
+// ShreeLipi, Prakashak, Akruti, and Surabhi are handled by the pivot-based
+// engine further below (ported from the KGP macro tables - see
+// tools/MACRO-REVIEW.md), not by flat maps here.
 
 const VATTAKSHARA_MAP = {
     'Ì': 'ಕ್', 'Í': 'ಖ್', 'Î': 'ಗ್', 'Ï': 'ಘ್', 'Ð': 'ಙ್',
@@ -395,282 +289,195 @@ function _replace_a2u_anuswara_visarga(txt) {
     return txt.replace(/A/g, 'ಂ').replace(/B/g, 'ಃ');
 }
 
-function shreeToUnicode(text, retainEnglish = false) {
-    let result = text;
-    const englishTexts = [];
+// ============================================================
+// PIVOT-BASED FONT MAPPINGS
+// Ported from the KGP Word-macro rule tables (tools/macro-extracts/*.json;
+// see tools/MACRO-REVIEW.md). Each source encoding is substituted
+// byte-by-byte into Nudi ASCII fragments, then run through the existing,
+// well-tested Nudi <-> Unicode engine defined in this file:
+//   a2u:  X --charmap-->                Nudi ASCII --asciiToUnicode(nudi)--> Unicode
+//   u2a:  Unicode --unicodeToASCII(nudi)--> Nudi ASCII --charmap(inverse)--> X
+// A handful of macro rules performed true cursor-based reordering rather
+// than a per-byte substitution; those byte codes are intentionally left
+// out of the maps below (pass through unchanged) - see tools/pivot-maps.generated.js
+// for full per-font coverage notes (regenerate with tools/generate-pivot-maps.py).
+// ============================================================
 
-    if (retainEnglish) {
-        let out = '';
-        let i = 0;
-        while (i < result.length) {
-            if (result[i] === '\uFF62') {
-                let j = i + 1;
-                while (j < result.length && result[j] !== '\uFF63') j++;
-                out += result.slice(i, j + 1);
-                i = j + 1;
-                continue;
-            }
-            if (/[a-zA-Z]/.test(result[i])) {
-                let j = i;
-                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
-                const token = result.slice(i, j);
-                if (_isEnglishToken(token, result, i)) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(token);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += token;
-                }
-                i = j;
-            } else if (/[0-9]/.test(result[i])) {
-                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
-                // digits directly adjacent to encoding bytes/letters are part
-                // of the ASCII encoding and stay convertible.
-                let j = i;
-                while (j < result.length && /[0-9]/.test(result[j])) {
-                    j++;
-                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
-                }
-                const numToken = result.slice(i, j);
-                const before = i > 0 ? result[i - 1] : '';
-                const after = j < result.length ? result[j] : '';
-                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
-                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
-                if (!adjacentToCode) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(numToken);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += numToken;
-                }
-                i = j;
-            } else {
-                out += result[i];
-                i++;
-            }
+const PRAKASH2_X2NUDI = {33:"C",34:"\u00c4",35:"E",36:"F",37:"G",38:"H",39:"\u00a5",40:"J",41:"K",42:"L",43:"M",44:"\u00e1",45:"\u00f6",46:"\u00d4",47:"B",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",58:"v",59:"z",60:"\u00a3",61:"\u00a5",63:"\u00af",64:"t\u00c2",65:"\u00aa",66:"\u00b1",67:"\u00b5",68:"\u00b8",69:"\u00ba",70:"e\u00d5",71:"R",72:"Y",73:"d",74:"k",75:"l",76:"t",77:"I",78:"\u00a7",79:"Ai\u00c0",80:"\u00ae",81:"d\u00d5",82:"Q",83:"T",84:"V",85:"a",86:"\u00bf",87:"f",88:"n",89:"j",90:"r",91:"\u00fe",92:"w",93:"\u00a2",94:"\u00a4",95:"\u00a6",96:"\u00c9\u00c3",97:"\u00ab",98:"\u00b0",99:"\u00b6",100:"\u00b9",101:"\u00bb",102:"\u00bd",103:"f\u00a9",104:"\u00ac",105:"\u00b2",108:"s",110:"\u2039",111:"\u00c1",112:"\u00c2",113:"D",114:"\u00c6",115:"h",116:"i\u00c1",117:"\u00c9",118:"\u00a9",119:"\u00f5\u00c9",120:"\u00cc",121:"\u00f1",122:"\u00cb",123:"i",124:"\u00c3",125:"\u00ef",126:"\u00f0",127:"\u007f",128:"\u20ac",129:"\ufffd",130:"\u201a",131:"\u0192",132:"\u00f6",133:"\u00f6",134:"\u00d8",136:"\u02c6",137:"\u00db",138:"\u00dd",139:"\u00df",140:"\u00e0",141:"\ufffd",142:"\u017d",143:"\ufffd",144:"\ufffd",145:"\u00e1",146:"\u00e2",147:"\u00f9",148:"\u00fa",149:"\u2022",150:"\u00bf",151:"\u00be",152:"\u02dc",153:"\u2122",154:"\u00e8",155:"\u00eb",156:"\u00ec",157:"\ufffd",158:"\u017e",159:"\u0178",160:"\u00c9\u00c6",161:"\u00cd",162:"\u00ce",163:"\u00cf",164:"\u00d0",165:"\u00d1",166:"\u00f6",167:"\u00d3",168:"\u00f6",169:"\u00d5",170:"\u00d6",171:"\u00d7",172:"\u00ad",173:"\u00ad",174:"\u00da",175:"\u00f6",176:"\u00dc",177:"\u00f9",178:"\u00fa",179:"\u00bf",180:"\u00be",181:"\u00f6",182:"\u00e4",183:"\u00db\u00e5",184:"\u00db\u00e6",185:"\u00f6",186:"\u00e9",187:"\u00ea",188:"\u00f6",189:"\u00f6",190:"\u00f6",191:"\u00ee",192:"\u00ed",194:"\u00cc\u00f8",195:"\u00e2\u00ca",196:"\u00d6\u00e6",197:"\u00db\u00c8",198:"\u00db\u00ca",199:"\u00e5",200:"\u00e7",201:"\u00e0\u00e6",202:"\u00e6\u00c8",203:"\u00ec\u00e6",204:"\u00cc\u00eb",205:"\u00cc\u00e6",206:"\u00c9",207:"A\u00c9hi",208:"\u00f6",210:"Ai\u00c9",211:"P",212:"U",213:"W",214:"Z",215:"\u00f6",216:"e",217:"m",218:"g",219:"q",220:"u",221:"\u00f6",222:"\u00f6",223:"\u00f6",224:"A",225:"\u00b2\u00e6",226:"\u00c8",227:"\u00ca",228:",",229:".",230:"\u00a8",231:"\u00f2",232:"\u00bc",233:"\u00db\u00e6",234:"\u00db\u00e5",235:"\u00eb",237:"\u00a5s",238:"S",239:"\u00f7",240:"\u00f7",241:"\u00f7",242:"O",243:"\u00f6",244:"\u00f7",245:"\u00f6",246:"X",247:"\u00f6",248:"N",249:"P\u00c0",250:"P\u00c9",252:"b",253:"\u00f6",254:"\u00fe"};
+const AKRUTI2_X2NUDI = {32:" ",33:"!",34:"\u00cc",35:"\u00cd",36:"\u00ce",37:"C",38:"\u00cf",39:"'",40:"(",41:")",42:"\u00d0",43:"\u00d1",44:",",46:".",47:"/",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",58:":",59:";",60:"\u00f7",61:"=",62:"\u00f7",63:"?",64:"\u00d3",65:"D",66:"\u00d4",67:"\u00d5",68:"\u00d6",69:"E",70:"\u00d7",71:"\u00d8",72:"\u00d9",73:"L",74:"\u00da",75:"\u00db",76:"\u00dc",77:"\u00dd",78:"H",79:"K",80:"\u00de",81:"\u00df",82:"\u00e0",83:"\u00e1",84:"\u00e2",85:"J",86:"\u00e3",87:"\u00e4",88:"\u00e5",89:"L",90:"\u00e6",91:"\u00e8",92:"\u00ee",93:"\u00e9",94:"\u00ea",95:"\u00eb",96:"`",97:"M",98:"\u00ec",99:"\u00ed",100:"P",101:"N",102:"S",103:"U",104:"W",105:"O",106:"Y",107:"Z",108:"b",109:"d",110:"I",111:"F",112:"g",113:"k",114:"l",115:"n",116:"o",117:"e",118:"q",120:"t",121:"v",122:"x",123:"z",125:"\u00a3",126:"\u00a5",160:"\u00a0",161:"\u00bf",162:"\u00be",163:"\u00f5",165:"\u0160",166:"\u00db\u00e5",167:"\u00db\u00c8",168:"\u00db\u00e5",169:"\u00c3",170:"0",172:"\u00a2",174:"\u00db\u00e9",175:"\u00a6",176:"\u00c4",177:"\u00a7",178:"\u00a9",179:"\u00c6",180:"W",181:"\u00b1",182:"\u00b0",183:"\u00ae",184:"\u00b6",185:"t\u00c2",187:"w",188:"y",190:"\u00a4",191:"\u00f2",192:"\u00aa",194:"m",195:"i",196:"\u00a6",198:"\u00ab",199:"u",200:"\u00af",201:"\u00b8",202:"f",203:"\u00f0",204:"Ai",205:"\u00b5",206:"\u00ac",207:"\u00a8",208:"V",209:"Q",210:"\u00ef",211:"c",212:"\u00bc",214:"\u00c1",215:"a",216:"T",217:"R",218:"r",220:"X",221:"\u00ba",222:"\u00b2\u00e6",223:"\u00e0\u00e7",224:"\u00fa",225:"\u00f9",226:"\u00c0",227:"\u00f1",228:"a",229:"\u00d6\u00e7",230:"\u00e1",231:"\u00db\u00e6",232:"\u00db\u00ca",233:"|",234:"\u00c9",235:"\u00e6\u00f8",236:"\u00cc\u00c8",238:"j",239:"p",240:"\u00f4",241:"\u00cb",242:"\u00c7",243:"\u00c5",244:"\u00ca",245:"\u0160",246:"\u0160",247:"\u00e7",248:"\u00cc",249:"\u00bd",250:"\u00b2",251:"\u00b9",252:"\u00fc",253:"\u00bb",254:"\u00bb"};
+const SHREE2_X2NUDI = {32:" ",33:"!",34:"`",36:" ",37:"%",38:"-",39:"'",40:"(",41:")",42:"*",43:"+",44:",",46:".",47:"/",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:"9",58:":",59:";",61:"=",62:"\u2020",63:"?",64:"B",65:"C",66:"D",67:"E",68:"F",69:"G",70:"H",71:"J",72:"K",73:"L",74:"M",75:"N",76:"O",77:"I",78:"W\u00c9",79:"u",80:"P",81:"Q",82:"\u00cc",83:"R",84:"S",85:"T",86:"\u00cd",87:"U",88:"V",89:"\u00ce",90:"W\u00c0",91:"W",92:"X",93:"\u00b2\u00e6",94:"\u00cf",95:"Y",96:"\u00d0",97:"Z",98:"a",99:"\u00d1",100:"b",101:"c",102:"\u00d2",103:"d",104:"e",105:"f",106:"\u00d3",107:"h",108:"\u00d4",109:"k",110:"\u00d5",111:"l",112:"m",113:"n",114:"\u00d6",115:"o",116:"p",117:"\u00d7",118:"q",119:"r",120:"\u00d8",121:"qs",122:"\u00d9",123:"rs",124:"t",125:"\u00f2",126:"t\u00c2",130:"\u00f3",131:"\u00c8",132:"\u00ca",133:"\u00ef",134:"\u00e7",135:"\u2020",136:"\u2021",137:"\u2026",138:"/",139:"\u00e6",141:"*",145:"\u00bf",146:"\u00bf",147:"\u00be",148:"\u00be",149:"\u00f9",150:"\u00e1",151:"\u00a2s",152:"\u201e",153:"\u0152",154:"\u0152",155:"\u00e6",156:"\u00de",159:"\u00a7",160:"\u0152",161:"\u00da",162:"\u00cc\u00c8",163:"w",164:"\u00db",165:"x",166:"y",167:"\u00dc",168:"z",169:"\u00a2",170:"\u00dd",171:"zs",172:"_",174:"\u00a3",175:"\u00a4",176:"\u00df",177:"\u00a5",178:"\u00a6",179:"\u00e0",180:"\u00a5s",181:"\u00a6s",182:"_",184:"\u00a8",185:"\u00a9",186:"\u00e2",187:"\u00a8s",188:"\u00a9s",189:"\u00e3",190:"\u00e4",191:"Ai\u00c0",192:"\u00ac",193:"A\u00c4\u00c9",194:"\u00e5",195:"g",196:"j",197:"\u00e6",198:"\u00ae",199:"\u00af",200:"\u00b0",201:"\u00e8",202:"\u00aa",203:"\u00ab",204:"\u00e9",205:"\u00b1",206:"\u00b2",207:"\u00ea",208:"\u00b5",209:"\u00b6",210:"\u00eb",211:"\u00b8",212:"\u00b9",213:"\u00ec",214:"\u00ba",215:"\u00bb",216:"\u00ed",217:"\u00bc",218:"\u00bd",219:"\u00ee",220:"\u00c0",221:"\u00c1",222:"\u00c4\u00c1",223:"\u00c2",224:"\u00c3",225:"\u00c4",227:"\u00c6",229:"\u00c4",230:"\u00c9",231:"\u00ca",232:"\u00cb",233:"\u00e5",234:"\u00c8",235:"\u00f1",236:"\u00f0",237:"A",238:"\u00f5",239:"\u00f5\u00c9",240:"\u00cc\u00e6",241:"v",242:"\u00d1\u00ca",243:"\u00d6\u00e7",244:"\u00db\u00ca",245:"\u00db\u00f8",246:"\u00db\u00e5",247:"\u00db\u00e6",248:"\u00e0\u00e6",249:"\u00e6\u00ca",250:"\u00ec\u00e6",251:"P\u00eb",252:"Q\u00eb",253:"d\u00d5",254:"e\u00d5"};
+const SURABHI_X2NUDI = {32:" ",33:"!",34:"'",35:"#",36:"\u00b2\u00e7",37:"%",38:"&",39:"`",40:"(",41:")",42:"*",43:"+",44:",",45:"-",46:".",47:"/",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",57:":",58:":",59:";",60:"<",61:"=",62:">",63:"?",64:"0",65:"1",66:"2",67:"3",68:"4",69:"5",70:"6",71:"7",72:"8",73:"9",74:"C",75:"D",76:"E",77:"F",78:"G",79:"H",80:"I",81:"J",82:"K",83:"L",84:"M",85:"N",86:"O",87:"A",88:"B",89:"P",90:"Q",91:"\u00cc",92:"\u00cc\u00e6",93:"R",94:"S",95:"T",96:"\u00cd",97:"U",98:"V",99:"\u00ce",100:"W",101:"X",102:"\u00cf",103:"Y",104:"\u00d0",105:"Z",106:"a",107:"\u00d1",108:"b",109:"c",110:"\u00d2",111:"d",112:"e",113:"f",114:"\u00d3",115:"\u00d4",116:"k",117:"\u00d5",118:"l",119:"m",120:"n",121:"\u00d6",122:"\u00d6\u00e7",123:"o",124:"p",125:"\u00d7",126:"q",160:"\u00f2",161:"r",162:"\u00d8",163:"qs",164:"rs",165:"\u00d9",166:"t",167:"u",168:"t\u00c2",169:"\u00da",170:"\u00db",171:"v",172:"w",174:"\u00db\u00f8",175:"\u00db\u00ca",176:"\u00db\u00e5",177:"\u00db\u00e7",178:"x",179:"y",180:"\u00dc",181:"z",182:"\u00a2",183:"\u00dd",184:"zs",185:"\u00a2s",186:"\u00de",187:"\u00a3",188:"\u00a4",189:"\u00df",190:"\u00a5",191:"\u00a6",192:"\u00e0",193:"\u00e0\u00e6",194:"\u00a5s",195:"\u00a6s",196:"\u00e1",197:"\u00a7",198:"\u00a8",199:"\u00a9",200:"\u00e2",201:"\u00a8s",202:"\u00a9s",203:"\u00e3",204:"\u00e4",205:"A\u00c4",206:"\u00ac",207:"\u00e5",208:"g",209:"j",210:"\u00e7",211:"\u00f0",212:"\u00ae",213:"\u00af",214:"\u00b0",215:"\u00e8",216:"\u00aa",217:"\u00ab",218:"\u00e9",219:"\u00bf",220:"\u00fa",221:"\u00b1",222:"\u00b2",223:"\u00ea",224:"\u00b5",225:"\u00b6",226:"\u00eb",227:"\u00b8",228:"\u00b9",229:"\u00ec",230:"\u00ba",231:"\u00bb",232:"\u00ed",233:"\u00bc",234:"\u00bd",235:"\u00ee",236:"\u00be",237:"\u00f9",238:"\u00fc",239:"\u00c0",240:"\u00c4",241:"\u00f5",242:"\u00c1",243:"\u00c2",244:"\u00c3",245:"\u00c4",246:"\u00c5",247:"\u00c6",248:"\u00c7",249:"\u00c8",250:"\u00f1",251:"\u00c9",252:"\u00ca",253:"\u00cb",254:"\u00ef"};
+
+function _buildNudi2XInverse(x2nudiMap) {
+    const inverse = {};
+    Object.keys(x2nudiMap).forEach(codeStr => {
+        const frag = x2nudiMap[codeStr];
+        if (frag && !(frag in inverse)) {
+            inverse[frag] = String.fromCharCode(Number(codeStr));
         }
-        result = out;
-    }
-
-    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
-    const words = result.split(' ');
-    const convertedWords = words.map(word => {
-        if (word.length === 0) return word;
-        const parts = word.split(PLACEHOLDER_SPLIT);
-        const convertedParts = parts.map(part => {
-            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
-            if (part.length === 0) return part;
-            let converted = part;
-            SHREE_A2U_KEYS.forEach(key => {
-                if (key.length > 0) {
-                    converted = converted.split(key).join(SHREE_CONSONANT_MAP[key]);
-                }
-            });
-            return converted;
-        });
-        return convertedParts.join('');
     });
-    result = convertedWords.join(' ');
+    return { map: inverse, keys: Object.keys(inverse).sort((a, b) => b.length - a.length) };
+}
 
-    if (retainEnglish && englishTexts.length > 0) {
-        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
+const _nudi2xCache = new Map();
+function _nudi2xFor(x2nudiMap) {
+    if (!_nudi2xCache.has(x2nudiMap)) {
+        _nudi2xCache.set(x2nudiMap, _buildNudi2XInverse(x2nudiMap));
     }
+    return _nudi2xCache.get(x2nudiMap);
+}
+
+// Extracts Latin-letter/number runs into placeholders (same heuristic as
+// the Nudi retainEnglish path) so they skip the pivot substitution and the
+// downstream Nudi engine entirely.
+function _extractEnglishTokens(text) {
+    const englishTexts = [];
+    let out = '';
+    let i = 0;
+    while (i < text.length) {
+        if (text[i] === '\uFF62') {
+            let j = i + 1;
+            while (j < text.length && text[j] !== '\uFF63') j++;
+            out += text.slice(i, j + 1);
+            i = j + 1;
+            continue;
+        }
+        if (/[a-zA-Z]/.test(text[i])) {
+            let j = i;
+            while (j < text.length && /[a-zA-Z'-]/.test(text[j])) j++;
+            const token = text.slice(i, j);
+            if (_isEnglishToken(token, text, i)) {
+                const idx = englishTexts.length;
+                englishTexts.push(token);
+                out += _makePlaceholder(idx);
+            } else {
+                out += token;
+            }
+            i = j;
+        } else if (/[0-9]/.test(text[i])) {
+            let j = i;
+            while (j < text.length && /[0-9]/.test(text[j])) {
+                j++;
+                if (j < text.length - 1 && /[.,:]/.test(text[j]) && /[0-9]/.test(text[j + 1])) j++;
+            }
+            const numToken = text.slice(i, j);
+            const before = i > 0 ? text[i - 1] : '';
+            const after = j < text.length ? text[j] : '';
+            const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) || /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
+            if (!adjacentToCode) {
+                const idx = englishTexts.length;
+                englishTexts.push(numToken);
+                out += _makePlaceholder(idx);
+            } else {
+                out += numToken;
+            }
+            i = j;
+        } else {
+            out += text[i];
+            i++;
+        }
+    }
+    return { text: out, englishTexts };
+}
+
+function _restoreEnglishTokens(text, englishTexts) {
+    if (!englishTexts.length) return text;
+    return text.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
+}
+
+function pivotAsciiToUnicode(text, x2nudiMap, retainEnglish) {
+    let source = text;
+    let englishTexts = [];
+    if (retainEnglish) {
+        const extracted = _extractEnglishTokens(source);
+        source = extracted.text;
+        englishTexts = extracted.englishTexts;
+    }
+    let nudi = '';
+    let i = 0;
+    while (i < source.length) {
+        if (source[i] === '\uFF62') {
+            let j = i + 1;
+            while (j < source.length && source[j] !== '\uFF63') j++;
+            nudi += source.slice(i, j + 1);
+            i = j + 1;
+            continue;
+        }
+        const code = source.charCodeAt(i);
+        nudi += (code in x2nudiMap) ? x2nudiMap[code] : source[i];
+        i++;
+    }
+    let result = asciiToUnicode(nudi, false, 'nudi');
+    if (englishTexts.length) result = _restoreEnglishTokens(result, englishTexts);
     return result;
 }
 
-function prakashakToUnicode(text, retainEnglish = false) {
-    let result = text;
-    const englishTexts = [];
-
-    if (retainEnglish) {
-        let out = '';
-        let i = 0;
-        while (i < result.length) {
-            if (result[i] === '\uFF62') {
-                let j = i + 1;
-                while (j < result.length && result[j] !== '\uFF63') j++;
-                out += result.slice(i, j + 1);
-                i = j + 1;
-                continue;
-            }
-            if (/[a-zA-Z]/.test(result[i])) {
-                let j = i;
-                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
-                const token = result.slice(i, j);
-                if (_isEnglishToken(token, result, i)) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(token);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += token;
-                }
-                i = j;
-            } else if (/[0-9]/.test(result[i])) {
-                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
-                // digits directly adjacent to encoding bytes/letters are part
-                // of the ASCII encoding and stay convertible.
-                let j = i;
-                while (j < result.length && /[0-9]/.test(result[j])) {
-                    j++;
-                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
-                }
-                const numToken = result.slice(i, j);
-                const before = i > 0 ? result[i - 1] : '';
-                const after = j < result.length ? result[j] : '';
-                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
-                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
-                if (!adjacentToCode) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(numToken);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += numToken;
-                }
-                i = j;
-            } else {
-                out += result[i];
-                i++;
+function pivotUnicodeToAscii(text, x2nudiMap) {
+    const extracted = _extractEnglishTokens(text);
+    const nudiAscii = unicodeToASCII(extracted.text, 'nudi');
+    const { map: nudi2x, keys } = _nudi2xFor(x2nudiMap);
+    let result = '';
+    let i = 0;
+    outer:
+    while (i < nudiAscii.length) {
+        if (nudiAscii[i] === '\uFF62') {
+            let j = i + 1;
+            while (j < nudiAscii.length && nudiAscii[j] !== '\uFF63') j++;
+            result += nudiAscii.slice(i, j + 1);
+            i = j + 1;
+            continue;
+        }
+        for (const key of keys) {
+            if (key.length && nudiAscii.startsWith(key, i)) {
+                result += nudi2x[key];
+                i += key.length;
+                continue outer;
             }
         }
-        result = out;
+        result += nudiAscii[i];
+        i++;
     }
-
-    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
-    const words = result.split(' ');
-    const convertedWords = words.map(word => {
-        if (word.length === 0) return word;
-        const parts = word.split(PLACEHOLDER_SPLIT);
-        const convertedParts = parts.map(part => {
-            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
-            if (part.length === 0) return part;
-            let converted = part;
-            
-            const keys = Object.keys(PRAKASH_MAP).sort((a, b) => b.length - a.length);
-            keys.forEach(key => {
-                converted = converted.split(key).join(PRAKASH_MAP[key]);
-            });
-            
-            Object.entries(PRAKASH_VOWEL_SIGNS).forEach(([k, v]) => {
-                converted = converted.split(k).join(v);
-            });
-            
-            Object.entries(PRAKASH_VATT).forEach(([k, v]) => {
-                converted = converted.split(k).join(v);
-            });
-            
-            return converted;
-        });
-        return convertedParts.join('');
-    });
-    result = convertedWords.join(' ');
-
-    if (retainEnglish && englishTexts.length > 0) {
-        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
-    }
+    if (extracted.englishTexts.length) result = _restoreEnglishTokens(result, extracted.englishTexts);
     return result;
 }
 
-function akrutiToUnicode(text, retainEnglish = false) {
-    let result = text;
-    const englishTexts = [];
-
-    if (retainEnglish) {
-        let out = '';
-        let i = 0;
-        while (i < result.length) {
-            if (result[i] === '\uFF62') {
-                let j = i + 1;
-                while (j < result.length && result[j] !== '\uFF63') j++;
-                out += result.slice(i, j + 1);
-                i = j + 1;
-                continue;
-            }
-            if (/[a-zA-Z]/.test(result[i])) {
-                let j = i;
-                while (j < result.length && /[a-zA-Z'-]/.test(result[j])) j++;
-                const token = result.slice(i, j);
-                if (_isEnglishToken(token, result, i)) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(token);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += token;
-                }
-                i = j;
-            } else if (/[0-9]/.test(result[i])) {
-                // Standalone number runs (e.g. "123", "3.14") are kept as-is;
-                // digits directly adjacent to encoding bytes/letters are part
-                // of the ASCII encoding and stay convertible.
-                let j = i;
-                while (j < result.length && /[0-9]/.test(result[j])) {
-                    j++;
-                    if (j < result.length - 1 && /[.,:]/.test(result[j]) && /[0-9]/.test(result[j + 1])) j++;
-                }
-                const numToken = result.slice(i, j);
-                const before = i > 0 ? result[i - 1] : '';
-                const after = j < result.length ? result[j] : '';
-                const adjacentToCode = /[a-zA-ZÀ-ÿĀ-ſ]/.test(before) ||
-                                       /[a-zA-ZÀ-ÿĀ-ſ]/.test(after);
-                if (!adjacentToCode) {
-                    const idx = englishTexts.length;
-                    englishTexts.push(numToken);
-                    out += _makePlaceholder(idx);
-                } else {
-                    out += numToken;
-                }
-                i = j;
-            } else {
-                out += result[i];
-                i++;
-            }
-        }
-        result = out;
-    }
-
-    const PLACEHOLDER_SPLIT = /(\uFF62[a-z]+\uFF63)/;
-    const words = result.split(' ');
-    const convertedWords = words.map(word => {
-        if (word.length === 0) return word;
-        const parts = word.split(PLACEHOLDER_SPLIT);
-        const convertedParts = parts.map(part => {
-            if (part.startsWith('\uFF62') && part.endsWith('\uFF63')) return part;
-            if (part.length === 0) return part;
-            let converted = part;
-            
-            const keys = Object.keys(AKRUTI_MAP).sort((a, b) => b.length - a.length);
-            keys.forEach(key => {
-                converted = converted.split(key).join(AKRUTI_MAP[key]);
-            });
-            
-            Object.entries(AKRUTI_VOWEL_SIGNS).forEach(([k, v]) => {
-                converted = converted.split(k).join(v);
-            });
-            
-            Object.entries(AKRUTI_VATT).forEach(([k, v]) => {
-                converted = converted.split(k).join(v);
-            });
-            
-            return converted;
-        });
-        return convertedParts.join('');
-    });
-    result = convertedWords.join(' ');
-
-    if (retainEnglish && englishTexts.length > 0) {
-        result = result.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
-    }
-    return result;
+function shree2ToUnicode(text, retainEnglish = false) {
+    return pivotAsciiToUnicode(text, SHREE2_X2NUDI, retainEnglish);
+}
+function unicodeToShree2(text) {
+    return pivotUnicodeToAscii(text, SHREE2_X2NUDI);
+}
+function prakashak2ToUnicode(text, retainEnglish = false) {
+    return pivotAsciiToUnicode(text, PRAKASH2_X2NUDI, retainEnglish);
+}
+function unicodeToPrakashak2(text) {
+    return pivotUnicodeToAscii(text, PRAKASH2_X2NUDI);
+}
+function akruti2ToUnicode(text, retainEnglish = false) {
+    return pivotAsciiToUnicode(text, AKRUTI2_X2NUDI, retainEnglish);
+}
+function unicodeToAkruti2(text) {
+    return pivotUnicodeToAscii(text, AKRUTI2_X2NUDI);
+}
+function surabhiToUnicode(text, retainEnglish = false) {
+    return pivotAsciiToUnicode(text, SURABHI_X2NUDI, retainEnglish);
+}
+function unicodeToSurabhi(text) {
+    return pivotUnicodeToAscii(text, SURABHI_X2NUDI);
 }
 
 function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
     if (fontType === 'shree') {
-        return shreeToUnicode(text, retainEnglish);
+        return shree2ToUnicode(text, retainEnglish);
     }
     if (fontType === 'prakashak') {
-        return prakashakToUnicode(text, retainEnglish);
+        return prakashak2ToUnicode(text, retainEnglish);
     }
     if (fontType === 'akruti') {
-        return akrutiToUnicode(text, retainEnglish);
+        return akruti2ToUnicode(text, retainEnglish);
+    }
+    if (fontType === 'surabhi') {
+        return surabhiToUnicode(text, retainEnglish);
     }
 
     // Nudi files decoded from windows-1252 contain MICRO SIGN (U+00B5) for ಷ,
@@ -793,13 +600,16 @@ function unicodeToASCII(text, fontType = 'nudi') {
     let result = text;
     
     if (fontType === 'shree') {
-        return unicodeToShreelipi(text);
+        return unicodeToShree2(text);
     }
     if (fontType === 'prakashak') {
-        return unicodeToPrakash(text);
+        return unicodeToPrakashak2(text);
     }
     if (fontType === 'akruti') {
-        return unicodeToAkruti(text);
+        return unicodeToAkruti2(text);
+    }
+    if (fontType === 'surabhi') {
+        return unicodeToSurabhi(text);
     }
     
     const ASCII_DEERGA = "Ã";
@@ -833,99 +643,6 @@ function unicodeToASCII(text, fontType = 'nudi') {
     // (U+03BC) so the ASCII output is byte-accurate for legacy Nudi tools.
     result = result.replace(/μ/g, 'µ');
 
-    return result;
-}
-
-function unicodeToShreelipi(text) {
-    let result = text;
-    
-    const SHREE_U2A_MAP = {
-        'ಅ': 'A', 'ಆ': 'B', 'ಇ': 'C', 'ಈ': 'D', 'ಉ': 'E', 'ಊ': 'F',
-        'ಋ': 'Má', 'ೠ': 'Má', 'ಎ': 'G', 'ಏ': 'H', 'ಐ': 'I', 'ಒ': 'J', 'ಓ': 'K', 'ಔ': 'L',
-        'ಂ': 'í', 'ಃ': '@',
-        'ಕ': 'PÜ', 'ಖ': 'S', 'ಗ': 'WÜ', 'ಘ': 'Z', 'ಙ': '_',
-        'ಚ': 'aÜ', 'ಛ': 'dÜ', 'ಜ': 'g', 'ಝ': 'ÃÜká', 'ಞ': 'm',
-        'ಟ': 'o', 'ಠ': 'sÜ', 'ಡ': 'vÜ', 'ಢ': 'yÜ', 'ಣ': '|',
-        'ತ': 'ñÜ', 'ಥ': '¥Ü', 'ದ': '¨Ü', 'ಧ': '«Ü', 'ನ': '®Ü',
-        'ಪ': '±Ü', 'ಫ': '¶Ü', 'ಬ': 'Ÿ', 'ಭ': '»Ü', 'ಮ': 'ÊÜá',
-        'ಯ': '¿á', 'ರ': 'ÃÜ', 'ಲ': 'Æ', 'ವ': 'ÊÜ', 'ಶ': 'ÍÜ',
-        'ಷ': 'ÐÜ', 'ಸ': 'ÓÜ', 'ಹ': 'ÖÜ', 'ಳ': 'ÙÜ',
-        'ಾ': 'Ý',
-        'ಕಿ': 'Q', 'ಕೀ': 'Qà', 'ಕು': 'PÜá', 'ಕೂ': 'PÜã', 'ಕೃ': 'PÜê', 'ಕೆ': 'PÜæ', 'ಕೇ': 'PÜæà', 'ಕೈ': 'PÜæç', 'ಕೊ': 'PÜæã', 'ಕೋ': 'PÜæãà', 'ಕೌ': 'PÜè',
-        'ಖಿ': 'U', 'ಖೀ': 'Uà', 'ಗಿ': 'X', 'ಗೀ': 'Xà', 'ಘಿ': '\\', 'ಘೀ': '\\à',
-        'ಚಿ': 'b', 'ಚೀ': 'bà', 'ಛಿ': 'e', 'ಛೀ': 'eà', 'ಜಿ': 'i', 'ಜೀ': 'ià',
-        'ಝಿ': 'Äká', 'ಝೀ': 'Äkáà', 'ಟಿ': 'q', 'ಟೀ': 'qà', 'ಠಿ': 't', 'ಠೀ': 'tà',
-        'ಡಿ': 'w', 'ಡೀ': 'wà', 'ಢಿ': '{', 'ಢೀ': '{à', 'ಣಿ': '~', 'ಣೀ': '~à',
-        'ತಿ': '£', 'ತೀ': '£à', 'ಥಿ': '¦', 'ಥೀ': '¦à', 'ದಿ': '©', 'ದೀ': '©à',
-        'ಧಿ': '˜', 'ಧೀ': '˜à', 'ನಿ': '¯', 'ನೀ': '¯à', 'ಪಿ': '²', 'ಪೀ': '²à',
-        'ಫಿ': 'µ', 'ಫೀ': 'µà', 'ಬಿ': '¹', 'ಬೀ': '¹à', 'ಭಿ': '¼', 'ಭೀ': '¼à',
-        'ಮಿ': 'Ëá', 'ಮೀ': 'Ëáà', 'ಯಿ': 'Àá', 'ಯೀ': 'Àáà', 'ರಿ': 'Ä', 'ರೀ': 'Äà',
-        'ಲಿ': 'È', 'ಲೀ': 'Èà', 'ವಿ': 'Ë', 'ವೀ': 'Ëà', 'ಶಿ': 'Î', 'ಶೀ': 'Îà',
-        'ಷಿ': 'Ñ', 'ಷೀ': 'Ñà', 'ಸಿ': 'Ô', 'ಸೀ': 'Ôà', 'ಹಿ': '×', 'ಹೀ': '×à',
-        'ಳಿ': 'Ú', 'ಳೀ': 'Úà',
-        'ಕ್ಷ': 'ûÜ', 'ಜ್ಞ': 'ý',
-        '್': '…', 'ು': 'á', 'ೂ': 'ã', 'ೃ': 'ê', 'ೆ': 'æ', 'ೇ': 'æà', 'ೈ': 'æç', 'ೊ': 'æã', 'ೋ': 'æãà', 'ೌ': 'è',
-        'ರ್': 'ì', '್ಕ': 'R', '್ಖ': 'V', '್ಗ': 'Y', '್ಘ': '^', '್ಙ': '`',
-        '್ಚ': 'c', '್ಛ': 'f', '್ಜ': 'j', '್ಝ': 'l', '್ಞ': 'n',
-        '್ಟ': 'r', '್ಠ': 'u', '್ಡ': 'x', '್ಢ': 'z', '್ಣ': '¡',
-        '್ತ': '¤', '್ಥ': '§', '್ದ': 'ª', '್ಧ': 'œ', '್ನ': '°',
-        '್ಪ': '³', '್ಫ': '#', '್ಬ': 'º', '್ಭ': '½', '್ಮ': '¾',
-        '್ಯ': 'Â', '್ರ': 'Å', '್ಲ': 'É', '್ವ': 'Ì', '್ಶ': 'Ï',
-        '್ಸ': 'Õ', '್ಹ': 'Ø', '್ಳ': 'Û'
-    };
-    
-    const KN_DIGITS = '೦೧೨೩೪೫೬೭೮೯';
-    const EN_DIGITS = '0123456789';
-    
-    // Build reverse map keys sorted by length (longest first)
-    const U2A_KEYS = Object.keys(SHREE_U2A_MAP).sort((a, b) => b.length - a.length);
-    
-    // Replace Unicode characters with ShreeLipi
-    for (const key of U2A_KEYS) {
-        if (key.length > 0) {
-            result = result.split(key).join(SHREE_U2A_MAP[key]);
-        }
-    }
-    
-    // Convert numbers
-    for (let i = 0; i < KN_DIGITS.length; i++) {
-        result = result.split(KN_DIGITS[i]).join(EN_DIGITS[i]);
-    }
-    
-    return result;
-}
-
-function unicodeToPrakash(text) {
-    let result = text;
-    
-    const PRAKASH_U2A_MAP = {};
-    Object.entries(PRAKASH_MAP).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
-    Object.entries(PRAKASH_VOWEL_SIGNS).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
-    Object.entries(PRAKASH_VATT).forEach(([k, v]) => PRAKASH_U2A_MAP[v] = k);
-    
-    const U2A_KEYS = Object.keys(PRAKASH_U2A_MAP).sort((a, b) => b.length - a.length);
-    
-    for (const key of U2A_KEYS) {
-        result = result.split(key).join(PRAKASH_U2A_MAP[key]);
-    }
-    
-    return result;
-}
-
-function unicodeToAkruti(text) {
-    let result = text;
-    
-    const AKRUTI_U2A_MAP = {};
-    Object.entries(AKRUTI_MAP).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
-    Object.entries(AKRUTI_VOWEL_SIGNS).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
-    Object.entries(AKRUTI_VATT).forEach(([k, v]) => AKRUTI_U2A_MAP[v] = k);
-    
-    const U2A_KEYS = Object.keys(AKRUTI_U2A_MAP).sort((a, b) => b.length - a.length);
-    
-    for (const key of U2A_KEYS) {
-        result = result.split(key).join(AKRUTI_U2A_MAP[key]);
-    }
-    
     return result;
 }
 
@@ -1520,10 +1237,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!text) return text;
         var hasUnicode = /[\u0C80-\u0CFF]/.test(text);
         if (!hasUnicode) return text;
-        if (font === 'shree') return unicodeToShreelipi(text);
-        if (font === 'prakashak') return unicodeToPrakash(text);
-        if (font === 'akruti') return unicodeToAkruti(text);
-        return unicodeToASCII(text);
+        return unicodeToASCII(text, font);
     }
 
     function update() {
@@ -1887,7 +1601,8 @@ function reportBug() {
 
     var FONT_LABELS = {
         nudi: 'Nudi / Baraha', shree: 'ShreeLipi',
-        prakashak: 'Prakashak', akruti: 'Akruti', auto: 'ಸ್ವಯಂಚಾಲಿತ / Auto'
+        prakashak: 'Prakashak', akruti: 'Akruti', surabhi: 'Surabhi (KND)',
+        auto: 'ಸ್ವಯಂಚಾಲಿತ / Auto'
     };
 
     var params = new URLSearchParams();

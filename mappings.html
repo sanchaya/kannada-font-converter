@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ಫಾಂಟ್ ಮ್ಯಾಪಿಂಗ್ - ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ</title>
-    <meta name="description" content="Nudi, ShreeLipi, Prakashak, Akruti ಫಾಂಟ್‌ಗಳ ASCII ↔ Unicode ಅಕ್ಷರ ಮ್ಯಾಪಿಂಗ್ ಪಟ್ಟಿಗಳು">
+    <meta name="description" content="Nudi, ShreeLipi, Prakashak, Akruti, Surabhi ಫಾಂಟ್‌ಗಳ ASCII ↔ Unicode ಅಕ್ಷರ ಮ್ಯಾಪಿಂಗ್ ಪಟ್ಟಿಗಳು">
     <link rel="icon" type="image/png" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/android-chrome-192x192.png">
@@ -64,6 +64,10 @@
                 <p class="text-muted mb-3">
                     ಪ್ರತಿ ಹಳೆಯ (legacy) ಫಾಂಟ್‌ನ ASCII ಸಂಕೇತಗಳು ಮತ್ತು ಅವುಗಳ Unicode ಕನ್ನಡ ಸಮಾನಗಳು.
                     ಈ ಪಟ್ಟಿಗಳು ಪರಿವರ್ತಕದ ನಿಜವಾದ ಮ್ಯಾಪಿಂಗ್ ದತ್ತಾಂಶದಿಂದಲೇ ನೇರವಾಗಿ ತಯಾರಾಗುತ್ತವೆ.
+                    ShreeLipi, Prakashak, Akruti, ಮತ್ತು Surabhi ಪಟ್ಟಿಗಳು KGP ಮ್ಯಾಕ್ರೋ ಕೋಷ್ಟಕಗಳಿಂದ
+                    ಪೋರ್ಟ್ ಮಾಡಲಾಗಿದ್ದು, ಕೆಲವು ಅಪರೂಪದ ಬೈಟ್ ಕೋಡ್‌ಗಳು (cursor-reordering) ಇನ್ನೂ
+                    ಬಾಕಿ ಇವೆ - ವಿವರಗಳಿಗೆ <a href="https://github.com/sanchaya/kannada-font-converter/blob/main/tools/MACRO-REVIEW.md" target="_blank" rel="noopener">tools/MACRO-REVIEW.md</a>
+                    ಮತ್ತು <a href="status.html">ಸ್ಥಿತಿ ಪುಟ</a> ನೋಡಿ.
                 </p>
 
                 <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
@@ -104,6 +108,21 @@
             return Array.isArray(objOrArr) ? objOrArr.slice() : Object.entries(objOrArr);
         }
 
+        // ShreeLipi/Prakashak/Akruti/Surabhi are pivot-based (ported from the KGP
+        // macro tables - see tools/MACRO-REVIEW.md): each source byte maps to a
+        // Nudi ASCII fragment, which is then run through the Nudi engine to get
+        // its effective Unicode value. Byte codes not listed here involved true
+        // cursor-based reordering in the original macro and currently pass
+        // through unconverted (see tools/pivot-maps.generated.js for the exact
+        // unmapped codes per font).
+        function buildPivotEntries(map) {
+            return Object.keys(map).map(function(codeStr) {
+                var ch = String.fromCharCode(Number(codeStr));
+                var uni = pivotAsciiToUnicode(ch, map, false);
+                return [ch, uni];
+            }).sort(function(a, b) { return a[0].charCodeAt(0) - b[0].charCodeAt(0); });
+        }
+
         // Sections are built from the converter's own data structures in app.js
         var FONTS = {
             nudi: {
@@ -118,25 +137,25 @@
             shree: {
                 label: 'ShreeLipi',
                 sections: [
-                    { title: 'ಸ್ವರಗಳು', data: SHREE_VOWEL_MAP },
-                    { title: 'ವ್ಯಂಜನಗಳು', data: SHREE_CONSONANT_MAP },
-                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: SHREE_VOWEL_SIGNS }
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, KAN-850)', data: buildPivotEntries(SHREE2_X2NUDI) }
                 ]
             },
             prakashak: {
                 label: 'Prakashak',
                 sections: [
-                    { title: 'ಅಕ್ಷರಗಳು', data: PRAKASH_MAP },
-                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: PRAKASH_VOWEL_SIGNS },
-                    { title: 'ವತ್ತಕ್ಷರಗಳು', data: PRAKASH_VATT }
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, Praja)', data: buildPivotEntries(PRAKASH2_X2NUDI) }
                 ]
             },
             akruti: {
                 label: 'Akruti',
                 sections: [
-                    { title: 'ಅಕ್ಷರಗಳು', data: AKRUTI_MAP },
-                    { title: 'ಸ್ವರ ಚಿಹ್ನೆಗಳು (ಮಾತ್ರೆಗಳು)', data: AKRUTI_VOWEL_SIGNS },
-                    { title: 'ವತ್ತಕ್ಷರಗಳು', data: AKRUTI_VATT }
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, Mono)', data: buildPivotEntries(AKRUTI2_X2NUDI) }
+                ]
+            },
+            surabhi: {
+                label: 'Surabhi (KND)',
+                sections: [
+                    { title: 'ASCII → Unicode (ಪೂರ್ಣ ಪಟ್ಟಿ, KND-series)', data: buildPivotEntries(SURABHI_X2NUDI) }
                 ]
             }
         };

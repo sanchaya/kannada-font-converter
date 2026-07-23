@@ -28,19 +28,28 @@ Hosted on GitHub Pages at converter.sanchaya.net. Node server is secondary.
 - Static smoke: open index.html in browser
 - Server: `PORT=3001 node server.js`
 
-## KGP macro adoption (see tools/MACRO-REVIEW.md)
-Six KGP Word macro templates reviewed; rule tables extracted to tools/macro-extracts/*.json.
-13 source encodings available (incl. NEW: ISM/KNTT-Nandi, Surabhi, WinKey, Dharma ILs,
-Janna, Suchi, ShreeDeccan). Strategy: port X->NudiMono tables, pivot through existing
-Nudi a2u engine. Porting order: Prakashak(Praja) -> Akruti -> SriLipi KAN-850 ->
-Surabhi KND -> rest. Run test/permutations.js after each port.
+## KGP macro adoption (see tools/MACRO-REVIEW.md) - PORTED 2026-07-23
+Six KGP Word macro templates reviewed; rule tables extracted to tools/macro-extracts/*.json,
+then tools/resolve-complex.py recovered output for most "complex" (state-flag) rules and
+tools/generate-pivot-maps.py generated charCode->NudiASCII tables (tools/pivot-maps.generated.js).
+Ported into js/app.js as a generic pivot engine (pivotAsciiToUnicode/pivotUnicodeToAscii +
+PRAKASH2_X2NUDI/AKRUTI2_X2NUDI/SHREE2_X2NUDI/SURABHI_X2NUDI), replacing the old weak
+shree/prakashak/akruti maps and adding Surabhi (KND) as a new font. Wired into index.html
+dropdowns, mappings.html (live-rendered), test/permutations.js, bug_report.yml, and README.
+server.js was NOT extended (already lacked shree/prakashak/akruti; documented as secondary path).
+Still not ported: ISM/KNTT-Nandi, WinKey, Dharma ILs, Janna, Suchi, ShreeDeccan, and a second
+SriLipi/Surabhi/Akruti variant each (7 more source encodings, see tools/MACRO-REVIEW.md).
 
-## Conversion backlog (from test/ISSUES.md, 2026-07-23)
+## Conversion status (from test/ISSUES.md, 2026-07-23, post-port)
 - nudi: 2076/2077 pass. Only bare standalone ಎ (code '2', ambiguous with numeral). Accepted limitation.
-- shree: 699/2077 - conjunct/vattakshara maps largely missing (1090 conjunct fails)
-- prakashak: 257/2077 - syllable + conjunct maps incomplete
-- akruti: 338/2077 - syllable + conjunct maps incomplete
-Work these one font at a time; re-run the suite after each change.
+- shree: 1909/2077 (was 699) - remaining fails mostly u2a conjunct/vattakshara forms
+- prakashak: 911/2077 (was 257) - weakest of the ported fonts, same u2a conjunct gap
+- akruti: 1548/2077 (was 338)
+- surabhi: 1839/2077 - new font, not previously supported
+Root cause of remaining gaps: u2a pivot inverts Nudi-ASCII-fragment->source-char, but the
+Nudi engine's own ASCII output for conjunct/vattakshara forms doesn't always match the
+literal per-byte fragment shapes the macros assumed. a2u (the documented priority direction)
+is comparatively strong. Re-run test/permutations.js after any further change.
 
 ## Do not touch
 _(nothing flagged yet)_

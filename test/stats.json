@@ -12,51 +12,66 @@
       }
     },
     "shree": {
-      "pass": 699,
-      "fail": 1378,
-      "u2aFail": 4,
-      "a2uFail": 1374,
+      "pass": 1909,
+      "fail": 168,
+      "u2aFail": 0,
+      "a2uFail": 168,
       "categories": {
-        "vowel": 13,
-        "anusvara": 34,
-        "visarga": 34,
-        "syllable": 13,
-        "conjunct": 1090,
-        "conjunct+matra": 175,
-        "word": 17,
-        "mixed": 2
+        "vowel": 1,
+        "halant-final": 3,
+        "syllable": 31,
+        "conjunct": 102,
+        "conjunct+matra": 30,
+        "word": 1
       }
     },
     "prakashak": {
-      "pass": 257,
-      "fail": 1820,
-      "u2aFail": 537,
-      "a2uFail": 1283,
+      "pass": 911,
+      "fail": 1166,
+      "u2aFail": 7,
+      "a2uFail": 1159,
       "categories": {
-        "vowel": 3,
-        "syllable": 433,
-        "anusvara": 32,
-        "visarga": 25,
-        "halant-final": 8,
-        "conjunct": 956,
-        "conjunct+matra": 340,
-        "word": 20,
+        "vowel": 1,
+        "syllable": 164,
+        "anusvara": 24,
+        "visarga": 24,
+        "halant-final": 4,
+        "conjunct": 856,
+        "conjunct+matra": 79,
+        "word": 11,
         "mixed": 3
       }
     },
     "akruti": {
-      "pass": 338,
-      "fail": 1739,
-      "u2aFail": 253,
-      "a2uFail": 1486,
+      "pass": 1548,
+      "fail": 529,
+      "u2aFail": 1,
+      "a2uFail": 528,
       "categories": {
-        "halant-final": 28,
-        "syllable": 374,
-        "anusvara": 21,
-        "conjunct": 952,
-        "conjunct+matra": 340,
-        "word": 21,
-        "mixed": 3
+        "vowel": 2,
+        "syllable": 84,
+        "anusvara": 34,
+        "visarga": 34,
+        "halant-final": 5,
+        "conjunct": 316,
+        "conjunct+matra": 46,
+        "word": 8
+      }
+    },
+    "surabhi": {
+      "pass": 1839,
+      "fail": 238,
+      "u2aFail": 1,
+      "a2uFail": 237,
+      "categories": {
+        "vowel": 1,
+        "anusvara": 6,
+        "visarga": 6,
+        "syllable": 26,
+        "halant-final": 3,
+        "conjunct": 165,
+        "conjunct+matra": 25,
+        "word": 6
       }
     }
   }
