@@ -133,4 +133,6 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 
 ## License
 
-MIT
+GPL-3.0 (or any later version) - see [LICENSE](LICENSE). Prior versions of
+this project were released under the MIT license; from this version onward,
+new work is licensed under the GNU GPLv3.
