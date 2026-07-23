@@ -14,3 +14,14 @@ npm-debug.log
 # Environment
 .env
 .env.local
+
+# Dev-only / internal - kept locally, not published to the public repo.
+# GitHub Pages only needs the static site (html/css/js/img) + test/stats.json.
+.autopilot/
+tools/
+server.js
+package.json
+package-lock.json
+linkedin-post.md
+test/permutations.js
+test/ISSUES.md

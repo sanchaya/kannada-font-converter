@@ -16,7 +16,7 @@ Live at **[converter.sanchaya.net](https://converter.sanchaya.net)** (GitHub Pag
 
 ## Features
 
-- **Text Conversion**: ASCII ↔ Unicode (a2u / u2a / auto-detect) for Nudi/Baraha, ShreeLipi, Prakashak, Akruti, and Surabhi (KND) encodings. ShreeLipi, Prakashak, Akruti, and Surabhi are pivot-based - ported from the KGP Word-macro rule tables and routed through the Nudi engine (see `tools/MACRO-REVIEW.md`)
+- **Text Conversion**: ASCII ↔ Unicode (a2u / u2a / auto-detect) for Nudi/Baraha, ShreeLipi, Prakashak, Akruti, and Surabhi (KND) encodings. ShreeLipi, Prakashak, Akruti, and Surabhi are pivot-based - each source encoding is converted to Nudi ASCII first, then routed through the Nudi engine
 - **English & number retention**: Latin text passes through unchanged; standalone numbers (including decimals) are preserved - digits that are part of the ASCII encoding still convert correctly
 - **Live Editor** - a dual-pane editor that works in both directions:
   - *ASCII simulator mode*: behaves like a legacy Nudi editor - anything typed (including Kannada via IME) is normalized to ASCII on the left, with live Unicode on the right and a preview of how the ASCII renders in a legacy-font editor
@@ -43,28 +43,6 @@ npx serve .
 
 or just open `index.html`. This is how the GitHub Pages deployment works.
 
-## Optional Node server
-
-An Express server provides a REST API and conversion history:
-
-```bash
-npm install
-PORT=3001 npm start
-```
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/convert | Convert text |
-| GET | /api/history | Get conversion history |
-| GET | /api/convert/:id | Get specific conversion |
-| GET | /api/health | Health check |
-
-```bash
-curl -X POST http://localhost:3001/api/convert \
-  -H "Content-Type: application/json" \
-  -d '{ "text": "ನಮಸ್ಕಾರ", "direction": "auto", "numFormat": "keep" }'
-```
-
 ## Live Editor Usage
 
 1. Open the **ಲೈವ್ ಸಂಪಾದಕ** tab - KGP keyboard activates automatically
@@ -85,34 +63,19 @@ curl -X POST http://localhost:3001/api/convert \
 ├── css/style.css       # Shared styles
 ├── js/app.js           # Conversion engine + UI logic
 ├── js/tour.js          # Guided tours (driver.js)
-├── server.js           # Optional Express server (API/history)
-├── test/
-│   ├── permutations.js # Round-trip test harness (2,077 cases per font)
-│   ├── ISSUES.md       # Auto-generated failure log
-│   └── stats.json      # Auto-generated stats (feeds status.html)
-├── tools/
-│   ├── extract-macros.py    # KGP .dot macro rule-table extractor
-│   ├── macro-extracts/      # Extracted conversion tables (13 encodings)
-│   └── MACRO-REVIEW.md      # Macro review + font porting plan
+├── test/stats.json     # Conversion accuracy stats (feeds status.html)
 ├── img/                # Branding + keyboard images
-└── .autopilot/         # Maintenance notes
+└── .github/            # Issue template for bug reports
 ```
 
 ## Testing
 
-A permutation harness sweeps every consonant x vowel-sign syllable, halant form,
-anusvara/visarga form, and all two-consonant conjuncts (2,077 cases per font)
-through Unicode -> ASCII -> Unicode round-trips:
+Conversion accuracy is tracked per font via round-trip testing (Unicode ->
+ASCII -> Unicode) against every consonant x vowel-sign syllable, halant form,
+anusvara/visarga form, and two-consonant conjunct. Results feed `test/stats.json`,
+which `status.html` renders live.
 
-```bash
-node test/permutations.js          # writes test/ISSUES.md, exits non-zero on failures
-node test/permutations.js --full   # all conjunct+matra combinations
-```
-
-**Run this after every conversion fix** - it regenerates `test/ISSUES.md` and is
-the guard against fixing one case while silently breaking another.
-
-Current status (see `test/ISSUES.md` for details):
+Current status:
 
 | Font | Round-trip pass rate | Notes |
 |------|---------------------|-------|
@@ -122,20 +85,15 @@ Current status (see `test/ISSUES.md` for details):
 | Akruti | 1548 / 2077 | Pivot-ported (Mono) |
 | Surabhi (KND) | 1839 / 2077 | New font, pivot-ported - not previously supported at all |
 
-ShreeLipi, Prakashak, Akruti, and Surabhi were ported from the KGP macro rule
-tables this pass (replacing the old, much weaker hand-built maps - previously
-699/257/338 out of 2077, and Surabhi didn't exist). The architecture: each
-source byte substitutes into a Nudi ASCII fragment, then the existing,
-well-tested Nudi engine does the Nudi <-> Unicode conversion. A small number
-of macro rules involved true cursor-based reordering rather than a per-byte
-substitution and are left as pass-through (documented in
-`tools/pivot-maps.generated.js`); most remaining failures are u2a (Unicode ->
-ASCII) round-trips for conjunct/vattakshara forms specifically, since the
-Nudi engine's own ASCII output for complex syllables doesn't always match the
-literal per-byte fragment shapes the macros assumed. See `tools/MACRO-REVIEW.md`
-for the full review and remaining porting candidates (ISM/KNTT-Nandi, WinKey,
-Dharma ILs, Janna, Suchi, Shree Deccan, and a second SriLipi/Surabhi/Akruti
-variant each).
+ShreeLipi, Prakashak, Akruti, and Surabhi are pivot-based: each source byte
+substitutes into a Nudi ASCII fragment, then the existing, well-tested Nudi
+engine does the Nudi <-> Unicode conversion. A small number of source byte
+codes involved true cursor-based reordering in the original encoding logic
+rather than a per-byte substitution and are left as pass-through for now.
+Most remaining failures are u2a (Unicode -> ASCII) round-trips for
+conjunct/vattakshara forms specifically, since the Nudi engine's own ASCII
+output for complex syllables doesn't always match the literal per-byte
+fragment shapes assumed by the pivot tables.
 
 Other recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (windows-1252
 files now convert), vattakshara conjunct reordering (PÀå -> ಕ್ಯ, QÌ -> ಕ್ಕಿ,
@@ -164,10 +122,7 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 - **Output**: Unicode Kannada or ASCII (per selected font)
 - **Files**: TXT, DOCX (read; images skipped), TXT (write)
 - **Planned**: ISM (KNTT-Nandi), WinKey, Dharma ILs, Janna, Suchi, Shree Deccan,
-  and a second SriLipi/Surabhi/Akruti variant each, ported from the same KGP
-  macro tables - see `tools/MACRO-REVIEW.md`. Note that server.js (the optional
-  Node API) currently only implements the Nudi engine; the pivot-based fonts
-  are client-side (js/app.js) only.
+  and a second SriLipi/Surabhi/Akruti variant each - not yet ported
 
 ## Dependencies (CDN)
 
