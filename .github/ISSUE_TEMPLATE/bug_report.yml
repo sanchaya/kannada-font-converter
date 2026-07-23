@@ -3,6 +3,11 @@ description: ಪರಿವರ್ತನೆ ತಪ್ಪಾಗಿದೆಯೇ ಅ�
 title: "[Bug]: "
 labels: ["bug"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ಧನ್ಯವಾದ! ಮೂಲ ಪಠ್ಯದ ಮಾದರಿ ಮತ್ತು ಫಾಂಟ್ ವಿವರ ಕೊಟ್ಟರೆ ದೋಷವನ್ನು ಬೇಗ ಸರಿಪಡಿಸಬಹುದು.
+        Thank you! A sample of the original text plus the font details helps us fix issues quickly.
   - type: dropdown
     id: section
     attributes:
@@ -17,41 +22,63 @@ body:
         - ಇತರೆ (Other)
     validations:
       required: true
+  - type: textarea
+    id: input-text
+    attributes:
+      label: ಮೂಲ ಪಠ್ಯ / Original text you tried to convert
+      description: ತಪ್ಪಾಗಿ ಪರಿವರ್ತನೆಯಾದ ಪಠ್ಯದ ಮಾದರಿ ಇಲ್ಲಿ ಅಂಟಿಸಿ (ಸಣ್ಣ ತುಣುಕು ಸಾಕು). / Paste the text you tried to convert (a short sample is enough).
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: original-font
+    attributes:
+      label: ಮೂಲ ಪಠ್ಯ ರಚಿಸಲು ಬಳಸಿದ ಫಾಂಟ್ / Font used to create the original text
+      description: ಸಾಧ್ಯವಾದರೆ ನಿಖರ ಫಾಂಟ್ ಹೆಸರು ಕೊಡಿ. / Give the exact font name if you know it.
+      placeholder: "e.g. Nudi 01 e K, BRH Kannada, SHREE-0850, Akruti KND-1"
+    validations:
+      required: true
   - type: dropdown
     id: font
     attributes:
-      label: ಫಾಂಟ್ / Font
+      label: ಪರಿವರ್ತಕದಲ್ಲಿ ಆರಿಸಿದ ಫಾಂಟ್ / Font selected in the converter
       options:
         - Nudi / Baraha
         - ShreeLipi
         - Prakashak
         - Akruti
+        - ಸ್ವಯಂಚಾಲಿತ / Auto
         - ಗೊತ್ತಿಲ್ಲ / Not sure
   - type: dropdown
     id: direction
     attributes:
-      label: ದಿಕ್ಕು / Direction
+      label: ದಿಕ್ಕು / Conversion direction
+      description: ASCII ಯಿಂದ Unicode ಗೆ ಪರಿವರ್ತಿಸುತ್ತಿದ್ದೀರಾ ಅಥವಾ Unicode ನಿಂದ ASCII ಗೆ? / Were you converting ASCII to Unicode, or Unicode to ASCII?
       options:
         - ASCII → Unicode
         - Unicode → ASCII
         - ಎರಡೂ / Both
+    validations:
+      required: true
   - type: textarea
-    id: input-text
+    id: issue-details
     attributes:
-      label: ಮೂಲ ಪಠ್ಯ / Input text
-      description: ತಪ್ಪಾಗಿ ಪರಿವರ್ತನೆಯಾದ ಪಠ್ಯದ ಸಣ್ಣ ಮಾದರಿ ಇಲ್ಲಿ ಅಂಟಿಸಿ. / Paste a small sample of the text that converts wrongly.
+      label: ಸಮಸ್ಯೆಯ ವಿವರ / Specifics of the issue
+      description: ಏನು ತಪ್ಪಾಯಿತು? ಯಾವ ಅಕ್ಷರ/ಪದ ತಪ್ಪಾಗಿ ಬಂತು? ಯಾವ ಹಂತದಲ್ಲಿ? / What exactly went wrong - which characters or words, and at what step?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: ಬಂದ ಫಲಿತಾಂಶ / Actual output you got
       render: text
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: ನಿರೀಕ್ಷಿತ ಫಲಿತಾಂಶ / Expected output
-      render: text
-  - type: textarea
-    id: actual
-    attributes:
-      label: ಬಂದ ಫಲಿತಾಂಶ / Actual output
+      label: ನಿರೀಕ್ಷಿತ ಫಲಿತಾಂಶ / Expected behaviour or output
+      description: ಸರಿಯಾದ ಫಲಿತಾಂಶ ಹೇಗಿರಬೇಕಿತ್ತು? / What should the correct output have been?
       render: text
     validations:
       required: true
@@ -64,4 +91,4 @@ body:
     id: more
     attributes:
       label: ಹೆಚ್ಚಿನ ವಿವರ / Anything else
-      description: ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಇದ್ದರೆ ಇಲ್ಲಿ ಎಳೆದು ಹಾಕಿ. / Drag in screenshots if you have them.
+      description: ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಅಥವಾ ಮೂಲ ಫೈಲ್ ಇದ್ದರೆ ಇಲ್ಲಿ ಎಳೆದು ಹಾಕಿ. / Drag in screenshots or the original file if you have them.

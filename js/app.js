@@ -1807,6 +1807,73 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ============================================================
+// BUG REPORTING - opens the GitHub issue form prefilled with
+// the current conversion state (text, output, font, direction)
+// ============================================================
+function reportBug() {
+    var REPO = 'https://github.com/sanchaya/kannada-font-converter/issues/new';
+    var LIMIT = 400; // keep the URL well under browser/GitHub limits
+    function clip(s) {
+        s = (s || '').trim();
+        return s.length > LIMIT ? s.slice(0, LIMIT) + '\n... (truncated)' : s;
+    }
+    function val(id) {
+        var el = document.getElementById(id);
+        return el ? el.value : '';
+    }
+
+    var active = document.querySelector('.tab-pane-custom.active');
+    var tab = active ? active.id : 'tab-text';
+    var input = '', output = '', section = 'ಪಠ್ಯ (Text)', font = '', dir = '';
+
+    if (tab === 'tab-live') {
+        section = 'ಲೈವ್ ಸಂಪಾದಕ (Live editor)';
+        var d = val('live-direction');
+        dir = d === 'u2a' ? 'Unicode → ASCII' : 'ASCII → Unicode';
+        input = val('live-source');
+        output = val('live-result');
+        font = val('live-font-type');
+    } else if (tab === 'tab-url') {
+        section = 'URL';
+        input = val('url-source-text') || val('url-input');
+        output = val('url-output-text');
+        font = val('url-font-type');
+        dir = val('url-convert-direction') === 'u2a' ? 'Unicode → ASCII' : 'ASCII → Unicode';
+    } else if (tab === 'tab-detect') {
+        section = 'ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ (Mixed-text detection)';
+        input = val('detect-input');
+    } else if (tab === 'tab-file') {
+        section = 'ಫೈಲ್ (File)';
+        input = typeof fileText === 'string' ? fileText : '';
+        var out = document.getElementById('file-output');
+        output = out ? out.textContent : '';
+        font = val('font-type');
+    } else {
+        input = val('input-text');
+        output = val('output-text');
+        font = val('font-type');
+        var cd = val('convert-direction');
+        dir = cd === 'u2a' ? 'Unicode → ASCII' : (cd === 'a2u' ? 'ASCII → Unicode' : '');
+    }
+
+    var FONT_LABELS = {
+        nudi: 'Nudi / Baraha', shree: 'ShreeLipi',
+        prakashak: 'Prakashak', akruti: 'Akruti', auto: 'ಸ್ವಯಂಚಾಲಿತ / Auto'
+    };
+
+    var params = new URLSearchParams();
+    params.set('template', 'bug_report.yml');
+    params.set('section', section);
+    if (input) params.set('input-text', clip(input));
+    if (output) params.set('actual', clip(output));
+    if (FONT_LABELS[font]) params.set('font', FONT_LABELS[font]);
+    if (dir) params.set('direction', dir);
+    params.set('browser', navigator.userAgent);
+
+    window.open(REPO + '?' + params.toString(), '_blank', 'noopener');
+}
+
 function downloadBlob(content, filename) {
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const a = document.createElement('a');
