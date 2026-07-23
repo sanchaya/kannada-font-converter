@@ -269,12 +269,22 @@ function _fix_conjuncts(txt) {
     return result;
 }
 
+// Handles the "lengthen the preceding short vowel sign" suffix bytes that
+// arrive detached from their vowel sign after vattakshara reordering. In a
+// vattu conjunct (base + short vowel + subjoined consonant), _fix_conjuncts
+// moves the vowel sign to the end of the cluster, but a trailing lengthen
+// byte typed right after the original vowel sign stays put - so by this
+// point the two are adjacent again and can be merged. Ã lengthens ಿ/ೆ/ೊ
+// (short i/e/o -> long ī/ē/ō); Æ lengthens ು (short u -> long ū). Standalone
+// consonant+vowel forms (QÃ -> ಕೀ, PÀÆ -> ಕೂ, ...) are already resolved
+// earlier via the direct A2U_MAP lookup and never reach this function.
 function _a2u_deerga_handle(txt) {
-    const ASCII_DEERGA = "Ã";
-    return txt.replace(new RegExp(`([ೆೇೊ])([${ASCII_DEERGA}])`, 'g'), (match, g1, g2) => {
-        const UNI_DEERGA_MAP = {'ೆ': 'ೇ', 'ೊ': 'ೋ'};
+    txt = txt.replace(/([ಿೆೇೊ])Ã/g, (match, g1) => {
+        const UNI_DEERGA_MAP = {'ಿ': 'ೀ', 'ೆ': 'ೇ', 'ೊ': 'ೋ'};
         return UNI_DEERGA_MAP[g1] || g1;
     });
+    txt = txt.replace(/ುÆ/g, 'ೂ');
+    return txt;
 }
 
 function _replace_from_map(txt) {
