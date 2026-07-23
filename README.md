@@ -130,7 +130,7 @@ The live editor's font menu is driven by the `LIVE_EDITOR_FONTS` registry in `js
 ## Domains
 
 - **converter.sanchaya.net** - primary (GitHub Pages custom domain)
-- **parivarthaka.sanchaya.net** - alias (DNS-level; GitHub Pages reads only the first CNAME line)
+- **parivartaka.sanchaya.net** - alias (DNS-level; GitHub Pages reads only the first CNAME line)
 
 ## Supported Formats
 
