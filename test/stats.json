@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23",
+  "generated": "2026-07-24",
   "casesPerFont": 2077,
   "fonts": {
     "nudi": {
@@ -38,19 +38,19 @@
       }
     },
     "akruti": {
-      "pass": 1549,
-      "fail": 528,
+      "pass": 1879,
+      "fail": 198,
       "u2aFail": 1,
-      "a2uFail": 527,
+      "a2uFail": 197,
       "categories": {
         "vowel": 1,
-        "syllable": 84,
+        "syllable": 44,
         "anusvara": 34,
         "visarga": 34,
-        "halant-final": 5,
-        "conjunct": 316,
-        "conjunct+matra": 46,
-        "word": 8
+        "halant-final": 1,
+        "conjunct": 68,
+        "conjunct+matra": 10,
+        "word": 6
       }
     },
     "surabhi": {
@@ -69,18 +69,16 @@
       }
     },
     "ismkntt": {
-      "pass": 1524,
-      "fail": 553,
+      "pass": 1768,
+      "fail": 309,
       "u2aFail": 0,
-      "a2uFail": 553,
+      "a2uFail": 309,
       "categories": {
-        "syllable": 188,
-        "anusvara": 7,
-        "visarga": 7,
-        "halant-final": 3,
-        "conjunct": 195,
-        "conjunct+matra": 150,
-        "word": 2,
+        "syllable": 166,
+        "anusvara": 4,
+        "visarga": 4,
+        "conjunct+matra": 133,
+        "word": 1,
         "mixed": 1
       }
     },
@@ -142,20 +140,20 @@
       }
     },
     "surabhikn": {
-      "pass": 849,
-      "fail": 1228,
-      "u2aFail": 0,
-      "a2uFail": 1228,
+      "pass": 963,
+      "fail": 1114,
+      "u2aFail": 1,
+      "a2uFail": 1113,
       "categories": {
         "vowel": 1,
-        "syllable": 193,
-        "anusvara": 27,
-        "halant-final": 7,
-        "visarga": 7,
-        "conjunct": 778,
-        "conjunct+matra": 199,
+        "syllable": 235,
+        "anusvara": 23,
+        "halant-final": 3,
+        "visarga": 3,
+        "conjunct": 598,
+        "conjunct+matra": 234,
         "word": 15,
-        "mixed": 1
+        "mixed": 2
       }
     },
     "suchikan": {

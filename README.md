@@ -82,14 +82,14 @@ Current status:
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
 | ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
 | Prakashak | 912 / 2077 | Pivot-ported (Praja). Weakest of the direct-to-Mono fonts - conjunct/vattakshara forms still fail on the u2a side |
-| Akruti | 1549 / 2077 | Pivot-ported (Mono) |
+| Akruti | 1879 / 2077 | Pivot-ported (Mono) |
 | Surabhi (KND) | 1842 / 2077 | Pivot-ported - not previously supported at all |
-| ISM (KNTT-Nandi) | 1524 / 2077 | Pivot-ported - new font family |
+| ISM (KNTT-Nandi) | 1768 / 2077 | Pivot-ported - new font family |
 | Dharma ILs | 1612 / 2077 | Pivot-ported - new font family |
 | Janna Mono | 1772 / 2077 | Pivot-ported - new font family |
 | SriLipi 850 | 1911 / 2077 | Pivot-ported - second ShreeLipi variant |
 | Shree Deccan | 1983 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
-| Surabhi KN | 849 / 2077 | Pivot-ported - second Surabhi variant |
+| Surabhi KN | 963 / 2077 | Pivot-ported - second Surabhi variant |
 | Suchi Kan | 530 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 459 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 214 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
@@ -143,6 +143,34 @@ function to cover all four. Not caught by the round-trip permutation suite
 never emit this particular byte pattern for these forms) - added 7
 dedicated raw-ASCII-decode regression cases (`raw-a2u` in the test output)
 to guard it going forward.
+
+**Dropped-comment resolver bug (fixed)**: `tools/resolve-complex.py` (local
+build tool, not committed) turns "complex" macro rules - ones with extra
+state-flag bookkeeping around the real `Chr()` output - into plain pivot
+entries. It fed each line's raw text, including trailing VBA comments
+(`'or 115`, `'doubt`, ...), straight into the `Chr()` parser, so any rule
+whose comment didn't happen to look like a bare integer failed to parse and
+was left unresolved even though the actual code was trivially resolvable.
+Stripping comments before parsing recovered 83 previously-unresolved rules
+across several fonts, concentrated in Akruti Mono (+11 byte codes) and ISM
+KNTT-Nandi (+7). Regenerating and re-swapping the pivot tables raised Akruti
+1549->1879 and ISM (KNTT-Nandi) 1524->1768 with no change to any other font.
+
+A handful of the newly-recovered rules carried an `'or N'` comment - the
+macro author flagging genuine uncertainty between two `Chr()` values for
+that byte. Applying those blindly regressed Surabhi KN (849->728): several
+of its bytes resolved to a fragment with no defined meaning anywhere in the
+Nudi ASCII tables (e.g. `zü`, `qü`), while the *commented* alternative
+matched an established pattern (`zs`, `qs`, matching the "consonant+s"
+digraph Nudi uses for ಧ/ಢ/ಫ/ಭ's base forms). Cross-checking each ambiguous
+byte's coded value and commented alternative against the real
+`A2U_MAP`/`VATTAKSHARA_MAP`/`OTHER_MAP` (exact key or valid prefix of one)
+resolved the ambiguity per byte rather than guessing: 4 of Surabhi KN's 9
+ambiguous bytes needed the commented alternative (180, 195, 210, 239 - the
+rest were already correct as coded, including byte 215 which has no clear
+winner either way and was left alone). This override lives in
+`generate-pivot-maps.py`'s `OVERRIDES` table. Net result: Surabhi KN
+849->963, with no regressions elsewhere.
 
 ## Reporting bugs
 
