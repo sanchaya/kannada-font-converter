@@ -10,20 +10,20 @@ Current status:
 | Font | Round-trip pass rate | Notes |
 |------|---------------------|-------|
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
-| ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
-| Prakashak | 1312 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
+| ShreeLipi | 1929 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
+| Prakashak | 1802 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
 | Akruti | 1913 / 2077 | Pivot-ported (Mono) |
 | Surabhi (KND) | 1851 / 2077 | Pivot-ported - not previously supported at all |
-| ISM (KNTT-Nandi) | 1776 / 2077 | Pivot-ported - new font family |
-| Dharma ILs | 1630 / 2077 | Pivot-ported - new font family |
-| Janna Mono | 1805 / 2077 | Pivot-ported - new font family |
-| SriLipi 850 | 1911 / 2077 | Pivot-ported - second ShreeLipi variant |
-| Shree Deccan | 1983 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
+| ISM (KNTT-Nandi) | 1785 / 2077 | Pivot-ported - new font family |
+| Dharma ILs | 1642 / 2077 | Pivot-ported - new font family |
+| Janna Mono | 1823 / 2077 | Pivot-ported - new font family |
+| SriLipi 850 | 1929 / 2077 | Pivot-ported - second ShreeLipi variant |
+| Shree Deccan | 2077 / 2077 | Pivot-ported - newspaper variant, full pass, matching Nudi itself |
 | Surabhi KN | 1534 / 2077 | Pivot-ported - second Surabhi variant |
-| Suchi Kan | 1297 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
-| ISM (KNB TT-Nandi) | 992 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
+| Suchi Kan | 1380 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
+| ISM (KNB TT-Nandi) | 1093 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 848 / 2077 | Pivot-ported via Nudi Bi |
-| WinKey KanEng | 699 / 2077 | Pivot-ported via Nudi Bi - still the weakest of all ported fonts |
+| WinKey KanEng | 834 / 2077 | Pivot-ported via Nudi Bi - still the weakest of all ported fonts |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
 pivot-based: each source byte substitutes into a Nudi ASCII fragment (Mono
@@ -43,25 +43,23 @@ begin with.
 
 ## Known limitations by font (what to expect)
 
-- **Most reliable**: Nudi/Baraha (100%), Shree Deccan (95%), ShreeLipi and
-  SriLipi 850 (92% each), Akruti (92%), Surabhi KND (89%). Failures on
+- **Most reliable**: Nudi/Baraha and Shree Deccan (both 100%), ShreeLipi
+  and SriLipi 850 (93% each), Akruti (92%), Surabhi KND (89%). Failures on
   these are almost entirely two-consonant conjuncts (ಕ್ಷ-style clusters)
   and are being worked down font by font - see `status.html` for the
   live, current pass rate and a category breakdown per font.
-- **Usable with more conjunct gaps**: Janna Mono (87%), ISM KNTT-Nandi (85%),
-  Dharma ILs (78%). Same conjunct-heavy failure pattern, just more of it.
-- **Partial support**: Prakashak (63%) and Surabhi KN (74%) - both had
-  major fixes this session and more are planned; conjuncts and, for
-  Surabhi KN, some base syllables (mostly aspirated consonants and a few
-  ambiguous byte codes) still fail.
-- **Improving, still rough**: Suchi Kan (62%), ISM KNB TT-Nandi (48%),
-  Akruti Bi (41%), WinKey KanEng (34%). These route through an extra Nudi
-  Mono<->Bi hop and have sparser source tables. A foundational bug in that
-  hop was fixed this session (see fix history) and pass rates roughly
-  doubled to tripled as a result, but a further, deeper issue was found in
-  the same hop tables (see below) - treat conversions in these four fonts
-  as a starting point to hand-check, not a finished result, until that's
-  addressed too.
+- **Usable with more conjunct gaps**: Janna Mono (88%), ISM KNTT-Nandi (86%),
+  Prakashak (87%), Dharma ILs (79%). Same conjunct-heavy failure pattern,
+  just more of it.
+- **Partial support**: Surabhi KN (74%) - conjuncts and some base syllables
+  (mostly aspirated consonants and a few ambiguous byte codes) still fail.
+- **Improving, still rough**: Suchi Kan (66%), ISM KNB TT-Nandi (53%),
+  Akruti Bi (41%), WinKey KanEng (40%). These route through an extra Nudi
+  Mono<->Bi hop and have sparser source tables. Two rounds of fixes this
+  session (see fix history) roughly tripled their pass rates from where
+  they started, but per-byte gaps remain in the source macros for several
+  consonants - treat conversions in these four fonts as a starting point
+  to hand-check, not a finished result.
 
 If a specific word or phrase converts incorrectly, the most useful thing
 you can do is report it (ದೋಷ ವರದಿ button in the app, or the link in the
@@ -148,6 +146,34 @@ table needs the original VBA checked case by case, which is slow, manual
 work best done encoding-by-encoding rather than assumed to be one big
 systemic bug. Flagging this as the accurate next step for these four
 fonts, replacing the earlier (incorrect) "one big rearchitecture" framing.
+
+**`resolve-complex.py` couldn't see through If/Else default branches
+(fixed)**: doing that case-by-case check turned up a resolver gap, not a
+missing macro rule. Suchi Kan's byte 190 (needed for ಡ) has this shape:
+`If Chukke = 1 Then <delete the previous 2 chars, write a combined
+Chr(174) & Chr(176)> Else Selection.Text = Chr(174) End If`. `Chukke` is
+only ever set to 1 by a *different* byte's rule (a preceding keystroke
+"arming" a combine, the same mechanism behind vattu/subjoined-consonant
+forms) - so on a normal, standalone keystroke the Else branch is exactly
+what happens, and it's a plain, resolvable `Chr(174)`. The resolver had no
+way to see this: a flat scan of the whole rule body either bails on the
+bare `If ... Then` line, or - worse - finds the Else branch's assignment
+as the rule's *last* assignment overall and wrongly reads the If branch's
+`MoveLeft`/`MoveRight` (which precede it in the raw text) as disqualifying
+"real reordering", even though that reordering only happens when the flag
+is set. Added `try_else_default()`: recognizes a single flat (non-nested,
+no ElseIf, exactly one Else) `If/Else/End If` spanning the whole rule body
+(tolerating a trailing flag-reset line like `Chukke = 0` after `End If`),
+and resolves the Else branch on its own using the same rules as every
+other simple rule - deliberately narrow, bailing rather than guessing on
+anything nested or with more than one Else. This pattern turned out to be
+common across several macros, not just the Bi-hop ones: 143 newly resolved
+rules total (up from 120 with the comment-stripping fix alone), with 0
+regressions across all 15 fonts. Notable gains: Prakashak 1312->1802 (the
+biggest single jump this session), Shree Deccan 1983->2077 (now a full
+pass, matching Nudi itself), WinKey KanEng 699->834, ISM KNB TT-Nandi
+992->1093, Suchi Kan 1297->1380, plus smaller gains on ShreeLipi, SriLipi
+850, ISM KNTT-Nandi, Dharma ILs, and Janna Mono.
 
 **English-token detection was Nudi-specific, wrongly swallowing pivot fonts'
 own encoded text (fixed)**: on the ASCII -> Unicode side of every pivot font,
