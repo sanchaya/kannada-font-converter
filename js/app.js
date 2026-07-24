@@ -1510,15 +1510,20 @@ function detectFontsFromCSS(cssText) {
 }
 
 function extractTextFromHTML(html) {
-    const temp = document.createElement('div');
-    temp.innerHTML = html;
-    
-    const scriptsAndStyles = temp.querySelectorAll('script, style, noscript');
+    // Parsed via DOMParser rather than assigning to a live element's
+    // innerHTML: a DOMParser document has no browsing context, so it never
+    // fetches images/stylesheets or fires inline event-handler attributes
+    // (onerror, onload, ...) - unlike a real (even detached) element, whose
+    // resource-loading tags execute as soon as they're parsed in. Mirrors
+    // the same approach already used in extractTextWithFontInfo below.
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    const scriptsAndStyles = doc.querySelectorAll('script, style, noscript');
     scriptsAndStyles.forEach(el => el.remove());
-    
-    let text = temp.textContent || temp.innerText || '';
+
+    let text = doc.body ? (doc.body.textContent || doc.body.innerText || '') : '';
     text = text.replace(/\s+/g, ' ').trim();
-    
+
     return text;
 }
 
