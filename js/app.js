@@ -206,6 +206,36 @@ const EN_UPPER_NUDI_CONFLICT = new Set([
     'HTML','XML'
 ]);
 
+// A decoded Kannada fragment is only plausible as a genuine standalone word
+// if it contains at least one consonant (ಕ-ಹ, which also covers ಳ/ೞ within
+// that codepoint range). Nudi's uppercase standalone-syllable letters (see
+// NUDI_A2U_STANDALONE above) mostly map to independent vowels, anusvara, or
+// visarga on their own - so an all-uppercase acronym where every letter
+// happens to be in that set (e.g. "KNB" -> ಏ+ಓ+ಃ) decodes to a vowel/visarga
+// string with no consonant anywhere, which real Kannada words never look
+// like. Used below to stop the all-standalone-letters override from
+// swallowing genuine English acronyms that happen to only use
+// standalone-mapped letters.
+function _hasKannadaConsonant(str) {
+    return /[ಕ-ಹ]/.test(str);
+}
+
+// Real English prose only ever capitalizes words as all-lowercase, Title
+// Case, or ALL-CAPS (acronyms) - never with arbitrary internal case changes
+// like "MAn". Nudi's own ASCII scheme, on the other hand, relies heavily on
+// case to distinguish letters (e.g. "M"=ಒ, "A"=ಂ (anusvara), "n"=ಟಿ, so
+// "MAn" = ಒಂಟಿ, "alone"), so a token with non-standard internal casing is a
+// strong, purely-structural signal that it's Nudi encoding rather than a
+// real English word - no need to actually decode it (which risks
+// false-positives on genuine English words, e.g. "Kannada" itself happens to
+// decode to a consonant-containing string via the Nudi map, but it's
+// perfectly normal Title Case so is left alone here).
+function _hasPlausibleEnglishCasing(token) {
+    const segments = token.split(/[^a-zA-Z]+/).filter(Boolean);
+    if (segments.length === 0) return true;
+    return segments.every(seg => /^[a-z]+$/.test(seg) || /^[A-Z][a-z]*$/.test(seg) || /^[A-Z]+$/.test(seg));
+}
+
 function _isEnglishToken(token, fullText, tokenStart) {
     if (!PURE_ASCII_WORD_RE.test(token)) return false;
     if (LATIN_EXT_RE.test(token)) return false;
@@ -220,7 +250,12 @@ function _isEnglishToken(token, fullText, tokenStart) {
     const charAfter = tokenStart + token.length < fullText.length ? fullText[tokenStart + token.length] : '';
     if (LATIN_EXT_RE.test(charBefore) || LATIN_EXT_RE.test(charAfter)) return false;
     // All-uppercase short tokens where every char is a valid standalone Nudi a2u key
-    // are likely Nudi ASCII encoding, not English words.
+    // are likely Nudi ASCII encoding, not English words - but only when decoding
+    // them actually produces something that looks like a real Kannada syllable
+    // (has a consonant), not just a run of independent vowels/visarga (see
+    // _hasKannadaConsonant above). Without this check, most 2-4 letter English
+    // acronyms/initialisms get silently swallowed as "Nudi encoding" purely
+    // because most letters of the alphabet happen to have a standalone mapping.
     if (token.length >= 2 && token.length <= 4 && token === token.toUpperCase()) {
         let allNudiStandalone = true;
         for (let i = 0; i < token.length; i++) {
@@ -230,9 +265,12 @@ function _isEnglishToken(token, fullText, tokenStart) {
             }
         }
         if (allNudiStandalone && !EN_UPPER_NUDI_CONFLICT.has(token)) {
-            return false;
+            let decoded = '';
+            for (let i = 0; i < token.length; i++) decoded += A2U_MAP[token[i]] || token[i];
+            if (_hasKannadaConsonant(decoded)) return false;
         }
     }
+    if (!_hasPlausibleEnglishCasing(token)) return false;
     return true;
 }
 

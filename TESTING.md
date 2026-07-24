@@ -77,6 +77,43 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Retain-English heuristic got both directions wrong on short mixed/upper-case
+tokens (fixed)**: reported as "MAn" not decoding to ಒಂಟಿ, and "KNB" (typically
+seen inside parenthetical English glosses, e.g. `ಕನ್ನಡ (KNB)`) decoding to
+ಏಓಃ instead of staying English even with retain-English on. Two distinct bugs
+in `_isEnglishToken`, both in shared code so the fixes apply to every font,
+not just Nudi:
+1. *All-uppercase short acronyms were too eagerly assumed to be Nudi
+   encoding.* The existing "all-uppercase token where every letter has a
+   standalone Nudi a2u mapping" override treated any such token as Nudi
+   ASCII unless it was in the hardcoded `EN_UPPER_NUDI_CONFLICT` list - but
+   19 of 26 letters have a standalone mapping, so most random 2-4 letter
+   acronyms (KNB, RBI, GST, ...) matched by pure chance. Fixed by requiring
+   the decoded fragment to actually contain a Kannada consonant
+   (`_hasKannadaConsonant`) before accepting the override - genuine Nudi
+   syllables built from standalone letters produce a consonant somewhere;
+   acronyms like KNB decode to a vowel/anusvara/visarga-only string
+   (ಏ+ಓ+ಃ) with no consonant at all.
+2. *Mixed-case tokens with non-standard capitalization defaulted to
+   "English."* The function's final fallback assumed anything not caught by
+   an earlier rule was English, but that's wrong for tokens like "MAn"
+   (upper-upper-lower) - a pattern real English prose never produces (only
+   all-lowercase, Title Case, or ALL-CAPS occur naturally), but which is
+   exactly how Nudi's case-sensitive per-letter scheme spells real words
+   (M=ಒ, A=ಂ, n=ಟಿ -> ಒಂಟಿ, "alone"). Fixed by adding
+   `_hasPlausibleEnglishCasing`, a purely structural check (no decoding) that
+   rejects tokens whose segments don't match `[a-z]+`, `[A-Z][a-z]*`, or
+   `[A-Z]+`. Deliberately *not* decode-check-based like fix #1 above - an
+   earlier version of this fix used a decode check here too, but that wrongly
+   forced genuine English words to decode whenever they happened to produce a
+   consonant somewhere by coincidence (e.g. "Kannada" itself decodes to a
+   consonant-containing string via the Nudi map, but is perfectly normal
+   Title Case and should stay English). The casing-only check has no such
+   false-positive risk since it never inspects the decode result.
+Zero regressions: `node test/permutations.js` produces byte-identical
+pass/fail counts before and after (this only touches the retain-English
+placeholder-extraction path, not core conversion).
+
 **Nudi Mono<->Bi hop tables silently corrupted bytes in the 0x80-0x9F range
 (fixed)**: the four Bi-hop fonts (Suchi Kan, ISM KNB TT-Nandi, Akruti Bi,
 WinKey KanEng) all pass through two shared tables, `NUDIBI2MONO` and
