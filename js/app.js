@@ -380,7 +380,51 @@ function _nudi2xFor(x2nudiMap) {
 // Extracts Latin-letter/number runs into placeholders (same heuristic as
 // the Nudi retainEnglish path) so they skip the pivot substitution and the
 // downstream Nudi engine entirely.
-function _extractEnglishTokens(text) {
+// _isEnglishToken (above) is entirely Nudi-specific: it recognizes English
+// vs. Nudi-encoded ASCII using Nudi's OWN byte conventions (mostly extended
+// Latin-1 characters, which real English words never contain). That works
+// fine for Nudi's own text and for the u2a direction of every pivot font
+// (there the input is already clean Unicode, so a Latin run really is
+// English). But on the a2u/decode side of a PIVOT font, the input text is
+// in THAT FONT's own ASCII alphabet - and several pivot fonts (Surabhi KN,
+// and the plain-ASCII-heavy Nudi-Bi fonts: Suchi Kan, ISM KNB TT-Nandi,
+// Akruti Bi, WinKey KanEng) encode many consonants as plain lowercase
+// a-z letters. A run like "ky" (Surabhi KN's \u0C95) has no extended-Latin
+// hint character anywhere near it, so _isEnglishToken falls through to its
+// default "yes, this is English" verdict - even though it is that font's
+// own valid encoding for a real Kannada syllable. Confirmed via direct
+// testing: asciiToUnicode('ky', false, 'surabhikn') correctly yields \u0C95, but
+// convert('ky', 'keep', 'a2u', true, 'surabhikn') (retainEnglish=true, the
+// default UI/test-harness path) left it as "ky" untouched, because
+// _isEnglishToken('ky', 'ky', 0) returned true.
+//
+// The fix: give _extractEnglishTokens an optional decodeCheckFn - a
+// font-aware "does this token actually decode to real Kannada via THIS
+// font's own pivot chain" check. When _isEnglishToken says "English" but
+// decodeCheckFn says "this is valid encoded Kannada", the decodeCheckFn
+// verdict wins (a real font byte sequence takes precedence over a
+// Nudi-tuned English heuristic that has no idea this font exists). Only
+// wired up on the two a2u/decode call sites (pivotAsciiToUnicode,
+// pivotAsciiToUnicodeViaBi) where the ambiguity actually exists; the u2a
+// call sites already start from clean Unicode and are left untouched.
+function _looksLikeEncodedKannada(token, x2nudiMap) {
+    let nudi = '';
+    for (let i = 0; i < token.length; i++) {
+        const code = token.charCodeAt(i);
+        nudi += (code in x2nudiMap) ? x2nudiMap[code] : token[i];
+    }
+    if (!_hasBareAByte(x2nudiMap)) nudi = _normalizeBareNudiConsonants(nudi);
+    const decoded = asciiToUnicode(nudi, false, 'nudi');
+    return /[\u0C80-\u0CFF]/.test(decoded) && !/[a-zA-Z]/.test(decoded);
+}
+function _looksLikeEncodedKannadaBi(token, x2nudibiMap) {
+    const nudiBi = _substituteByMap(token, x2nudibiMap);
+    const nudiMono = _substituteByMap(nudiBi, NUDIBI2MONO);
+    const decoded = asciiToUnicode(nudiMono, false, 'nudi');
+    return /[\u0C80-\u0CFF]/.test(decoded) && !/[a-zA-Z]/.test(decoded);
+}
+
+function _extractEnglishTokens(text, decodeCheckFn) {
     const englishTexts = [];
     let out = '';
     let i = 0;
@@ -396,7 +440,7 @@ function _extractEnglishTokens(text) {
             let j = i;
             while (j < text.length && /[a-zA-Z'-]/.test(text[j])) j++;
             const token = text.slice(i, j);
-            if (_isEnglishToken(token, text, i)) {
+            if (_isEnglishToken(token, text, i) && !(decodeCheckFn && decodeCheckFn(token))) {
                 const idx = englishTexts.length;
                 englishTexts.push(token);
                 out += _makePlaceholder(idx);
@@ -512,7 +556,7 @@ function pivotAsciiToUnicode(text, x2nudiMap, retainEnglish) {
     let source = text;
     let englishTexts = [];
     if (retainEnglish) {
-        const extracted = _extractEnglishTokens(source);
+        const extracted = _extractEnglishTokens(source, tok => _looksLikeEncodedKannada(tok, x2nudiMap));
         source = extracted.text;
         englishTexts = extracted.englishTexts;
     }
@@ -645,7 +689,7 @@ function pivotAsciiToUnicodeViaBi(text, x2nudibiMap, retainEnglish) {
     let source = text;
     let englishTexts = [];
     if (retainEnglish) {
-        const extracted = _extractEnglishTokens(source);
+        const extracted = _extractEnglishTokens(source, tok => _looksLikeEncodedKannadaBi(tok, x2nudibiMap));
         source = extracted.text;
         englishTexts = extracted.englishTexts;
     }

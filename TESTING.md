@@ -11,15 +11,15 @@ Current status:
 |------|---------------------|-------|
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
 | ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
-| Prakashak | 1277 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
+| Prakashak | 1312 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
 | Akruti | 1913 / 2077 | Pivot-ported (Mono) |
-| Surabhi (KND) | 1842 / 2077 | Pivot-ported - not previously supported at all |
-| ISM (KNTT-Nandi) | 1768 / 2077 | Pivot-ported - new font family |
-| Dharma ILs | 1612 / 2077 | Pivot-ported - new font family |
-| Janna Mono | 1772 / 2077 | Pivot-ported - new font family |
+| Surabhi (KND) | 1851 / 2077 | Pivot-ported - not previously supported at all |
+| ISM (KNTT-Nandi) | 1776 / 2077 | Pivot-ported - new font family |
+| Dharma ILs | 1630 / 2077 | Pivot-ported - new font family |
+| Janna Mono | 1805 / 2077 | Pivot-ported - new font family |
 | SriLipi 850 | 1911 / 2077 | Pivot-ported - second ShreeLipi variant |
 | Shree Deccan | 1983 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
-| Surabhi KN | 963 / 2077 | Pivot-ported - second Surabhi variant |
+| Surabhi KN | 1534 / 2077 | Pivot-ported - second Surabhi variant |
 | Suchi Kan | 530 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 459 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 246 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
@@ -48,12 +48,12 @@ begin with.
   these are almost entirely two-consonant conjuncts (ಕ್ಷ-style clusters)
   and are being worked down font by font - see `status.html` for the
   live, current pass rate and a category breakdown per font.
-- **Usable with more conjunct gaps**: Janna Mono and ISM KNTT-Nandi (85%
-  each), Dharma ILs (78%). Same conjunct-heavy failure pattern, just more
-  of it.
-- **Partial support**: Prakashak (61%) and Surabhi KN (46%) - both had
+- **Usable with more conjunct gaps**: Janna Mono (87%), ISM KNTT-Nandi (85%),
+  Dharma ILs (78%). Same conjunct-heavy failure pattern, just more of it.
+- **Partial support**: Prakashak (63%) and Surabhi KN (74%) - both had
   major fixes this session and more are planned; conjuncts and, for
-  Surabhi KN, some base syllables still fail.
+  Surabhi KN, some base syllables (mostly aspirated consonants and a few
+  ambiguous byte codes) still fail.
 - **Early/experimental**: Suchi Kan, ISM KNB TT-Nandi, Akruti Bi, WinKey
   KanEng (10-26%). These route through an extra Nudi Mono<->Bi hop and
   have sparser source tables; even some standalone vowels don't convert
@@ -72,6 +72,38 @@ while final halants like ನನ್ stay intact), standalone number preservation,
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
+
+**English-token detection was Nudi-specific, wrongly swallowing pivot fonts'
+own encoded text (fixed)**: on the ASCII -> Unicode side of every pivot font,
+"retain English" runs an English-word detector on the raw source-font ASCII
+*before* pivoting it to Nudi. That detector (`_isEnglishToken`) was written
+entirely around Nudi's own byte conventions - it recognizes Nudi-encoded text
+by checking for extended Latin-1 characters (¸, ¥, §, ...) that real English
+words never contain. Several pivot fonts don't follow that convention:
+Surabhi KN, and the four Nudi-Bi-hop fonts (Suchi Kan, ISM KNB TT-Nandi,
+Akruti Bi, WinKey KanEng), encode many consonants as plain lowercase a-z
+letters. A run like `ky` (Surabhi KN's ಕ) has no extended-Latin character
+anywhere nearby, so the Nudi-tuned heuristic fell through to its default
+"this is English" verdict and left it un-pivoted - `asciiToUnicode('ky',
+false, 'surabhikn')` correctly gave ಕ, but the full retain-English path
+(`convert('ky', 'keep', 'a2u', true, 'surabhikn')`, the default used by both
+the UI and the test harness) returned `ky` untouched. Fixed by giving the
+English-token extractor an optional, font-aware "does this token actually
+decode to real Kannada via this font's own pivot chain" check
+(`_looksLikeEncodedKannada` / `_looksLikeEncodedKannadaBi` in `js/app.js`) -
+when the Nudi-tuned heuristic says "English" but the token demonstrably
+decodes to valid Kannada through the current font's own map, the decode
+check wins. Wired up only on the two decode-direction pivot functions
+(`pivotAsciiToUnicode`, `pivotAsciiToUnicodeViaBi`) where the ambiguity
+exists; the encode-direction functions already start from clean Unicode and
+were left untouched. Net result, 0 regressions anywhere (Nudi itself stayed
+at 2077/2077): Surabhi KN 963->1534 (the big one - this heuristic was
+responsible for the majority of its remaining failures), Prakashak
+1277->1312, Janna Mono 1772->1805, Dharma ILs 1612->1630, ISM KNTT-Nandi
+1768->1776, Surabhi KND 1842->1851. The four Nudi-Bi-hop fonts were
+unaffected - their remaining failures are a different, deeper class of bug
+(wrong/missing byte-level mappings, not English misclassification) and are
+the next planned investigation.
 
 **English-retention false positive (fixed)**: a Nudi ASCII fragment like
 `Dj` (= ಆ + ರ, the start of common words like ಆರಿಸಬಹುದು) could be wrongly
