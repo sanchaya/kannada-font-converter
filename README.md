@@ -118,7 +118,7 @@ GPL-3.0 (or any later version) - see [LICENSE](LICENSE). Prior versions of
 this project were released under the MIT license; from this version onward,
 new work is licensed under the GNU GPLv3.
 
-Proudly built at [sanchaya.org](https://sanchaya.org) with love for Kannada.
+Proudly built by [Sanchaya](https://sanchaya.org) with ❤ for Kannada.
 If you download or fork this project, please keep that attribution (the
 footer credit in `index.html`, and the header comments in `js/app.js` /
 `server.js`) intact.

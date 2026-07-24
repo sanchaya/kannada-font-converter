@@ -184,7 +184,7 @@ Other endpoints: `GET /api/history?limit=10`, `GET /api/convert/:id`,
 
 ## Attribution
 
-If you deploy this yourself, please keep the "Proudly built at sanchaya.org
-with love for Kannada" footer credit and the license headers in
+If you deploy this yourself, please keep the "Proudly built by Sanchaya
+with ❤ for Kannada" footer credit and the license headers in
 `index.html`/`js/app.js`/`server.js` intact - see [LICENSE](LICENSE)
 (GPL-3.0-or-later).
