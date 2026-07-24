@@ -149,18 +149,18 @@
       }
     },
     "suchikan": {
-      "pass": 1380,
-      "fail": 697,
+      "pass": 1463,
+      "fail": 614,
       "u2aFail": 7,
-      "a2uFail": 690,
+      "a2uFail": 607,
       "categories": {
-        "syllable": 104,
-        "halant-final": 8,
-        "anusvara": 8,
-        "visarga": 8,
-        "conjunct": 480,
-        "conjunct+matra": 80,
-        "word": 8,
+        "syllable": 89,
+        "halant-final": 7,
+        "anusvara": 7,
+        "visarga": 7,
+        "conjunct": 427,
+        "conjunct+matra": 69,
+        "word": 7,
         "mixed": 1
       }
     },
@@ -181,34 +181,34 @@
       }
     },
     "akrutibi": {
-      "pass": 848,
-      "fail": 1229,
+      "pass": 1771,
+      "fail": 306,
       "u2aFail": 7,
-      "a2uFail": 1222,
+      "a2uFail": 299,
       "categories": {
-        "syllable": 279,
-        "halant-final": 5,
-        "anusvara": 17,
-        "visarga": 17,
-        "conjunct": 663,
-        "conjunct+matra": 233,
-        "word": 12,
-        "mixed": 3
+        "syllable": 56,
+        "halant-final": 3,
+        "anusvara": 3,
+        "visarga": 3,
+        "conjunct": 196,
+        "conjunct+matra": 42,
+        "word": 2,
+        "mixed": 1
       }
     },
     "winkey": {
-      "pass": 834,
-      "fail": 1243,
+      "pass": 1129,
+      "fail": 948,
       "u2aFail": 8,
-      "a2uFail": 1235,
+      "a2uFail": 940,
       "categories": {
         "vowel": 2,
-        "syllable": 256,
-        "halant-final": 15,
-        "anusvara": 11,
-        "visarga": 11,
-        "conjunct": 720,
-        "conjunct+matra": 214,
+        "halant-final": 13,
+        "syllable": 147,
+        "anusvara": 9,
+        "visarga": 9,
+        "conjunct": 632,
+        "conjunct+matra": 122,
         "word": 12,
         "mixed": 2
       }

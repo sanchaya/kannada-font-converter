@@ -20,10 +20,10 @@ Current status:
 | SriLipi 850 | 1929 / 2077 | Pivot-ported - second ShreeLipi variant |
 | Shree Deccan | 2077 / 2077 | Pivot-ported - newspaper variant, full pass, matching Nudi itself |
 | Surabhi KN | 1534 / 2077 | Pivot-ported - second Surabhi variant |
-| Suchi Kan | 1380 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
+| Suchi Kan | 1463 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 1093 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
-| Akruti Bi | 848 / 2077 | Pivot-ported via Nudi Bi |
-| WinKey KanEng | 834 / 2077 | Pivot-ported via Nudi Bi - still the weakest of all ported fonts |
+| Akruti Bi | 1771 / 2077 | Pivot-ported via Nudi Bi |
+| WinKey KanEng | 1129 / 2077 | Pivot-ported via Nudi Bi |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
 pivot-based: each source byte substitutes into a Nudi ASCII fragment (Mono
@@ -53,13 +53,16 @@ begin with.
   just more of it.
 - **Partial support**: Surabhi KN (74%) - conjuncts and some base syllables
   (mostly aspirated consonants and a few ambiguous byte codes) still fail.
-- **Improving, still rough**: Suchi Kan (66%), ISM KNB TT-Nandi (53%),
-  Akruti Bi (41%), WinKey KanEng (40%). These route through an extra Nudi
-  Mono<->Bi hop and have sparser source tables. Two rounds of fixes this
-  session (see fix history) roughly tripled their pass rates from where
-  they started, but per-byte gaps remain in the source macros for several
-  consonants - treat conversions in these four fonts as a starting point
-  to hand-check, not a finished result.
+- **Improving, most now usable**: Akruti Bi (85%), WinKey KanEng (54%),
+  Suchi Kan (70%), ISM KNB TT-Nandi (53%). These route through an extra
+  Nudi Mono<->Bi hop and have sparser source tables. Several rounds of
+  resolver fixes this session (see fix history) took them from
+  10-26% at the start of the day to their current pass rates - Akruti Bi
+  in particular is now solidly in the "usable" tier. The remaining gaps
+  are, as far as this session traced them, genuine multi-keystroke
+  combining forms in these fonts' own keyboard designs (see fix history) -
+  not further bugs, but still worth hand-checking real conversions in
+  these four fonts rather than trusting them blindly.
 
 If a specific word or phrase converts incorrectly, the most useful thing
 you can do is report it (ದೋಷ ವರದಿ button in the app, or the link in the
@@ -174,6 +177,66 @@ biggest single jump this session), Shree Deccan 1983->2077 (now a full
 pass, matching Nudi itself), WinKey KanEng 699->834, ISM KNB TT-Nandi
 992->1093, Suchi Kan 1297->1380, plus smaller gains on ShreeLipi, SriLipi
 850, ISM KNTT-Nandi, Dharma ILs, and Janna Mono.
+
+**ISM (KNB TT-Nandi) was missing identity coverage for its entire core
+alphabet (fixed)**: continuing the per-byte check, ISM KNB TT-Nandi looked
+far worse than the other three Bi-hop fonts - 9 of 13 standalone vowels
+missing outright, not just a handful of consonants. Traced to the actual
+macro sub (`KNBTTNandi2NudiBi`) wrapping its per-byte `Select Case` in an
+outer `If/ElseIf`: bytes 32-128 and 131-140 short-circuit to a plain
+identity mapping (`Selection.Text = Chr(Asc(Selection.Text))` - "this byte
+already IS Nudi Bi's own byte, no translation needed") before falling
+through to `Else Select Case ...` for the special high bytes that
+actually need translating. `extract-macros.py` only looks for `Case N:`
+labels inside a `Select Case` block, so it never saw this outer shortcut
+at all - silently losing identity coverage for the entire core Nudi Mono
+consonant/vowel range (roughly bytes 65-122), which is most of the
+alphabet. Added an `IDENTITY_RANGES` table to `generate-pivot-maps.py`
+that fills in `Chr(N) -> Chr(N)` for exactly this font's two ranges
+(verified no overlap with the 117 explicitly-extracted byte codes first).
+Note: this specific gap didn't move ISM KNB TT-Nandi's own round-trip
+count on its own (the existing "no match -> pass character through
+literally" fallback already produced the same result for most of these
+bytes by coincidence) - but it's still a genuine correctness fix, since
+the underlying pivot map is now complete and accurate rather than working
+by accident, and it matters for any byte that would otherwise collide
+with an unrelated real entry.
+
+**`try_else_default` generalized to `If/ElseIf/ElseIf.../Else` chains
+(fixed)**: the first version only handled a single `If/Else`, bailing on
+anything with an `ElseIf`. Several macros use exactly that shape though -
+e.g. Suchi Kan's byte 161 is `If ChukkeGeetu = 1 Then <combine> ElseIf
+Chukke = 1 Then <different combine> Else Selection.Text = Chr(184) End
+If`. Since every branch's flag is only set by some other byte's rule, the
+same logic applies regardless of how many `ElseIf`s precede the final
+`Else` - skip over all of them and resolve just the trailing default.
+Rewrote the branch-detection to find the *last* `ElseIf`/`Else` marker in
+the body and only extract a default when that last marker is a bare
+`Else` (if the chain ends on an `ElseIf` with no final `Else`, there
+genuinely is no unconditional default - confirmed on Suchi Kan's byte 139,
+`If Qa = 1 Then ... ElseIf Qi = 1 Then ... End If` with no `Else` at all,
+correctly still left unresolved). 158 total newly resolved (up from 143),
+0 regressions. Biggest gains: **Akruti Bi 848->1771** (41%->85%, by far
+the largest single-font jump of the whole session), WinKey KanEng
+834->1129, Suchi Kan 1380->1463; Nudi, Shree Deccan, and ISM KNB TT-Nandi
+were unaffected (no matching pattern in their remaining unresolved rules).
+
+**What's left in the four Bi-hop fonts is mostly genuine multi-keystroke
+combining, not further bugs.** Checking the still-failing base consonants
+one by one (ಠ/ಗ/ಝ/ಢ/ಥ/ಧ/ಪ/ಫ/ಭ/ಷ/ಸ, varying by font) against the raw VBA:
+Suchi Kan's ಠ needs byte 139, whose *only* logic is `If Qa = 1 Then
+<combine> ElseIf Qi = 1 Then <different combine> End If` - no default
+branch at all, meaning the byte has literally no meaning when typed
+without a specific preceding "arming" keystroke. ISM KNB TT-Nandi's ಗ is
+even more explicit: its Chr(150) output lives in a block gated behind
+`If ga = 1 And Geetu = 1 Then` positioned *after* the main `Select Case`
+closes entirely - a genuine two-keystroke combine (two separate prior
+bytes each need to set their own flag) that isn't tied to a single `Case`
+label at all. Both are the same class of limitation already documented
+for conjuncts/vattakshara forms project-wide: real cursor-context-aware
+state machines in the original macros that a per-byte substitution model
+fundamentally can't represent. Not chasing further "fixes" for these -
+they're honest gaps, not bugs.
 
 **English-token detection was Nudi-specific, wrongly swallowing pivot fonts'
 own encoded text (fixed)**: on the ASCII -> Unicode side of every pivot font,
