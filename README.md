@@ -82,7 +82,7 @@ Current status:
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
 | ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
 | Prakashak | 1277 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
-| Akruti | 1879 / 2077 | Pivot-ported (Mono) |
+| Akruti | 1913 / 2077 | Pivot-ported (Mono) |
 | Surabhi (KND) | 1842 / 2077 | Pivot-ported - not previously supported at all |
 | ISM (KNTT-Nandi) | 1768 / 2077 | Pivot-ported - new font family |
 | Dharma ILs | 1612 / 2077 | Pivot-ported - new font family |
@@ -92,7 +92,7 @@ Current status:
 | Surabhi KN | 963 / 2077 | Pivot-ported - second Surabhi variant |
 | Suchi Kan | 530 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 459 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
-| Akruti Bi | 214 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
+| Akruti Bi | 246 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
 | WinKey KanEng | 321 / 2077 | Pivot-ported via Nudi Bi |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
@@ -114,7 +114,7 @@ begin with.
 ### Known limitations by font (what to expect)
 
 - **Most reliable**: Nudi/Baraha (100%), Shree Deccan (95%), ShreeLipi and
-  SriLipi 850 (92% each), Akruti (90%), Surabhi KND (89%). Failures on
+  SriLipi 850 (92% each), Akruti (92%), Surabhi KND (89%). Failures on
   these are almost entirely two-consonant conjuncts (ಕ್ಷ-style clusters)
   and are being worked down font by font - see `status.html` for the
   live, current pass rate and a category breakdown per font.
@@ -216,6 +216,31 @@ lack a dedicated À byte, so the other 6 are provably unaffected. Net:
 Prakashak 912->1277 (44%->61%), Dharma and Janna unchanged (the few
 consonants they were missing this for turned out to already be covered by
 other rules), 0 regressions across all 15 fonts.
+
+**Visarga byte mis-resolved as "reorder" (fixed)**: `tools/resolve-complex.py`
+bailed out of resolving a rule the moment ANY line in its raw VBA matched a
+cursor-movement statement (`Selection.MoveRight`, `.Delete`, etc.), even if
+that statement came *after* the rule's own `Selection.Text = Chr(...)`
+assignment. Byte 255 - almost always visarga - is typically the last case
+in each macro's `Select Case` block, and extraction had captured the
+shared loop-advance epilogue that runs after the whole block, not anything
+specific to that byte. Changed the resolver to only treat a movement
+statement as real reordering if it occurs at or before the last text
+assignment; anything after is cleanup and gets ignored. This fixed 26
+buried "visarga" (and a couple of related hop-table) rules across almost
+every pivot font at once - Akruti Mono 1879->1913 (visarga 34/34 fails
+down to 1/34) and Akruti Bi 214->246, both with 0 regressions. A related
+edge case (a handful of "dead key" rules like `Selection.Text = ""` then
+`GoTo` to re-read the next keystroke - not real output, just state setup)
+had to be explicitly excluded, since an empty-string pivot entry would
+silently swallow whatever the user typed next instead of doing nothing.
+
+Anusvara turned out to be a different, deeper problem: for Akruti Mono
+specifically, there is no `Chr()` rule anywhere in the source macro that
+produces Nudi's anusvara marker ("A") - not even one resolvable via either
+fix above. That's a genuine gap in the source data, not a resolver bug,
+so it's left as a follow-up item (see `.autopilot/state.md` for the
+current investigation state) rather than papered over with a guess.
 
 ## Reporting bugs
 

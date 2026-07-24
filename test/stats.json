@@ -38,19 +38,19 @@
       }
     },
     "akruti": {
-      "pass": 1879,
-      "fail": 198,
+      "pass": 1913,
+      "fail": 164,
       "u2aFail": 1,
-      "a2uFail": 197,
+      "a2uFail": 163,
       "categories": {
         "vowel": 1,
         "syllable": 44,
         "anusvara": 34,
-        "visarga": 34,
         "halant-final": 1,
+        "visarga": 1,
         "conjunct": 68,
         "conjunct+matra": 10,
-        "word": 6
+        "word": 5
       }
     },
     "surabhi": {
@@ -191,17 +191,17 @@
       }
     },
     "akrutibi": {
-      "pass": 214,
-      "fail": 1863,
+      "pass": 246,
+      "fail": 1831,
       "u2aFail": 30,
-      "a2uFail": 1833,
+      "a2uFail": 1801,
       "categories": {
         "vowel": 13,
-        "syllable": 354,
-        "halant-final": 16,
+        "syllable": 350,
+        "halant-final": 12,
         "anusvara": 34,
         "visarga": 34,
-        "conjunct": 1049,
+        "conjunct": 1025,
         "conjunct+matra": 340,
         "word": 20,
         "mixed": 3
