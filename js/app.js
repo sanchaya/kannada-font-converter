@@ -462,6 +462,24 @@ function _looksLikeEncodedKannadaBi(token, x2nudibiMap) {
     return /[\u0C80-\u0CFF]/.test(decoded) && !/[a-zA-Z]/.test(decoded);
 }
 
+// This app's own direction-code shorthand ("a2u", "u2a") shows up verbatim
+// in help text/notes that get typed or pasted back in for conversion (e.g.
+// "(u2a)"). Each is a single-letter + digit + single-letter run, and
+// single-character letter tokens are never eligible for English retention
+// (see the token.length === 1 branch in _isEnglishToken above - by design,
+// since a lone ASCII letter is almost always a genuine Nudi consonant/vowel
+// byte). Without a dedicated check, "u2a" gets split into 'u' and 'a'
+// (each decoded as a literal Nudi byte) plus a lone "2" (kept convertible
+// since it sits next to letters, per the digit-run rule below), producing
+// nonsense like "u2a" -> "u\u0CE8\u0C9A\u0CBF" instead of staying as-is.
+// Matched at the very start of the scan position only (see call sites) so
+// it never fires mid-word (e.g. "seea2u", "au2a" are left alone).
+const DIRECTION_CODE_RE = /^(a2u|u2a)(?![a-zA-Z0-9])/i;
+function _matchDirectionCodeAt(text, i) {
+    const m = DIRECTION_CODE_RE.exec(text.slice(i, i + 4));
+    return m ? m[0] : null;
+}
+
 function _extractEnglishTokens(text, decodeCheckFn) {
     const englishTexts = [];
     let out = '';
@@ -472,6 +490,14 @@ function _extractEnglishTokens(text, decodeCheckFn) {
             while (j < text.length && text[j] !== '\uFF63') j++;
             out += text.slice(i, j + 1);
             i = j + 1;
+            continue;
+        }
+        const dirCode = _matchDirectionCodeAt(text, i);
+        if (dirCode) {
+            const idx = englishTexts.length;
+            englishTexts.push(dirCode);
+            out += _makePlaceholder(idx);
+            i += dirCode.length;
             continue;
         }
         if (/[a-zA-Z]/.test(text[i])) {
@@ -970,6 +996,14 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
                 while (j < result.length && result[j] !== '\uFF63') j++;
                 out += result.slice(i, j + 1);
                 i = j + 1;
+                continue;
+            }
+            const dirCode = _matchDirectionCodeAt(result, i);
+            if (dirCode) {
+                const idx = englishTexts.length;
+                englishTexts.push(dirCode);
+                out += _makePlaceholder(idx);
+                i += dirCode.length;
                 continue;
             }
             if (/[a-zA-Z]/.test(result[i])) {

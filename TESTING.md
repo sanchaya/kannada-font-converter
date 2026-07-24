@@ -77,6 +77,24 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Literal "u2a"/"a2u" direction shorthand got Nudi-decoded despite
+retain-English (fixed)**: reported as "(u2a)" becoming "(u೨ಚಿ)" and "(a2u)"
+becoming "(ಚಿ೨u)" even with retain-English on. This app's own direction-code
+shorthand is a single-letter + digit + single-letter run, and single-character
+letter tokens are never eligible for English retention by design (see the
+`token.length === 1` branch in `_isEnglishToken` - a lone ASCII letter is
+almost always a genuine Nudi consonant/vowel byte). So the character-scanning
+loop split "u2a" into 'u' and 'a' (each decoded as a literal Nudi byte) plus a
+lone "2" (kept convertible since digits next to letters are treated as part
+of the encoding). Fixed with a small dedicated check
+(`_matchDirectionCodeAt`), wired into both the base Nudi retainEnglish loop
+and `_extractEnglishTokens` (so every pivot font gets it too), that recognizes
+"a2u"/"u2a" as a literal unit at the start of a scan position and retains it
+outright - it deliberately only matches when not preceded by another letter,
+so it can't misfire on a real word that happens to contain the substring
+(e.g. "seea2u", "au2a" are left alone). Zero regressions
+(`node test/permutations.js` unchanged).
+
 **Retain-English heuristic got both directions wrong on short mixed/upper-case
 tokens (fixed)**: reported as "MAn" not decoding to ಒಂಟಿ, and "KNB" (typically
 seen inside parenthetical English glosses, e.g. `ಕನ್ನಡ (KNB)`) decoding to
