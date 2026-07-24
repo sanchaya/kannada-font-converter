@@ -1300,7 +1300,6 @@ function handleFile(f) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const mammothLib = typeof mammoth !== 'undefined' ? mammoth : (typeof window.mammoth !== 'undefined' ? window.mammoth : null);
-            console.log('Mammoth available:', !!mammothLib, typeof mammothLib);
             if (!mammothLib) {
                 showToast('DOCX library not loaded. Please refresh the page.', 'error');
                 return;
