@@ -111,6 +111,31 @@ Mono<->Bi pivot tables, reused as-is rather than mathematically inverted)
 and their own source tables have more unresolved/unmapped byte codes to
 begin with.
 
+### Known limitations by font (what to expect)
+
+- **Most reliable**: Nudi/Baraha (100%), Shree Deccan (95%), ShreeLipi and
+  SriLipi 850 (92% each), Akruti (90%), Surabhi KND (89%). Failures on
+  these are almost entirely two-consonant conjuncts (ಕ್ಷ-style clusters)
+  and are being worked down font by font - see `status.html` for the
+  live, current pass rate and a category breakdown per font.
+- **Usable with more conjunct gaps**: Janna Mono and ISM KNTT-Nandi (85%
+  each), Dharma ILs (78%). Same conjunct-heavy failure pattern, just more
+  of it.
+- **Partial support**: Prakashak (61%) and Surabhi KN (46%) - both had
+  major fixes this session and more are planned; conjuncts and, for
+  Surabhi KN, some base syllables still fail.
+- **Early/experimental**: Suchi Kan, ISM KNB TT-Nandi, Akruti Bi, WinKey
+  KanEng (10-26%). These route through an extra Nudi Mono<->Bi hop and
+  have sparser source tables; even some standalone vowels don't convert
+  correctly yet. Treat conversions in these four fonts as a starting
+  point to hand-check, not a finished result, until this is addressed.
+
+If a specific word or phrase converts incorrectly, the most useful thing
+you can do is report it (ದೋಷ ವರದಿ button in the app, or the link below) -
+real examples are what let us verify fixes like the ones described in this
+section actually generalize, rather than just passing the synthetic test
+suite.
+
 Other recent conversion fixes: MICRO SIGN vs GREEK MU normalization for ಷ (windows-1252
 files now convert), vattakshara conjunct reordering (PÀå -> ಕ್ಯ, QÌ -> ಕ್ಕಿ,
 while final halants like ನನ್ stay intact), standalone number preservation, and
