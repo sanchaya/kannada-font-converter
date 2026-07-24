@@ -116,25 +116,38 @@ counted above includes this - net from both fixes together); the other
 three already had a dedicated byte for the marker so this step was a
 no-op for them (correctly gated off).
 
-**Deeper issue found, not yet fixed: the macros' own "Nudi Mono" byte
-numbering doesn't match this app's Nudi Mono convention.** While
-investigating a remaining Suchi Kan failure (ಠ round-tripped to itself
-instead of converting), traced it to `NUDIBI2MONO`'s entry for Bi byte 194
-(`Case 194: Selection.Text = Chr(172)` in the original macro) - it says
-Bi byte 194's Mono equivalent is byte 172 (`¬`), but this app's own
-hand-verified Nudi engine has no idea what byte 172 means (`asciiToUnicode`
-passes it through unrecognized); the *actual* Mono byte for ಠ in this
-app's tables is 111 (`o`). That's not a bug in our generator - it's
-directly what the source macro says - which means the `NudiBI2NudiMono`/
-`NudiMonoToNudiBi` subs use a byte-numbering scheme for "Nudi Mono" that's
-internally consistent with themselves but does **not** match the Mono
-byte scheme this app's own `asciiToUnicode`/`unicodeToASCII` engine uses.
-Every Bi-hop font's remaining failures likely trace back to this same
-mismatch repeating byte after byte. Fixing it properly means building a
-verified byte-for-byte translation between the macro's own "Mono" numbering
-and this app's Mono numbering (not a per-font fix - all four Bi-hop fonts
-share the same two hop tables) - a bigger, dedicated undertaking flagged
-as the next item for these four fonts.
+**Correction to the paragraph above in an earlier draft of this section**:
+this initially looked like a bigger, more foundational problem than it is.
+Investigating a remaining Suchi Kan failure (ಠ failing to convert), the
+first hypothesis was that the macros' own "Nudi Mono" byte numbering
+doesn't match this app's Nudi Mono convention at all - `NUDIBI2MONO`'s
+entry for Bi byte 194 resolves to Mono byte 172 (`¬`), which this app's
+Nudi engine doesn't recognize as anything on its own. That looked like a
+systemic scheme mismatch. Cross-checking against `Nudi_Conversions.vba`
+directly (the authoritative macro this app's own Nudi tables were already
+verified against) disproved it: byte 172 IS a legitimate Nudi Mono
+fragment - just for part of ಯ's construction, not ಠ - so `NUDIBI2MONO` is
+internally correct there, not using some parallel numbering scheme.
+
+Re-auditing all 34 base consonants against all four fonts' actual composed
+byte->Mono values (correctly accounting for fonts that already carry a
+separate bare-"À" byte, i.e. checking for the bare consonant letter as well
+as the letter+À form) shows real coverage is much better than the first,
+flawed audit suggested: 18-25 of 34 consonants already resolve correctly
+per font. The genuine remaining gaps cluster in familiar, already-documented
+categories - ಝ/ಮ/ಯ's halant-compound "i" companion, ಢ/ಧ's "consonant+s"
+digraph, ಫ/ಭ's aspirate "ü"-style continuation - plus a handful of
+single consonants (ಠ/ಗ/ಡ/ದ/ರ/ಷ/ಸ/ಪ/ಥ, varying by font) where no byte in
+that font's own source table composes to the needed Mono value at all.
+Suchi Kan's ಠ specifically: byte 111 in `SUCHI_X2NUDIBI` maps to Bi
+fragment "o" (an identity/passthrough entry, not a resolved rule), and
+`NUDIBI2MONO` has no entry for Bi byte 111 either - so it round-trips
+unchanged rather than reaching Mono's real byte for ಠ. Whether that's a
+genuine missing rule in Suchi Kan's own macro or a gap in the shared hop
+table needs the original VBA checked case by case, which is slow, manual
+work best done encoding-by-encoding rather than assumed to be one big
+systemic bug. Flagging this as the accurate next step for these four
+fonts, replacing the earlier (incorrect) "one big rearchitecture" framing.
 
 **English-token detection was Nudi-specific, wrongly swallowing pivot fonts'
 own encoded text (fixed)**: on the ASCII -> Unicode side of every pivot font,
