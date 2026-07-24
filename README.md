@@ -81,7 +81,7 @@ Current status:
 |------|---------------------|-------|
 | Nudi / Baraha | 2077 / 2077 | Full pass. The vowel byte codes for ಎ/ಏ/ಐ/ಒ/ಓ/ಔ were corrected (J/K/L/M/N/O) after cross-checking against the KGP macro's own Nudi->Unicode table - the previous map used digit `2` for ಎ, which doesn't appear anywhere in the authoritative encoding and was ambiguous with real numerals |
 | ShreeLipi | 1911 / 2077 | Pivot-ported (KAN-850). Remaining gaps are mostly u2a for conjunct/vattakshara forms |
-| Prakashak | 912 / 2077 | Pivot-ported (Praja). Weakest of the direct-to-Mono fonts - conjunct/vattakshara forms still fail on the u2a side |
+| Prakashak | 1277 / 2077 | Pivot-ported (Praja). Conjunct/vattakshara forms still fail on the u2a side |
 | Akruti | 1879 / 2077 | Pivot-ported (Mono) |
 | Surabhi (KND) | 1842 / 2077 | Pivot-ported - not previously supported at all |
 | ISM (KNTT-Nandi) | 1768 / 2077 | Pivot-ported - new font family |
@@ -171,6 +171,26 @@ rest were already correct as coded, including byte 215 which has no clear
 winner either way and was left alone). This override lives in
 `generate-pivot-maps.py`'s `OVERRIDES` table. Net result: Surabhi KN
 849->963, with no regressions elsewhere.
+
+**Missing implicit-vowel marker (fixed)**: Prakashak (and, to a lesser
+extent, Dharma ILs and Janna Mono) emitted only the *bare* base-consonant
+letter for ~10 consonants (ಕ,ಗ,ಘ,ಚ,ಛ,ಠ,ಡ,ತ,ದ,ರ) instead of the letter plus
+the explicit inherent-vowel marker "À" that Nudi's own decoder requires -
+`ÔÀ` (meant to be ಗ) instead decoded as `U್ಹ`. The other 6 direct-to-Mono
+fonts (Akruti, ShreeLipi, Surabhi, ISM KNTT, SriLipi 850, Shree Deccan,
+Surabhi KN) already have a dedicated byte that types "À" on its own, so
+they weren't affected. Root cause: the source macros likely inserted "À"
+via a separate, context-aware finalization step our per-byte pivot model
+can't capture. Fixed with a normalization pass in the shared pivot engine
+(`pivotAsciiToUnicode`/`pivotUnicodeToAscii` in `js/app.js`) that inserts
+or drops "À" around these letters based on what legitimately follows them
+in Nudi's own encoding (derived from `consonantMaps`, not hand-guessed -
+an earlier hand-written whitelist missed the "consonant+s" digraph used
+for ಢ/ಧ and had to be corrected). Gated to only the 3 fonts that actually
+lack a dedicated À byte, so the other 6 are provably unaffected. Net:
+Prakashak 912->1277 (44%->61%), Dharma and Janna unchanged (the few
+consonants they were missing this for turned out to already be covered by
+other rules), 0 regressions across all 15 fonts.
 
 ## Reporting bugs
 

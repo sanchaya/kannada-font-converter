@@ -22,19 +22,19 @@
       }
     },
     "prakashak": {
-      "pass": 912,
-      "fail": 1165,
+      "pass": 1277,
+      "fail": 800,
       "u2aFail": 7,
-      "a2uFail": 1158,
+      "a2uFail": 793,
       "categories": {
-        "syllable": 164,
-        "anusvara": 24,
-        "visarga": 24,
-        "halant-final": 4,
-        "conjunct": 856,
-        "conjunct+matra": 79,
-        "word": 11,
-        "mixed": 3
+        "syllable": 126,
+        "halant-final": 3,
+        "anusvara": 15,
+        "visarga": 15,
+        "conjunct": 567,
+        "conjunct+matra": 64,
+        "word": 8,
+        "mixed": 2
       }
     },
     "akruti": {

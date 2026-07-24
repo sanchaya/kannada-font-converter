@@ -435,6 +435,79 @@ function _restoreEnglishTokens(text, englishTexts) {
     return text.replace(_placeholderRe, (_, enc) => englishTexts[_decodeIdx(enc)]);
 }
 
+// Three of the direct-to-Nudi-Mono macros (Prakashak, Dharma ILs, Janna
+// Mono) emit only the *bare* base-consonant letter for ~10 consonants
+// (\u0C95,\u0C97,\u0C98,\u0C9A,\u0C9B,\u0CA0,\u0CA1,\u0CA4,\u0CA6,\u0CB0 = P,U,W,Z,b,o,q,v,z,g in Nudi ASCII) instead of the
+// letter + explicit inherent-vowel marker "\u00C0" that Nudi's own decoder
+// actually requires. The other 6 direct-to-Mono fonts (Akruti, ShreeLipi,
+// Surabhi, ISM KNTT, SriLipi 850, Shree Deccan, Surabhi KN) already have a
+// dedicated byte that types "\u00C0" on its own, so they compose this
+// correctly without any help - normalizing for them too would be wrong
+// (their own byte-for-\u00C0 composition already produces the exact right
+// string; blindly re-inserting "\u00C0" around bare letters elsewhere in a
+// fully-formed string, e.g. mid-conjunct, corrupts otherwise-correct
+// output). This looks like a gap in the per-byte substitution model for
+// just these three: the original VBA macros likely inserted "\u00C0" via a
+// separate, context-aware finalization step (not captured by our per-byte
+// pivot tables) whenever the consonant wasn't immediately followed by a
+// vowel sign that attaches directly. Cross-checking against Nudi's own
+// consonantMaps shows the rule is consistent: "\u00C0" is needed when the bare
+// letter is standalone (word/syllable-final) or followed by the
+// short-u/long-u/vocalic-r matras (\u00C4/\u00C6/\u00C8) - but NOT when followed by
+// long-a/e-family/au (\u00C1/\u00C9/\u00CB) or the halant marker (\u00EF), which attach
+// directly to the bare letter.
+const NUDI_BARE_BASE_LETTERS = new Set(['P', 'U', 'W', 'Z', 'b', 'o', 'q', 'v', 'z', 'g']);
+// Per-letter "attaches directly, no \u00C0 needed" next-character set, derived
+// from consonantMaps/vowelMaps (the source of truth) rather than
+// hand-maintained - q and z each have one extra legitimate continuation
+// ('s') beyond the common {\u00EF,\u00C0,\u00C1,\u00C9,\u00CB}, from the "consonant+s" digraph used
+// for \u0CA2 ("qs") and \u0CA7 ("zs"). Missing this caused "qs"/"zs" to be wrongly
+// split into "q\u00C0s"/"z\u00C0s" the first time this was tried.
+const NUDI_DIRECT_ATTACH_NEXT = {
+    P: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    U: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    W: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    Z: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    b: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    o: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    q: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB', 's']),
+    v: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+    z: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB', 's']),
+    g: new Set(['\u00EF', '\u00C0', '\u00C1', '\u00C9', '\u00CB']),
+};
+const _hasBareABYteCache = new Map();
+function _hasBareAByte(x2nudiMap) {
+    if (!_hasBareABYteCache.has(x2nudiMap)) {
+        _hasBareABYteCache.set(x2nudiMap, Object.values(x2nudiMap).includes('\u00C0'));
+    }
+    return _hasBareABYteCache.get(x2nudiMap);
+}
+function _normalizeBareNudiConsonants(s) {
+    let out = '';
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '\uFF62') {
+            // Skip retained-English placeholder blocks untouched - their
+            // internal index encoding isn't Nudi ASCII and must not be
+            // scanned/modified here (a placeholder whose index happened to
+            // contain 'b' was previously getting corrupted into "b" + "\u00C0").
+            let j = i + 1;
+            while (j < s.length && s[j] !== '\uFF63') j++;
+            out += s.slice(i, j + 1);
+            i = j;
+            continue;
+        }
+        out += s[i];
+        if (NUDI_BARE_BASE_LETTERS.has(s[i])) {
+            const next = s[i + 1];
+            const direct = NUDI_DIRECT_ATTACH_NEXT[s[i]];
+            if (next === undefined || !direct.has(next)) {
+                out += '\u00C0';
+            }
+        }
+    }
+    return out;
+}
+
 function pivotAsciiToUnicode(text, x2nudiMap, retainEnglish) {
     let source = text;
     let englishTexts = [];
@@ -457,6 +530,9 @@ function pivotAsciiToUnicode(text, x2nudiMap, retainEnglish) {
         nudi += (code in x2nudiMap) ? x2nudiMap[code] : source[i];
         i++;
     }
+    if (!_hasBareAByte(x2nudiMap)) {
+        nudi = _normalizeBareNudiConsonants(nudi);
+    }
     let result = asciiToUnicode(nudi, false, 'nudi');
     if (englishTexts.length) result = _restoreEnglishTokens(result, englishTexts);
     return result;
@@ -468,23 +544,39 @@ function pivotUnicodeToAscii(text, x2nudiMap) {
     const { map: nudi2x, keys } = _nudi2xFor(x2nudiMap);
     let result = '';
     let i = 0;
-    outer:
+    let lastWasBareBase = false;
     while (i < nudiAscii.length) {
         if (nudiAscii[i] === '\uFF62') {
             let j = i + 1;
             while (j < nudiAscii.length && nudiAscii[j] !== '\uFF63') j++;
             result += nudiAscii.slice(i, j + 1);
             i = j + 1;
+            lastWasBareBase = false;
             continue;
         }
+        // The mirror of _normalizeBareNudiConsonants: Nudi's own encoder
+        // inserted "\u00C0" after a bare base-consonant letter (see comment
+        // above pivotAsciiToUnicode); if the source font has no byte that
+        // produces "\u00C0" on its own, drop it here rather than falling back
+        // to a literal, meaningless pass-through character.
+        if (lastWasBareBase && nudiAscii[i] === '\u00C0' && !('\u00C0' in nudi2x)) {
+            i++;
+            lastWasBareBase = false;
+            continue;
+        }
+        let matched = false;
         for (const key of keys) {
             if (key.length && nudiAscii.startsWith(key, i)) {
                 result += nudi2x[key];
                 i += key.length;
-                continue outer;
+                lastWasBareBase = NUDI_BARE_BASE_LETTERS.has(key[key.length - 1]);
+                matched = true;
+                break;
             }
         }
+        if (matched) continue;
         result += nudiAscii[i];
+        lastWasBareBase = NUDI_BARE_BASE_LETTERS.has(nudiAscii[i]);
         i++;
     }
     if (extracted.englishTexts.length) result = _restoreEnglishTokens(result, extracted.englishTexts);
