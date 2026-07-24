@@ -242,6 +242,34 @@ fix above. That's a genuine gap in the source data, not a resolver bug,
 so it's left as a follow-up item (see `.autopilot/state.md` for the
 current investigation state) rather than papered over with a guess.
 
+**Conjunct failures are mostly genuine missing bytes, not fixable bugs**:
+investigated why "conjunct" is the largest failure category for almost
+every pivot font. For ShreeLipi specifically, all 102 conjunct failures
+traced to exactly 3 broken standalone forms - ಝ್, ಮ್, ಯ್ (each failing
+against all 34 possible second-consonant partners) - because Nudi's own
+encoding needs a companion character these 3 consonants' halant/short-i
+forms specifically (a bare "i" for ಝ/ಮ/ಯ's halant compound, an aspirate
+marker "ü" for ಢಿ/ಧಿ/ಫಿ/ಭಿ), and ShreeLipi's source macro never had a key
+that produces that companion character on its own. Confirmed this is a
+genuine data gap, not a bug: ISM (KNTT-Nandi) and Shree Deccan both have a
+dedicated byte for the same "i" character, so their ಝ್/ಮ್/ಯ್ forms work
+fine - it's specific to which macros happened to include that key.
+Without the original VBA source, this can't be synthesized.
+
+What *was* fixable: when the u2a encoder hits one of these gaps, it used
+to fall back to passing the untranslatable character through literally -
+and since a "byte" is just a JS string character throughout this
+codebase, that literal character sometimes happened to coincide with an
+unrelated real byte in the same font, corrupting whatever text followed
+it too (e.g. ಝ್ಕ decoded back as `ರhಜಿ್ಕ` - the extra `ಜಿ` bleeding in
+from an unrelated byte, not just the ಝ part being wrong). Added a check
+(`_isClaimedChar`) that drops an unencodable character instead of passing
+it through when doing so would collide with a real byte. This doesn't
+turn any of these cases into a pass - the data to encode them correctly
+doesn't exist - but it keeps the failure contained to the syllable that's
+actually missing data instead of corrupting adjacent, correct text. No
+change to pass counts; 0 regressions.
+
 ## Reporting bugs
 
 Use the ದೋಷ ವರದಿ button in the app (prefills the GitHub issue with the current

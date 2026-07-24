@@ -538,6 +538,30 @@ function pivotAsciiToUnicode(text, x2nudiMap, retainEnglish) {
     return result;
 }
 
+// Some Nudi fragment characters needed to encode a given font (e.g. the
+// standalone "i" used inside ಝ/ಮ/ಯ's halant compound, or the aspirate
+// marker "ü" used for ಢಿ/ಧಿ/ಫಿ/ಭಿ) have no corresponding byte in that
+// font's source macro at all - a genuine gap in the extracted data, not a
+// bug we can resolve. When the greedy inverter can't find a byte for a
+// leftover character, it used to fall back to passing the literal
+// character through untouched. If that literal character happens to
+// ALSO be some OTHER real byte in this font (pure codepoint coincidence -
+// our "byte" is just a JS string character throughout), decoding it back
+// reinterprets it as that unrelated byte, corrupting not just this
+// syllable but potentially bleeding into whatever follows. Dropping an
+// unmatched character that's "claimed" by another byte is not a fix (the
+// syllable is still wrong - the data to encode it correctly doesn't
+// exist), but it keeps the failure contained instead of corrupting
+// adjacent, otherwise-correct text.
+// A leftover character is "claimed" (dangerous to pass through literally)
+// if its own character code is a real byte in this font - decoding looks
+// up each output character by charCode regardless of why it's there, so
+// any pass-through character whose code happens to collide with a real
+// byte gets reinterpreted as that byte's (unrelated) fragment on decode.
+function _isClaimedChar(x2nudiMap, ch) {
+    return ch.charCodeAt(0) in x2nudiMap;
+}
+
 function pivotUnicodeToAscii(text, x2nudiMap) {
     const extracted = _extractEnglishTokens(text);
     const nudiAscii = unicodeToASCII(extracted.text, 'nudi');
@@ -575,7 +599,14 @@ function pivotUnicodeToAscii(text, x2nudiMap) {
             }
         }
         if (matched) continue;
-        result += nudiAscii[i];
+        // No byte in this font produces the fragment starting here (a
+        // genuine gap in the source data - see _isClaimedChar above). If
+        // passing this character through literally would collide with an
+        // unrelated real byte on decode, drop it instead of corrupting
+        // whatever follows; otherwise it's harmless to pass through as-is.
+        if (!_isClaimedChar(x2nudiMap, nudiAscii[i])) {
+            result += nudiAscii[i];
+        }
         lastWasBareBase = NUDI_BARE_BASE_LETTERS.has(nudiAscii[i]);
         i++;
     }
