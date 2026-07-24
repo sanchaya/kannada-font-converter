@@ -20,10 +20,10 @@ Current status:
 | SriLipi 850 | 1911 / 2077 | Pivot-ported - second ShreeLipi variant |
 | Shree Deccan | 1983 / 2077 | Pivot-ported - newspaper variant, strongest of the ported fonts |
 | Surabhi KN | 1534 / 2077 | Pivot-ported - second Surabhi variant |
-| Suchi Kan | 530 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
-| ISM (KNB TT-Nandi) | 459 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
-| Akruti Bi | 246 / 2077 | Pivot-ported via Nudi Bi - weakest of all ported fonts |
-| WinKey KanEng | 321 / 2077 | Pivot-ported via Nudi Bi |
+| Suchi Kan | 1297 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
+| ISM (KNB TT-Nandi) | 992 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
+| Akruti Bi | 848 / 2077 | Pivot-ported via Nudi Bi |
+| WinKey KanEng | 699 / 2077 | Pivot-ported via Nudi Bi - still the weakest of all ported fonts |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
 pivot-based: each source byte substitutes into a Nudi ASCII fragment (Mono
@@ -54,11 +54,14 @@ begin with.
   major fixes this session and more are planned; conjuncts and, for
   Surabhi KN, some base syllables (mostly aspirated consonants and a few
   ambiguous byte codes) still fail.
-- **Early/experimental**: Suchi Kan, ISM KNB TT-Nandi, Akruti Bi, WinKey
-  KanEng (10-26%). These route through an extra Nudi Mono<->Bi hop and
-  have sparser source tables; even some standalone vowels don't convert
-  correctly yet. Treat conversions in these four fonts as a starting
-  point to hand-check, not a finished result, until this is addressed.
+- **Improving, still rough**: Suchi Kan (62%), ISM KNB TT-Nandi (48%),
+  Akruti Bi (41%), WinKey KanEng (34%). These route through an extra Nudi
+  Mono<->Bi hop and have sparser source tables. A foundational bug in that
+  hop was fixed this session (see fix history) and pass rates roughly
+  doubled to tripled as a result, but a further, deeper issue was found in
+  the same hop tables (see below) - treat conversions in these four fonts
+  as a starting point to hand-check, not a finished result, until that's
+  addressed too.
 
 If a specific word or phrase converts incorrectly, the most useful thing
 you can do is report it (ದೋಷ ವರದಿ button in the app, or the link in the
@@ -72,6 +75,66 @@ while final halants like ನನ್ stay intact), standalone number preservation,
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
+
+**Nudi Mono<->Bi hop tables silently corrupted bytes in the 0x80-0x9F range
+(fixed)**: the four Bi-hop fonts (Suchi Kan, ISM KNB TT-Nandi, Akruti Bi,
+WinKey KanEng) all pass through two shared tables, `NUDIBI2MONO` and
+`NUDIMONO2BI`, generated the same way as every other font's pivot table:
+parsing each rule's `Selection.Text = Chr(N)` and turning `N` into a JS
+string character. For `N > 127` the generator ran that character through a
+cp1252 decode (on the theory that VBA's `Chr()` reflects what the macro
+author saw under the Windows ANSI codepage) - but the entire rest of the
+pivot engine assumes the opposite convention: that a fragment character's
+own `charCode` *is* its byte value (looked up everywhere via
+`text.charCodeAt(i)`). cp1252 only agrees with that "identity" convention
+for bytes 0xA0-0xFF; for 0x80-0x9F it diverges (byte 0x91 decodes to U+2018
+"'", not U+0091), and for 5 specific bytes in that range (0x81, 0x8D, 0x8F,
+0x90, 0x9D) cp1252 has no character defined at all - all five decoded to
+the same placeholder, U+FFFD, making otherwise-distinct source bytes
+indistinguishable. Confirmed as the root cause of Suchi Kan's ಒ/ಓ/ಔ all
+colliding (their corresponding Mono bytes all mapped to U+FFFD in
+`NUDIMONO2BI`, so the inverse lookup for all three landed on the same,
+mostly-arbitrary Suchi Kan byte or none at all). Fixed by dropping the
+cp1252 step entirely - `Chr(N)` is now always just `chr(N)`, matching the
+byte-identity convention used everywhere else. Zero regressions (Nudi and
+all 9 direct-to-Mono fonts unchanged - this only touches the Bi-hop
+tables): Suchi Kan 530->1297, ISM KNB TT-Nandi 459->992, Akruti Bi
+246->848, WinKey KanEng 321->699.
+
+**Missing implicit-vowel marker, ported to the Bi-hop path (fixed)**: the
+same class of bug fixed earlier for Prakashak/Dharma/Janna (a bare
+base-consonant byte needing an explicit "À" inherent-vowel marker appended,
+see below) also affects the Bi-hop fonts, but the original fix
+(`_normalizeBareNudiConsonants`/the drop-side of `pivotUnicodeToAscii`) was
+only wired into the two direct-to-Mono pivot functions. Ported it to
+`pivotAsciiToUnicodeViaBi`/`pivotUnicodeToAsciiViaBi` by composing each
+font's byte through its own Bi fragment and then through `NUDIBI2MONO`
+(`_composedX2Mono`, cached) to get an equivalent "byte -> Mono fragment"
+map, so the existing `_hasBareAByte` check can be reused unchanged instead
+of duplicating the logic. Fixed Akruti Bi specifically (848->848 already
+counted above includes this - net from both fixes together); the other
+three already had a dedicated byte for the marker so this step was a
+no-op for them (correctly gated off).
+
+**Deeper issue found, not yet fixed: the macros' own "Nudi Mono" byte
+numbering doesn't match this app's Nudi Mono convention.** While
+investigating a remaining Suchi Kan failure (ಠ round-tripped to itself
+instead of converting), traced it to `NUDIBI2MONO`'s entry for Bi byte 194
+(`Case 194: Selection.Text = Chr(172)` in the original macro) - it says
+Bi byte 194's Mono equivalent is byte 172 (`¬`), but this app's own
+hand-verified Nudi engine has no idea what byte 172 means (`asciiToUnicode`
+passes it through unrecognized); the *actual* Mono byte for ಠ in this
+app's tables is 111 (`o`). That's not a bug in our generator - it's
+directly what the source macro says - which means the `NudiBI2NudiMono`/
+`NudiMonoToNudiBi` subs use a byte-numbering scheme for "Nudi Mono" that's
+internally consistent with themselves but does **not** match the Mono
+byte scheme this app's own `asciiToUnicode`/`unicodeToASCII` engine uses.
+Every Bi-hop font's remaining failures likely trace back to this same
+mismatch repeating byte after byte. Fixing it properly means building a
+verified byte-for-byte translation between the macro's own "Mono" numbering
+and this app's Mono numbering (not a per-font fix - all four Bi-hop fonts
+share the same two hop tables) - a bigger, dedicated undertaking flagged
+as the next item for these four fonts.
 
 **English-token detection was Nudi-specific, wrongly swallowing pivot fonts'
 own encoded text (fixed)**: on the ASCII -> Unicode side of every pivot font,
