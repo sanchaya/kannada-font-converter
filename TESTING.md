@@ -77,6 +77,26 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Input-type detect badge misfired "ASCII" on Kannada Unicode + English
+mixed text (fixed)**: reported as "there is an automatic indicator on top of
+the left text area which says the type of text pasted - that indication
+seems wrong." Root cause in the `#detect-badge`/`#detect-text` indicator's
+input listener: it used `hasUnicode && !hasASCII` / `else if (hasASCII)`
+(plain "does it contain any of these characters" booleans), where `hasASCII`
+matches ANY single character in `[À-ÿøñð]`. That range also covers ordinary
+accented letters common in English loanwords and proper nouns (café, résumé,
+jalapeño, Zürich, ...), so a document that's overwhelmingly real Kannada
+Unicode with a bit of English mixed in got mislabeled "ASCII ನುಡಿ/ಬರಹ" the
+moment it contained even one such word - confirmed with a 40-Kannada-char /
+2-accented-char test string. This was also inconsistent with the *actual*
+auto-direction logic used at convert time (`convertText()`), which already
+compares character counts (`unicodeCount > asciiKnCount`) rather than doing a
+boolean "contains any" check - so the badge could show "ASCII" right above a
+textarea that Convert would correctly treat as Unicode. Fixed by making the
+badge use the identical count-comparison, so it now accurately previews what
+"auto" direction will do. Zero regressions (pure UI-label logic, not touched
+by `test/permutations.js`).
+
 **Literal "u2a"/"a2u" direction shorthand got Nudi-decoded despite
 retain-English (fixed)**: reported as "(u2a)" becoming "(u೨ಚಿ)" and "(a2u)"
 becoming "(ಚಿ೨u)" even with retain-English on. This app's own direction-code

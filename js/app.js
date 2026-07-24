@@ -1279,22 +1279,32 @@ if (_inputTextEl) _inputTextEl.addEventListener('input', function() {
     document.getElementById('char-count').textContent = text.length + ' ಅಕ್ಷರ';
     
     if (text.length > 0) {
-        const hasUnicode = /[\u0C80-\u0CFF]/.test(text);
-        const hasASCII = /[À-ÿøñð]/.test(text);
-        
+        // Count-based, not a plain "does it contain any of these chars"
+        // check - matches the auto-direction logic in convertText() below,
+        // which is what actually runs when the user hits Convert. The old
+        // version flagged text as ASCII the moment it contained even ONE
+        // character in [À-ÿøñð], but that range also covers ordinary
+        // accented letters that show up in English loanwords/proper nouns
+        // (café, résumé, jalapeño, Zürich, ...) - so a Kannada Unicode
+        // document with a smattering of English mixed in got mislabeled
+        // "ASCII ನುಡಿ/ಬರಹ" the moment it contained a single such word,
+        // even though it was overwhelmingly real Unicode Kannada.
+        const unicodeCount = (text.match(/[\u0C80-\u0CFF]/g) || []).length;
+        const asciiKnCount = (text.match(/[À-ÿøñð]/g) || []).length;
+
         const badge = document.getElementById('detect-badge');
         const textSpan = document.getElementById('detect-text');
         badge.className = 'info-badge py-1 px-2';
-        
-        if (hasUnicode && !hasASCII) {
-            badge.classList.add('badge-unicode');
-            textSpan.textContent = 'Unicode ಕನ್ನಡ';
-        } else if (hasASCII) {
-            badge.classList.add('badge-ascii');
-            textSpan.textContent = 'ASCII ನುಡಿ/ಬರಹ';
-        } else {
+
+        if (unicodeCount === 0 && asciiKnCount === 0) {
             badge.classList.add('badge-unknown');
             textSpan.textContent = 'ಪತ್ತೆ ಆಗಿಲ್ಲ';
+        } else if (unicodeCount > asciiKnCount) {
+            badge.classList.add('badge-unicode');
+            textSpan.textContent = 'Unicode ಕನ್ನಡ';
+        } else {
+            badge.classList.add('badge-ascii');
+            textSpan.textContent = 'ASCII ನುಡಿ/ಬರಹ';
         }
     } else {
         document.getElementById('detect-badge').className = 'info-badge badge-unknown py-1 px-2';
