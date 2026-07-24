@@ -25,3 +25,7 @@ package-lock.json
 linkedin-post.md
 test/permutations.js
 test/ISSUES.md
+
+# Node-server-only, opt-in submission log (see DEPLOYMENT.md) - never
+# publish user-submitted conversion text.
+data/

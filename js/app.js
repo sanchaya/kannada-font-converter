@@ -1,5 +1,11 @@
 // ============================================================
 // FRONTEND APPLICATION - Client-side conversion for GitHub Pages
+//
+// ಕನ್ನಡ ಅಕ್ಷರರೂಪ ಪರಿವರ್ತಕ - Proudly built at sanchaya.org with love
+// for Kannada. https://converter.sanchaya.net | https://sanchaya.org
+// Licensed under GPL-3.0-or-later - see LICENSE. If you're running this
+// from a downloaded copy or your own fork, please keep this notice and
+// the footer attribution in index.html intact.
 // ============================================================
 
 let convertedText = '';

@@ -43,6 +43,10 @@ npx serve .
 
 or just open `index.html`. This is how the GitHub Pages deployment works.
 
+Want to run it yourself via Node instead (e.g. on your own server, with a
+JSON API and optional submission logging for future improvements)? See
+**[DEPLOYMENT.md](DEPLOYMENT.md)**.
+
 ## Live Editor Usage
 
 1. Open the **ಲೈವ್ ಸಂಪಾದಕ** tab - KGP keyboard activates automatically
@@ -113,3 +117,8 @@ All 14 source encodings identified from the reviewed KGP macros are now ported (
 GPL-3.0 (or any later version) - see [LICENSE](LICENSE). Prior versions of
 this project were released under the MIT license; from this version onward,
 new work is licensed under the GNU GPLv3.
+
+Proudly built at [sanchaya.org](https://sanchaya.org) with love for Kannada.
+If you download or fork this project, please keep that attribution (the
+footer credit in `index.html`, and the header comments in `js/app.js` /
+`server.js`) intact.
