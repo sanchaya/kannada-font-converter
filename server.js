@@ -14,12 +14,18 @@
 // and every var (PORT, SAVE_SUBMISSIONS, ...) just falls back to its
 // default. require('dotenv').config() never throws if no .env exists, so
 // this is safe whether or not you're using one.
-require('dotenv').config();
+//
+// Explicitly pointed at THIS file's own directory (__dirname), not left to
+// dotenv's default (which looks in process.cwd() instead) - otherwise
+// whether your .env is found at all silently depends on what directory
+// you happened to launch `node`/pm2/systemd from, which can easily differ
+// from where server.js and its .env actually live.
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const path = require('path');
 const fs = require('fs');
 const vm = require('vm');
 const { v4: uuidv4 } = require('uuid');
@@ -131,13 +137,22 @@ function rememberConversion(id, conversion) {
 //   SUBMISSIONS_LOG_PATH=<path>    where to write the JSONL log
 //                                  (default: ./data/submissions.jsonl)
 //
+// A *relative* SUBMISSIONS_LOG_PATH is resolved against this file's own
+// directory (__dirname), not the process's current working directory -
+// otherwise the effective location silently depends on whatever directory
+// you happened to launch `node`/pm2/systemd from, which can easily differ
+// from the project directory you're looking in afterward. An absolute
+// path in SUBMISSIONS_LOG_PATH is used as-is.
+//
 // Deliberately does NOT record the requester's IP address in the log file
 // (unlike the transient in-memory `conversions` cache above) - the goal is
 // improving conversion quality, not tracking who submitted what.
 // ============================================================
 const SAVE_SUBMISSIONS = process.env.SAVE_SUBMISSIONS === 'true';
-const SUBMISSIONS_LOG_PATH = process.env.SUBMISSIONS_LOG_PATH
-    || path.join(__dirname, 'data', 'submissions.jsonl');
+const SUBMISSIONS_LOG_PATH = path.resolve(
+    __dirname,
+    process.env.SUBMISSIONS_LOG_PATH || path.join('data', 'submissions.jsonl')
+);
 
 if (SAVE_SUBMISSIONS) {
     console.log(`Submission logging enabled -> ${SUBMISSIONS_LOG_PATH}`);
