@@ -10,9 +10,12 @@ small JSON API (`/api/convert`) that runs the identical conversion engine
 from `js/app.js` server-side, so a client can call it directly instead of
 converting in the browser.
 
-> `server.js`, `package.json`, and `package-lock.json` are intentionally
-> **not** part of the public GitHub Pages repo (see `.gitignore`) - they're
-> kept local to whichever machine you're deploying from.
+> `server.js`, `package.json`, and `package-lock.json` are tracked in the
+> same repo as the static site (GitHub Pages itself just ignores them,
+> since it only serves plain files) - so a plain `git clone` gets you
+> everything needed for either deployment style. A few genuinely dev-only
+> files (`tools/`, `test/permutations.js`, `.autopilot/`, ...) are still
+> excluded via `.gitignore` - see the comment there for the full list.
 
 ## Prerequisites
 
@@ -54,8 +57,22 @@ Example:
 PORT=8080 MAX_CONVERSIONS_CACHE=1000 npm start
 ```
 
-Or via a `.env` file loaded by your process manager (see below) - `.env` is
-already gitignored, so it's safe to put real values there.
+Or via a `.env` file placed right next to `server.js` - it's loaded
+automatically (via `dotenv`) regardless of what directory you launch the
+process from (pm2, systemd, a plain shell, etc.), so you don't need your
+process manager to inject anything itself. `.env` is already gitignored,
+so it's safe to put real values there.
+
+```bash
+# .env
+SAVE_SUBMISSIONS=true
+SUBMISSIONS_LOG_PATH=./data/submissions.jsonl
+```
+
+A relative `SUBMISSIONS_LOG_PATH` (like the one above) is resolved against
+`server.js`'s own directory too, not wherever the process happened to be
+launched from - so the file always ends up where you'd expect, next to the
+project, no matter how your process manager is configured.
 
 ## Submission logging (optional, off by default)
 
@@ -196,7 +213,14 @@ Response:
 ```
 
 Other endpoints: `GET /api/history?limit=10`, `GET /api/convert/:id`,
-`GET /api/health`.
+`GET /api/health` (also reports `submissionLogging: true/false`).
+
+`POST /api/log-submission` - internal, used by the front-end's own
+fire-and-forget call after it's already computed a conversion client-side
+(see **Submission logging** above); not something you'd normally call
+directly. Body: `{ text, result, direction, font, numFormat,
+retainEnglish }`. Always responds `204` and never recomputes anything -
+it only feeds the optional submissions log.
 
 ## Attribution
 
