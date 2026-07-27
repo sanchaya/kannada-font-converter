@@ -226,17 +226,30 @@ function _hasKannadaConsonant(str) {
     return /[ಕ-ಹ]/.test(str);
 }
 
-// Real English prose only ever capitalizes words as all-lowercase, Title
-// Case, or ALL-CAPS (acronyms) - never with arbitrary internal case changes
-// like "MAn". Nudi's own ASCII scheme, on the other hand, relies heavily on
-// case to distinguish letters (e.g. "M"=ಒ, "A"=ಂ (anusvara), "n"=ಟಿ, so
-// "MAn" = ಒಂಟಿ, "alone"), so a token with non-standard internal casing is a
-// strong, purely-structural signal that it's Nudi encoding rather than a
-// real English word - no need to actually decode it (which risks
-// false-positives on genuine English words, e.g. "Kannada" itself happens to
-// decode to a consonant-containing string via the Nudi map, but it's
-// perfectly normal Title Case so is left alone here).
+// Real English prose capitalizes short (<=4 letter) tokens as all-lowercase,
+// Title Case, or ALL-CAPS (acronyms) - never with arbitrary internal case
+// changes like "MAn". Nudi's own ASCII scheme, on the other hand, relies
+// heavily on case to distinguish letters (e.g. "M"=ಒ, "A"=ಂ (anusvara),
+// "n"=ಟಿ, so "MAn" = ಒಂಟಿ, "alone"), so a SHORT token with non-standard
+// internal casing is a strong, purely-structural signal that it's Nudi
+// encoding rather than a real English word - no need to actually decode it
+// (which risks false-positives, e.g. "Kannada" itself happens to decode to
+// a consonant-containing string via the Nudi map, but it's perfectly
+// normal Title Case so is left alone here regardless of length).
+//
+// Deliberately scoped to token.length <= 4 (same bound as the
+// all-uppercase/NUDI_A2U_STANDALONE check above) rather than applied to
+// every token: longer real English words routinely use internal
+// capitalization too - compound/brand names like "InScript", "JavaScript",
+// "PowerPoint", "YouTube", "GitHub", "PayPal", "iPhone", "MacBook" - none of
+// which are plausible as raw Nudi ASCII (a genuine multi-letter Nudi
+// sequence beyond a couple of standalone-mapped units almost always needs
+// extended-Latin marks for proper consonant+matra conjuncts, which
+// LATIN_EXT_RE already filters out above). An earlier version of this
+// check applied to tokens of any length and wrongly Nudi-decoded every one
+// of those brand names (confirmed: "InScript" -> "IಟಿSಛಿಡಿiಠಿಣ").
 function _hasPlausibleEnglishCasing(token) {
+    if (token.length > 4) return true;
     const segments = token.split(/[^a-zA-Z]+/).filter(Boolean);
     if (segments.length === 0) return true;
     return segments.every(seg => /^[a-z]+$/.test(seg) || /^[A-Z][a-z]*$/.test(seg) || /^[A-Z]+$/.test(seg));

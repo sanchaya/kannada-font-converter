@@ -77,6 +77,29 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Casing-implausibility check (the "MAn" fix) wrongly Nudi-decoded real
+compound-capitalized English words (fixed)**: reported via a very concrete
+repro - pasting this app's own live-editor help text, which mentions the
+"InScript" keyboard by name, produced "IಟಿSಛಿಡಿiಠಿಣ" instead of leaving
+"InScript" alone, even with retain-English on. Root cause: the
+`_hasPlausibleEnglishCasing` check added for the earlier "MAn" fix (which
+correctly rejects short non-standard-case tokens like "MAn" as Nudi
+encoding, not English) had no length bound, so it also rejected every
+ordinary compound-capitalized brand/product word - confirmed broken:
+InScript, JavaScript, PowerPoint, YouTube, GitHub, PayPal, iPhone,
+MacBook. None of these are plausible as raw Nudi ASCII in the first place -
+a genuine multi-letter Nudi sequence beyond a couple of standalone-mapped
+units almost always needs extended-Latin marks for proper consonant+matra
+conjuncts (already filtered out earlier in `_isEnglishToken` via
+`LATIN_EXT_RE`), so there was no reason for the casing check to apply
+beyond short tokens in the first place. Fixed by scoping
+`_hasPlausibleEnglishCasing`'s rejection to `token.length <= 4` - the same
+bound the all-uppercase/`NUDI_A2U_STANDALONE` check just above it already
+uses - leaving every longer token to fall through as English by default,
+as it always did before the original "MAn" fix. Re-verified "MAn" and
+"KNB" both still resolve correctly after the length bound was added. Zero
+regressions (`node test/permutations.js` unchanged).
+
 **Input-type detect badge misfired "ASCII" on Kannada Unicode + English
 mixed text (fixed)**: reported as "there is an automatic indicator on top of
 the left text area which says the type of text pasted - that indication
