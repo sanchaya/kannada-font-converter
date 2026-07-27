@@ -9,6 +9,13 @@
 // See DEPLOYMENT.md for setup, environment variables, and reverse-proxy
 // examples.
 // ============================================================
+// Load .env (if present) BEFORE anything reads process.env below - without
+// this, a .env file sitting right next to server.js is silently ignored
+// and every var (PORT, SAVE_SUBMISSIONS, ...) just falls back to its
+// default. require('dotenv').config() never throws if no .env exists, so
+// this is safe whether or not you're using one.
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
