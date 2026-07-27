@@ -230,6 +230,32 @@ app.post('/api/convert', (req, res) => {
     }
 });
 
+// Lightweight logging endpoint used by the front-end's own fire-and-forget
+// call (see _logSubmissionToServer in js/app.js) AFTER it has already
+// computed a conversion entirely client-side - real conversions still
+// always happen in the browser, this exists purely to feed the optional
+// submissions.jsonl log (SAVE_SUBMISSIONS) with real usage from people
+// actually using the site, not just direct /api/convert callers.
+// Deliberately does NOT recompute the conversion or touch the
+// /api/history cache - always responds 204 regardless of whether logging
+// is actually enabled, so the front-end never needs to care.
+app.post('/api/log-submission', (req, res) => {
+    const { text, result, direction, font, numFormat, retainEnglish } = req.body || {};
+    if (typeof text === 'string' && typeof result === 'string') {
+        logSubmission({
+            id: uuidv4(),
+            timestamp: new Date().toISOString(),
+            direction: direction || null,
+            font: font || null,
+            numFormat: numFormat || null,
+            retainEnglish: !!retainEnglish,
+            inputText: text,
+            outputText: result
+        });
+    }
+    res.status(204).end();
+});
+
 // Get conversion history
 app.get('/api/history', (req, res) => {
     const limit = parseInt(req.query.limit) || 10;

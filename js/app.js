@@ -1248,6 +1248,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
+// OPTIONAL SERVER-SIDE SUBMISSION LOGGING (self-hosted server.js only)
+//
+// Fire-and-forget: conversion always happens client-side first, exactly as
+// it always has (this app works fully offline / on GitHub Pages, which has
+// no backend at all). When this page happens to be served by the
+// self-hosted server.js instead, each explicit conversion is ALSO sent to
+// POST /api/log-submission in the background so it can be reviewed later
+// for improving font tables/heuristics - see DEPLOYMENT.md's "Submission
+// logging" section (off by default there too - SAVE_SUBMISSIONS must be
+// explicitly enabled server-side for anything to actually be written).
+//
+// Feature-detected once per page load via a quick GET /api/health - on
+// GitHub Pages (or any static host) that request just 404s/fails since no
+// such route exists there, so _serverLoggingAvailable stays false and
+// nothing is ever sent. Never blocks, retries, or affects the UI either
+// way - failures are silently swallowed.
+// ============================================================
+let _serverLoggingAvailable = false;
+(function _detectServerLogging() {
+    if (typeof fetch !== 'function') return;
+    const controller = typeof AbortController === 'function' ? new AbortController() : null;
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 1500) : null;
+    fetch('/api/health', controller ? { signal: controller.signal } : {})
+        .then(r => (r && r.ok) ? r.json() : null)
+        .then(data => { if (data && data.status === 'ok') _serverLoggingAvailable = true; })
+        .catch(() => {})
+        .finally(() => { if (timeoutId) clearTimeout(timeoutId); });
+})();
+
+function _logSubmissionToServer(payload) {
+    if (!_serverLoggingAvailable || typeof fetch !== 'function') return;
+    fetch('/api/log-submission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).catch(() => {});
+}
+
+// ============================================================
 // TEXT CONVERSION (Client-side for GitHub Pages)
 // ============================================================
 function convertText() {
@@ -1283,6 +1322,7 @@ function convertText() {
         document.getElementById('output-text').value = convertedText;
         document.getElementById('out-char-count').textContent = convertedText.length + ' ಅಕ್ಷರ';
         showToast('ಪರಿವರ್ತನೆ ಯಶಸ್ವಿಯಾಗಿದೆ', 'success');
+        _logSubmissionToServer({ text, result: convertedText, direction, font: fontType, numFormat, retainEnglish });
     } catch(e) {
         console.error(e);
         showToast('ದೋಷ: ' + e.message, 'error');
@@ -1471,6 +1511,7 @@ function convertFile() {
         convertedText = convert(fileText, numFormat, direction, retainEnglish);
         document.getElementById('file-output').textContent = convertedText;
         showToast('ಪರಿವರ್ತನೆ ಯಶಸ್ವಿಯಾಗಿದೆ', 'success');
+        _logSubmissionToServer({ text: fileText, result: convertedText, direction, font: 'nudi', numFormat, retainEnglish });
     } catch(e) {
         console.error(e);
         showToast('ದೋಷ: ' + e.message, 'error');

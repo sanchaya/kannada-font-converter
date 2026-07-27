@@ -59,14 +59,30 @@ already gitignored, so it's safe to put real values there.
 
 ## Submission logging (optional, off by default)
 
-If you set `SAVE_SUBMISSIONS=true`, every call to `/api/convert` appends one
-JSON line to `data/submissions.jsonl` (or wherever `SUBMISSIONS_LOG_PATH`
-points) recording: timestamp, direction, font, number format, whether
-retain-English was on, and **the full input and output text**. The idea is
-to build up a corpus of real-world conversions you can review later to spot
-patterns the automated test suite doesn't cover - fonts/edge cases people
-actually hit, English-retention misses, etc. - and use that to prioritize
-what to fix next in `js/app.js`.
+If you set `SAVE_SUBMISSIONS=true`, conversions get appended as JSON lines
+to `data/submissions.jsonl` (or wherever `SUBMISSIONS_LOG_PATH` points),
+recording: timestamp, direction, font, number format, whether retain-English
+was on, and **the full input and output text**. The idea is to build up a
+corpus of real-world conversions you can review later to spot patterns the
+automated test suite doesn't cover - fonts/edge cases people actually hit,
+English-retention misses, etc. - and use that to prioritize what to fix next
+in `js/app.js`.
+
+This captures two kinds of activity:
+
+- Direct calls to `POST /api/convert` (e.g. your own scripts/tools hitting
+  the API), and
+- **Real usage of the website itself.** Conversion always happens
+  client-side in the browser first (this app works fully offline and on
+  GitHub Pages, which has no backend at all) - but `js/app.js` also does a
+  one-time `GET /api/health` check on page load, and if that succeeds
+  (meaning this page is being served by *your* server.js, not GitHub
+  Pages), it fires a background `POST /api/log-submission` after each
+  explicit conversion (main text box and file upload) so real visitor
+  activity ends up in the log too, not just direct API callers. This never
+  blocks or slows down the UI, and silently does nothing at all when
+  served statically (the health check just fails, so nothing is ever
+  sent) - GitHub Pages itself is completely unaffected by any of this.
 
 Two things worth being deliberate about before you turn this on:
 
