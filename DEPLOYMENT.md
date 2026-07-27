@@ -33,7 +33,7 @@ npm start
 # or: node server.js
 ```
 
-By default this starts the server on `http://localhost:3000`. Open that URL
+By default this starts the server on `http://localhost:4500`. Open that URL
 in a browser - you'll see the exact same UI as the live site, now backed by
 your own server.
 
@@ -43,7 +43,7 @@ All are optional; sensible defaults apply if you don't set any of them.
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `PORT` | `3000` | Port the server listens on |
+| `PORT` | `4500` | Port the server listens on |
 | `MAX_CONVERSIONS_CACHE` | `500` | Max entries kept in the in-memory `/api/history` cache before the oldest are evicted |
 | `SAVE_SUBMISSIONS` | `false` | Set to `true` to persist every conversion request to a local JSONL log file - see **Submission logging** below before enabling |
 | `SUBMISSIONS_LOG_PATH` | `./data/submissions.jsonl` | Where the submission log is written, if enabled |
@@ -111,7 +111,7 @@ Type=simple
 WorkingDirectory=/path/to/kanconvert
 ExecStart=/usr/bin/node server.js
 Restart=on-failure
-Environment=PORT=3000
+Environment=PORT=4500
 # Environment=SAVE_SUBMISSIONS=true
 
 [Install]
@@ -133,7 +133,7 @@ server {
     server_name your-domain.example;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:4500;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
