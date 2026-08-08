@@ -148,7 +148,15 @@ const VATTAKSHARA_MAP = {
     'Û': 'ತ್', 'Ü': 'ಥ್', 'Ý': 'ದ್', 'Þ': 'ಧ್', 'ß': 'ನ್',
     'à': 'ಪ್', 'á': 'ಫ್', 'â': 'ಬ್', 'ã': 'ಭ್', 'ä': 'ಮ್',
     'å': 'ಯ್', 'æ': 'ರ್', 'è': 'ಲ್', 'é': 'ವ್', 'ê': 'ಶ್',
-    'ë': 'ಷ್', 'ì': 'ಸ್', 'í': 'ಹ್', 'î': 'ಳ್'
+    'ë': 'ಷ್', 'ì': 'ಸ್', 'í': 'ಹ್', 'î': 'ಳ್',
+    // 'ç' is Nudi's alternate byte for a subjoined ra-vattakshara that
+    // stacks under an already-subjoined consonant (a "double vattu"), as
+    // opposed to 'æ' which is ra-vattakshara directly under a base
+    // consonant. Needed for common triple conjuncts like ¸ÀÛç = ಸ್ತ್ರ
+    // (ಶಾಸ್ತ್ರ, ಪಾತ್ರ, ಮಂತ್ರ, ಸೂತ್ರ, ...) - same target ('ರ್') as 'æ' since
+    // both mean "subjoin ra here", _fix_conjuncts's chained-marker loop
+    // handles the reordering into the correct triple conjunct either way.
+    'ç': 'ರ್'
 };
 
 const VATT_MARKER = '\u0001';
@@ -164,7 +172,7 @@ const OTHER_MAP = {
 
 const KN_DIGITS = ['೦', '೧', '೨', '೩', '೪', '೫', '೬', '೭', '೮', '೯'];
 const EN_DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const ASCII_VATTAKSHARA = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî";
+const ASCII_VATTAKSHARA = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíî";
 const DEP_VOWELS = "್ಾಿೀುೂೃೆೇೈೊೋೌ";
 
 function _encodeIdx(n) {

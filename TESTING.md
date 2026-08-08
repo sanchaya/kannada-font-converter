@@ -77,6 +77,25 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Missing 'ç' (double-vattakshara ra) byte broke ASCII->Unicode for
+ಶಾಸ್ತ್ರ-style triple conjuncts (fixed)**: reported via a direct repro -
+"¥ÁætÂ±Á¸ÀÛç" should convert to "ಪ್ರಾಣಿಶಾಸ್ತ್ರ" but the trailing "ç" byte
+came through untranslated instead of becoming the final ್ರ. Root cause:
+Nudi ASCII uses two different bytes for a subjoined ra-vattakshara
+depending on what it stacks under - 'æ' when it subjoins directly under a
+base consonant (already mapped, e.g. ¥Áæ -> ಪ್ರಾ), and 'ç' when it stacks
+under a consonant that's *already* subjoined by another vattakshara,
+forming a triple conjunct (base + vattu + vattu) like ಸ್ತ್ರ. 'ç' had no
+entry at all in `VATTAKSHARA_MAP`, so it fell through every mapping stage
+untouched and was emitted raw. Fixed by adding `'ç': 'ರ್'` to
+`VATTAKSHARA_MAP` (same target as 'æ' - both mean "subjoin ra here";
+`_fix_conjuncts`'s chained-marker loop already handles reordering multiple
+stacked vattakshara markers into the correct triple conjunct) and adding
+'ç' to the `ASCII_VATTAKSHARA` character-class string for consistency.
+Verified against ಶಾಸ್ತ್ರ (the reported case) plus ಪಾತ್ರ, ಮಂತ್ರ, ಸೂತ್ರ (other
+common ತ್ರ-conjunct words). Zero regressions (`node test/permutations.js`
+unchanged - nudi and shreedeccan both still 2077/2077).
+
 **Casing-implausibility check (the "MAn" fix) wrongly Nudi-decoded real
 compound-capitalized English words (fixed)**: reported via a very concrete
 repro - pasting this app's own live-editor help text, which mentions the
