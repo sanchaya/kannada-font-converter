@@ -316,6 +316,25 @@ function _replace_vattakshara(txt) {
     return txt;
 }
 
+// 'ð' encodes reph - the "ರ್" that precedes a following consonant cluster
+// in normal reading order (ಕರ್ನಾಟಕ = ಕ + ರ್ + ನಾ + ಟಕ, ಸರ್ಕಾರ = ಸ + ರ್ +
+// ಕಾ + ರ, ...). Nudi's typing convention, though, has the typist finish the
+// base+matra keystrokes for the FOLLOWING syllable first and press the
+// reph key afterward (matching how the legacy bitmap font's glyph was
+// keyed in), so in the raw ASCII text 'ð' always arrives one syllable too
+// late relative to where it belongs in Unicode. Without this fix it was
+// left in place and blindly mapped to a bare 'ರ' (see OTHER_MAP below),
+// producing badly out-of-order results like "ಕನಾðಟಕ" -> "ಕನಾರಟಕ" instead
+// of "ಕರ್ನಾಟಕ". Fixed by moving "ರ್" to immediately before the syllable
+// (one base consonant + optional dependent vowel sign) that immediately
+// precedes 'ð', once _replace_from_map has already turned the surrounding
+// text into real Unicode consonants - run before _replace_vattakshara so
+// there's no VATT_MARKER in the text yet to complicate the lookbehind.
+function _replace_reph(txt) {
+    const re = new RegExp('([ಕ-ಹೞ])([' + DEP_VOWELS + ']?)ð', 'g');
+    return txt.replace(re, 'ರ್$1$2');
+}
+
 function _fix_conjuncts(txt) {
     let result = txt;
     // Reorder vattakshara markers into conjuncts. In Nudi the subscript
@@ -1090,6 +1109,7 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$1');
             
             converted = _replace_from_map(converted);
+            converted = _replace_reph(converted);
             converted = _replace_vattakshara(converted);
             converted = _fix_conjuncts(converted);
             converted = converted.replace(/[0-9]/g, (d) => KN_DIGITS[parseInt(d)]);

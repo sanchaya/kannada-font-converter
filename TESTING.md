@@ -77,6 +77,28 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Reph ('ð' = "ರ್" before a consonant, as in ಕರ್ನಾಟಕ/ಸರ್ಕಾರ) was placed
+in the wrong position, mangling entire words (fixed)**: reported via a
+full-sentence repro - "PÀ£ÁðlPÀ  ¸ÀPÁðgÀ\nªÁvÁð ªÀÄvÀÄÛ ¸ÁªÀðd¤PÀ ¸ÀA¥ÀPÀð
+E¯ÁSÉ" (a government department letterhead line) should convert to
+"ಕರ್ನಾಟಕ  ಸರ್ಕಾರ ವಾರ್ತಾ ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸಂಪರ್ಕ ಇಲಾಖೆ" but every single
+reph-containing word came out wrong: "ಕನಾರಟಕ", "ಸಕಾರರ", "ವಾತಾರ",
+"ಸಾವರಜನಿಕ", "ಸಂಪಕರ". Root cause: 'ð' was a plain `OTHER_MAP` entry mapped
+straight to bare "ರ" wherever it appeared - but reph is typed in Nudi
+*after* the syllable it logically precedes (matching how the legacy
+bitmap font's glyph was keyed in), so leaving it in place just scrambled
+word order instead of repositioning it. Fixed by adding a dedicated
+`_replace_reph()` pass, run right after `_replace_from_map` (so the
+surrounding text is already real Unicode consonants) and before
+`_replace_vattakshara`: it finds the syllable (one base consonant +
+optional dependent vowel sign) immediately preceding each 'ð' and moves
+"ರ್" to just before that syllable instead, e.g. "ಕ" + "ನಾ" + ð -> "ಕ" +
+"ರ್" + "ನಾ" = "ಕರ್ನಾಟಕ". `OTHER_MAP`'s original 'ð' -> 'ರ' entry is kept
+as a fallback for any 'ð' with no consonant syllable in front of it (e.g.
+malformed input at the very start of a string). Verified against all five
+words from the report plus the full original sentence, exact match. Zero
+regressions (`node test/permutations.js` unchanged).
+
 **Missing 'ç' (double-vattakshara ra) byte broke ASCII->Unicode for
 ಶಾಸ್ತ್ರ-style triple conjuncts (fixed)**: reported via a direct repro -
 "¥ÁætÂ±Á¸ÀÛç" should convert to "ಪ್ರಾಣಿಶಾಸ್ತ್ರ" but the trailing "ç" byte
