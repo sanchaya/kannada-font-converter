@@ -233,7 +233,18 @@
         };
 
         var activeFont = 'nudi';
-        var COLS = 4;
+
+        // A fixed 4-column table (8 real columns: ASCII/ಕನ್ನಡ x4) is fine
+        // on desktop but doesn't fit a phone screen - table-responsive
+        // just makes it scroll sideways, clipping the last column instead
+        // of showing the whole row. Scaling column count down by viewport
+        // width keeps every row fully visible without horizontal scrolling.
+        function getCols() {
+            var w = window.innerWidth;
+            if (w < 480) return 2;
+            if (w < 768) return 3;
+            return 4;
+        }
 
         function fontCount(key) {
             return FONTS[key].sections.reduce(function(n, s) { return n + toEntries(s.data).length; }, 0);
@@ -257,13 +268,14 @@
         }
 
         function tableHTML(entries) {
+            var cols = getCols();
             var html = '<div class="table-responsive"><table class="table table-sm table-bordered map-table mb-0">' +
                 '<thead class="table-light"><tr>';
-            for (var i = 0; i < COLS; i++) html += '<th>ASCII</th><th>ಕನ್ನಡ</th>';
+            for (var i = 0; i < cols; i++) html += '<th>ASCII</th><th>ಕನ್ನಡ</th>';
             html += '</tr></thead><tbody>';
-            for (var r = 0; r < entries.length; r += COLS) {
+            for (var r = 0; r < entries.length; r += cols) {
                 html += '<tr>';
-                for (var c = 0; c < COLS; c++) {
+                for (var c = 0; c < cols; c++) {
                     var e = entries[r + c];
                     html += e
                         ? '<td><code>' + esc(e[0]) + '</code></td><td class="kn">' + esc(e[1]) + '</td>'
@@ -299,6 +311,23 @@
         document.getElementById('map-search').addEventListener('input', renderContent);
         renderTabs();
         renderContent();
+
+        // Re-render (debounced) when the viewport crosses a column-count
+        // breakpoint - e.g. rotating a phone, or resizing a desktop
+        // browser window - rather than only computing the column count
+        // once at page load.
+        var lastCols = getCols();
+        var resizeTimer = null;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                var cols = getCols();
+                if (cols !== lastCols) {
+                    lastCols = cols;
+                    renderContent();
+                }
+            }, 150);
+        });
     })();
     </script>
 </body>

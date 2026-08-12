@@ -125,6 +125,32 @@ body {
     .brand-title { font-size: 0.88rem; }
 }
 
+@media (max-width: 576px) {
+    /* Header title used to stay on one flex row while its buttons crowded
+       against the wrapped title text (no flex-wrap) - now the title takes
+       its own full row and the action buttons form a clean second row
+       below, evenly split, instead of both fighting for the same line. */
+    .card-header-custom h5 { flex: 1 1 100%; }
+    .card-header-custom .tour-btn {
+        margin-left: 0;
+        flex: 1 1 auto;
+        justify-content: center;
+        font-size: 0.78rem;
+        padding: 6px 10px;
+    }
+
+    /* Tab labels are full Kannada phrases (e.g. "ಮಿಶ್ರಿತ ಪಠ್ಯ ಪತ್ತೆ"), not
+       short words, so at phone widths the default padding/size left only
+       1-2 tabs able to fit per row - tightening both lets 2-3 fit per row
+       instead of each tab claiming most of a row on its own. */
+    .nav-tabs-custom { padding: 0 0.5rem; }
+    .nav-tabs-custom button.nav-link {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    .card-body-custom, .tab-content-custom { padding: 1rem; }
+}
+
 .converter-card {
     background: var(--third-color);
     border-radius: 16px;
@@ -141,6 +167,7 @@ body {
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 0.75rem;
 }
 
