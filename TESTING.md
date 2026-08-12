@@ -77,6 +77,35 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Orphaned 'À' bytes (redundant tool-quirk keystrokes) were left as literal
+garbage in the output (fixed)**: reported via a real-document repro -
+"JAzÉÀ£ÀÄßvÁÛ¼É" should be "ಎಂದೆನ್ನುತ್ತಾಳೆ" but came out
+"ಎಂದೆÀನ್ನುತ್ತಾಳೆ" - a stray 'À' sitting right after "zÉ" (ದೆ, already
+complete) with nothing to attach to. Traced precisely: 'À' only ever has
+meaning as the second character of a base-consonant "add the inherent
+vowel" unit (`PÀ` -> ಕ, or the middle byte of longer forms like `PÀÄ` ->
+ಕು) - every such unit already exists as its own key in
+`consonantMaps`/`A2U_MAP`, tried longest-first by `_replace_from_map`. So
+by the time that function finishes, any 'À' still literally present in
+the text could not have paired with anything - it's structurally
+meaningless, not a different valid construct that just wasn't recognized.
+Some Nudi typing tool apparently emits a redundant 'À' after certain
+vowel-sign keys (here, after 'É' for ದೆ, which is already complete on its
+own and never needs a following À). Rather than special-casing this one
+word, added a general `_strip_orphan_a_marker()` pass, run right after
+`_replace_from_map` and before reph/vattakshara (so a stray À sitting
+between a matra and 'ð'/a vattakshara marker can't block those from
+matching either) - it simply removes any 'À' still present at that point,
+since the analysis above shows that can never discard real information.
+This is a broader, general robustness fix rather than a narrow
+one-off - verified empirically, not just logically: every font's pass
+count in `node test/permutations.js` still matches the established
+baseline exactly (all 2077-case syllable/conjunct permutations across all
+15 fonts), which would have caught it if the "orphaned À is always safe
+to drop" reasoning were wrong anywhere. Also re-verified all four
+previous fixes from this session (ç, ö, ð, Ä/Å, Æ/Ç) still work correctly
+together with this one.
+
 **Missing 'ö' (double-vattakshara ya) byte broke triple conjuncts like
 ದ್ರ್ಯ (fixed)**: reported via a direct repro - "ದಾರಿದ್ರö್ಯ." should be
 "ದಾರಿದ್ರ್ಯ." (daridrya, "poverty") but the "ö" byte came through

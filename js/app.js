@@ -339,6 +339,25 @@ function _replace_vattakshara(txt) {
     return txt;
 }
 
+// 'À' only ever has meaning as the second character of a base-consonant
+// "add the inherent vowel" unit (e.g. 'PÀ' -> ಕ, 'zÀ' -> ದ, and as the
+// middle byte of longer forms like 'PÀÄ' -> ಕು) - every such unit already
+// exists as its own key in consonantMaps/A2U_MAP, tried longest-first in
+// _replace_from_map. So by the time this runs, any 'À' still sitting in
+// the text literally could not have paired with anything: it's orphaned,
+// structurally meaningless noise, not a different valid construct. Some
+// Nudi typing tools/versions apparently emit a redundant 'À' after
+// certain vowel-sign keys anyway (confirmed via a real document: "zÉÀ..."
+// for ದೆ..., where 'É' alone already completes ದೆ and the following 'À'
+// has nothing left to attach to) - previously this was left in place as
+// literal garbage (e.g. "ಎಂದೆÀನ್ನುತ್ತಾಳೆ" instead of "ಎಂದೆನ್ನುತ್ತಾಳೆ").
+// Run right after _replace_from_map, before reph/vattakshara, so a stray
+// 'À' can't also block THEIR pattern matching (e.g. sitting between a
+// matra and 'ð' would prevent the reph regex from matching at all).
+function _strip_orphan_a_marker(txt) {
+    return txt.replace(/À/g, '');
+}
+
 // 'ð' encodes reph - the "ರ್" that precedes a following consonant cluster
 // in normal reading order (ಕರ್ನಾಟಕ = ಕ + ರ್ + ನಾ + ಟಕ, ಸರ್ಕಾರ = ಸ + ರ್ +
 // ಕಾ + ರ, ...). Nudi's typing convention, though, has the typist finish the
@@ -1132,6 +1151,7 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$1');
             
             converted = _replace_from_map(converted);
+            converted = _strip_orphan_a_marker(converted);
             converted = _replace_reph(converted);
             converted = _replace_vattakshara(converted);
             converted = _fix_conjuncts(converted);
