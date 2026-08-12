@@ -85,10 +85,23 @@ const consonantMaps = [
     ['£ÀÄ', 'ನು'], ['£ÀÆ', 'ನೂ'], ['£ÀÈ', 'ನೃ'], ['£É', 'ನೆ'], ['£ÉÃ', 'ನೇ'],
     ['£ÉÊ', 'ನೈ'], ['£ÉÆ', 'ನೊ'], ['£ÉÆÃ', 'ನೋ'], ['£Ë', 'ನೌ'],
     ['¥ï', 'ಪ್'], ['¥À', 'ಪ'], ['¥Á', 'ಪಾ'], ['¦', 'ಪಿ'], ['¦Ã', 'ಪೀ'],
-    ['¥ÀÅ', 'ಪು'], ['¥ÀÇ', 'ಪೂ'], ['¥ÀÈ', 'ಪೃ'], ['¥É', 'ಪೆ'], ['¥ÉÃ', 'ಪೇ'],
+    // ಪ normally uses Å (not the usual Ä) for its "u" matra to avoid a
+    // rendering collision in the legacy Nudi font - but real-world
+    // documents (e.g. typed with other Nudi/Baraha tool versions) commonly
+    // use the regular Ä byte instead, so both are accepted here. Order
+    // matters: U2A_MAP (used for Unicode->ASCII, built by inverting this
+    // table further down) keeps whichever ascii key was inserted LAST for
+    // a given Kannada value as its canonical reverse mapping, so 'Ä' is
+    // listed BEFORE 'Å' here to make sure 'Å' stays the canonical u2a
+    // output - other pivot fonts (e.g. Surabhi KN) only know how to
+    // reverse-map the 'Å' byte, so making 'Ä' canonical broke their u2a
+    // round-trip even though the a2u direction alone was fine.
+    ['¥ÀÄ', 'ಪು'], ['¥ÀÅ', 'ಪು'], ['¥ÀÇ', 'ಪೂ'], ['¥ÀÈ', 'ಪೃ'], ['¥É', 'ಪೆ'], ['¥ÉÃ', 'ಪೇ'],
     ['¥ÉÊ', 'ಪೈ'], ['¥ÉÇ', 'ಪೊ'], ['¥ÉÇÃ', 'ಪೋ'], ['¥Ë', 'ಪೌ'],
     ['¥sï', 'ಫ್'], ['¥sÀ', 'ಫ'], ['¥sÁ', 'ಫಾ'], ['¦ü', 'ಫಿ'], ['¦üÃ', 'ಫೀ'],
-    ['¥sÀÅ', 'ಫು'], ['¥sÀÇ', 'ಫೂ'], ['¥sÀÈ', 'ಫೃ'], ['¥sÉ', 'ಫೆ'], ['¥sÉÃ', 'ಫೇ'],
+    // Same Å/Ä dual-acceptance as ಪ above, and same ordering reason (Å
+    // must be inserted last to stay the canonical u2a output).
+    ['¥sÀÄ', 'ಫು'], ['¥sÀÅ', 'ಫು'], ['¥sÀÇ', 'ಫೂ'], ['¥sÀÈ', 'ಫೃ'], ['¥sÉ', 'ಫೆ'], ['¥sÉÃ', 'ಫೇ'],
     ['¥sÉÊ', 'ಫೈ'], ['¥sÉÇ', 'ಫೊ'], ['¥sÉÇÃ', 'ಫೋ'], ['¥sË', 'ಫೌ'],
     ['¨ï', 'ಬ್'], ['§', 'ಬ'], ['¨Á', 'ಬಾ'], ['©', 'ಬಿ'], ['©Ã', 'ಬೀ'],
     ['§Ä', 'ಬು'], ['§Æ', 'ಬೂ'], ['§È', 'ಬೃ'], ['¨É', 'ಬೆ'], ['¨ÉÃ', 'ಬೇ'],
@@ -1492,10 +1505,26 @@ function handleFile(f) {
     } else {
         const reader = new FileReader();
         reader.onload = function(e) {
-            fileText = e.target.result;
+            // Unicode .txt files decode cleanly as strict UTF-8; legacy
+            // Nudi/ASCII files are typically saved as Windows-1252 and
+            // contain high-byte sequences that aren't valid UTF-8 - forcing
+            // those through a plain UTF-8 decode (as this used to do via
+            // reader.readAsText(f, 'utf-8')) doesn't error, it silently
+            // mangles the bytes into unrelated characters (e.g. legacy
+            // Nudi ASCII bytes coming out as stray real Kannada Unicode
+            // letters mixed with Latin-1 supplement junk like "ಪÄ" - byte
+            // corruption, not a conversion-logic bug). Same fallback the
+            // Live Keyboard file loader already uses below.
+            let text;
+            try {
+                text = new TextDecoder('utf-8', { fatal: true }).decode(e.target.result);
+            } catch (err) {
+                text = new TextDecoder('windows-1252').decode(e.target.result);
+            }
+            fileText = text;
             showFileInfo();
         };
-        reader.readAsText(f, 'utf-8');
+        reader.readAsArrayBuffer(f);
     }
 }
 

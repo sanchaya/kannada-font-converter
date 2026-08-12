@@ -77,6 +77,56 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Missing 'Ä' variant of ಪ/ಫ's "u" matra broke real-world letterhead text
+(e.g. "ಕೆ.ಆರ್.ಪುರಂ") (fixed)**: reported via a full letterhead conversion -
+"PÉ.Dgï.¥ÀÄgÀA, ¨ÉAUÀ¼ÀÆgÀÄ" should convert to "ಕೆ.ಆರ್.ಪುರಂ, ಬೆಂಗಳೂರು" but
+came out as "ಕೆ.ಆರ್.ಪÄರಂ, ಬೆಂಗಳೂರು" - the "u" matra on ಪ was left
+untranslated. Root cause: ಪ and ಫ normally use a special byte (Å) instead
+of the regular "u" matra byte (Ä, used for every other consonant, e.g.
+PÀÄ -> ಕು) to avoid a rendering collision in the legacy Nudi font, and only
+`['¥ÀÅ', 'ಪು']` / `['¥sÀÅ', 'ಫು']` existed - but real-world documents typed
+with other Nudi/Baraha tool versions commonly use the regular Ä byte for
+ಪ/ಫ too, which had no mapping at all. Fixed by adding `['¥ÀÄ', 'ಪು']` /
+`['¥sÀÄ', 'ಫು']` alongside the existing Å-based entries - **but inserted
+*before* the Å entries in the array**, not after: `U2A_MAP` (used for the
+Unicode->ASCII direction) is built by inverting `A2U_MAP` and keeps
+whichever ascii key was inserted last as the canonical reverse mapping for
+a given Kannada value, so adding Ä *after* Å the first time round
+accidentally made Ä the new canonical u2a output - which broke the
+Surabhi KN pivot font's own round-trip (its reverse charmap only knows how
+to invert the Å byte), caught by a surabhikn regression in
+`node test/permutations.js` (1534 -> 1530) that a real-example check alone
+wouldn't have shown. Reordering Ä before Å restored Å as canonical for
+u2a while keeping both accepted on the a2u side. Verified against the
+full reported letterhead (also exercises the earlier ç/ð fixes together)
+and confirmed the u2a canonical output for ಪು is still `¥ÀÅ`. Zero
+regressions - every font's pass count now matches the established
+baseline exactly (`node test/permutations.js` unchanged across all 15
+fonts).
+
+**"Convert File" (.txt) force-decoded uploads as UTF-8, silently
+corrupting legacy Nudi ASCII files (fixed)**: reported via a small repro -
+uploading a .txt file and converting produced garbage like "ಪÄ" appearing
+out of nowhere in the output, not matching any real Nudi ASCII sequence.
+Root cause: `handleFile()` (the file used by the main "Convert File"
+section) called `reader.readAsText(f, 'utf-8')`, which force-decodes
+whatever bytes are in the file as UTF-8. Legacy Nudi ASCII .txt files are
+almost always saved as Windows-1252 (e.g. old government documents
+authored in Notepad), and a strict-vs-lenient UTF-8 decode of
+Windows-1252 high-byte sequences doesn't error, it silently mangles them -
+some byte runs happen to form valid-looking UTF-8 multi-byte sequences
+that decode into unrelated real Unicode characters (stray genuine Kannada
+letters, Latin-1 supplement junk, etc.), which is exactly the "ಪÄ" pattern
+reported: byte-level corruption during file loading, not a conversion
+mapping bug. The separate Live Keyboard panel's own file loader already
+had the correct fix for this (`TextDecoder('utf-8', {fatal:true})`,
+falling back to `TextDecoder('windows-1252')` only on a genuine decode
+failure) - ported the same pattern into `handleFile()`. Verified the
+windows-1252 fallback correctly recovers the real ASCII (`¥ÀÅ` for ಪು)
+from Windows-1252-encoded bytes that a plain UTF-8 decode would have
+mangled. Zero regressions (`node test/permutations.js` unchanged - this
+only touches file-loading, not the conversion engine itself).
+
 **Reph ('ð' = "ರ್" before a consonant, as in ಕರ್ನಾಟಕ/ಸರ್ಕಾರ) was placed
 in the wrong position, mangling entire words (fixed)**: reported via a
 full-sentence repro - "PÀ£ÁðlPÀ  ¸ÀPÁðgÀ\nªÁvÁð ªÀÄvÀÄÛ ¸ÁªÀðd¤PÀ ¸ÀA¥ÀPÀð
