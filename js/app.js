@@ -173,7 +173,13 @@ const VATTAKSHARA_MAP = {
     // (ಶಾಸ್ತ್ರ, ಪಾತ್ರ, ಮಂತ್ರ, ಸೂತ್ರ, ...) - same target ('ರ್') as 'æ' since
     // both mean "subjoin ra here", _fix_conjuncts's chained-marker loop
     // handles the reordering into the correct triple conjunct either way.
-    'ç': 'ರ್'
+    'ç': 'ರ್',
+    // 'ö' is the same "double vattu" pattern as 'ç' above, but for ya
+    // instead of ra: the alternate byte for a subjoined ya-vattakshara
+    // that stacks under an already-subjoined consonant, vs. 'å' which is
+    // ya-vattakshara directly under a base consonant. Needed for triple
+    // conjuncts like zÁjzÀæö = ದಾರಿದ್ರ್ಯ (ದ್ರ್ಯ - "drya").
+    'ö': 'ಯ್'
 };
 
 const VATT_MARKER = '\u0001';
@@ -189,7 +195,7 @@ const OTHER_MAP = {
 
 const KN_DIGITS = ['೦', '೧', '೨', '೩', '೪', '೫', '೬', '೭', '೮', '೯'];
 const EN_DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const ASCII_VATTAKSHARA = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíî";
+const ASCII_VATTAKSHARA = "ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîö";
 const DEP_VOWELS = "್ಾಿೀುೂೃೆೇೈೊೋೌ";
 
 function _encodeIdx(n) {

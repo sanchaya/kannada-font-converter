@@ -77,6 +77,23 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Missing 'ö' (double-vattakshara ya) byte broke triple conjuncts like
+ದ್ರ್ಯ (fixed)**: reported via a direct repro - "ದಾರಿದ್ರö್ಯ." should be
+"ದಾರಿದ್ರ್ಯ." (daridrya, "poverty") but the "ö" byte came through
+untranslated. Exact same pattern as the earlier 'ç' fix (double-vattakshara
+ra), just for ya instead of ra: Nudi uses a different byte for a subjoined
+ya-vattakshara depending on whether it stacks directly under a base
+consonant ('å') or under a consonant that's *already* subjoined by another
+vattakshara ('ö'), forming a triple conjunct (base + vattu + vattu) like
+ದ್ರ್ಯ (ದ + ್ + ರ + ್ + ಯ). 'ö' had no entry anywhere in the codebase.
+Fixed by adding `'ö': 'ಯ್'` to `VATTAKSHARA_MAP` (same target as 'å') and
+adding 'ö' to `ASCII_VATTAKSHARA`, mirroring the 'ç' fix exactly - no new
+logic needed since `_fix_conjuncts`'s chained-marker loop already handles
+reordering multiple stacked vattakshara markers regardless of which
+consonant they're for. Verified against the reported word exactly
+(including the trailing period). Zero regressions - every font's pass
+count matches the baseline exactly.
+
 **ಪ/ಫ's long-u (ೂ) and o/O (ೊ/ೋ) forms had the same missing-alternate-byte
 gap as the earlier "u" matra fix (fixed)**: reported via two more real
 examples right after the Ä/Å fix - "¥ÉÆÃ°Ã¸ï£ÉÆÃgÀÄ" should be
