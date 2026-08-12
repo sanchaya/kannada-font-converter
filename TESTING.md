@@ -77,6 +77,35 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**Duplicate 'É' bytes blocked the intended long-e/lengthen key from
+matching, e.g. "ವೇ" coming out as "ವೆೆÃ" (fixed)**: reported via a real
+repro - "fÃªÀ£ÀªÉÉÃ" should be "ಜೀವನವೇ" but came out "ಜೀವನವೆೆÃ". This turned
+out to be the actual root cause of several earlier reports in this same
+conversation that had been (wrongly) attributed to the file-upload
+encoding bug - "ವೆೆÃ" reported standalone multiple times - because the
+symptom (real Kannada text mixed with a stray Latin byte) looked
+identical; the user confirmed it reproduced in direct text conversion
+too, not just file upload, which is what prompted a fresh look instead of
+assuming it was the same known issue again. Root cause: 'É' (the
+short-e/i/o vowel-sign key, e.g. `PÉ` -> ಕೆ) is always a suffix attached
+to exactly one preceding base-consonant letter - there's no key anywhere
+in `consonantMaps`/`A2U_MAP` containing "ÉÉ" together, so an extra
+duplicate É (apparently another real-world Nudi typing-tool quirk, same
+family as the earlier orphaned-À case) blocks the intended longer key
+(here `ªÉÃ` -> ವೇ) from matching at all: `_replace_from_map` falls back to
+the shorter `ªÉ` -> ವೆ instead, and the leftover second É then gets
+wrongly rendered as its own vowel sign by the generic
+`_a2u_post_process`'s `/É/g -> 'ೆ'` cleanup at the very end of the
+pipeline, producing the double-ೆ artifact. Fixed by adding
+`_collapse_duplicate_e_marker()`, collapsing runs of 2+ 'É' down to one -
+unlike the 'À' fix (which cleans up *after* `_replace_from_map`), this
+one has to run *before* it, on the raw ASCII text, so the intended longer
+key gets the chance to match in the first place rather than being
+prevented from matching. Verified against the reported word, the
+originally-misdiagnosed standalone "ವೆೆÃ" case, and the previous
+orphaned-À fix (still works together). Zero regressions - every font's
+pass count matches the baseline exactly.
+
 **Orphaned 'À' bytes (redundant tool-quirk keystrokes) were left as literal
 garbage in the output (fixed)**: reported via a real-document repro -
 "JAzÉÀ£ÀÄßvÁÛ¼É" should be "ಎಂದೆನ್ನುತ್ತಾಳೆ" but came out

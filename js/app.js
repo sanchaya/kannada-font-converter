@@ -358,6 +358,28 @@ function _strip_orphan_a_marker(txt) {
     return txt.replace(/À/g, '');
 }
 
+// Same class of bug as the orphaned 'À' above, this time for 'É' (the
+// short-e/i/o vowel-sign key, e.g. 'PÉ' -> ಕೆ, 'PÉÃ' -> ಕೇ). 'É' is always
+// a suffix attached to a single preceding base-consonant letter - there is
+// no key anywhere in consonantMaps/A2U_MAP that contains "ÉÉ" together, so
+// two 'É' in a row with no base consonant between them can only mean a
+// redundant duplicate keystroke, not two independent syllables (a genuine
+// second short-e syllable needs its own consonant letter in between, e.g.
+// "PÉ£É" = ಕೆನೆ, not "PÉÉ"). Confirmed via a real document: "...ªÉÉÃ"
+// should be "...ವೇ" (the 3-char key 'ªÉÃ' -> ವೇ can't match through the
+// extra É), but came out "...ವೆೆÃ" instead - the leftover, unrecognized
+// second É fell through to the generic `/É/g -> 'ೆ'` cleanup at the very
+// end of the pipeline and got wrongly rendered as its own vowel sign.
+// Unlike the 'À' fix (which cleans up leftover noise *after*
+// _replace_from_map has had its chance), this must run *before*
+// _replace_from_map: the whole problem is that the extra É stops the
+// intended 3/4-char 'É'-based key (ÉÃ, ÉÊ, ÉÆ, ÉÆÃ, ...) from matching in
+// the first place - collapsing on the raw text lets that key match as
+// designed instead of falling back to a shorter, wrong one.
+function _collapse_duplicate_e_marker(txt) {
+    return txt.replace(/É{2,}/g, 'É');
+}
+
 // 'ð' encodes reph - the "ರ್" that precedes a following consonant cluster
 // in normal reading order (ಕರ್ನಾಟಕ = ಕ + ರ್ + ನಾ + ಟಕ, ಸರ್ಕಾರ = ಸ + ರ್ +
 // ಕಾ + ರ, ...). Nudi's typing convention, though, has the typist finish the
@@ -1150,6 +1172,7 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$3$1');
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$1');
             
+            converted = _collapse_duplicate_e_marker(converted);
             converted = _replace_from_map(converted);
             converted = _strip_orphan_a_marker(converted);
             converted = _replace_reph(converted);
