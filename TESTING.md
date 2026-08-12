@@ -77,6 +77,29 @@ anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
 
+**ಪ/ಫ's long-u (ೂ) and o/O (ೊ/ೋ) forms had the same missing-alternate-byte
+gap as the earlier "u" matra fix (fixed)**: reported via two more real
+examples right after the Ä/Å fix - "¥ÉÆÃ°Ã¸ï£ÉÆÃgÀÄ" should be
+"ಪೋಲೀಸ್ನೋರು" but came out "ಪೆÆÃಲೀಸ್ನೋರು", and "¥ÀÆtð" should be "ಪೂರ್ಣ"
+but came out "ಪÆರ್ಣ". Same root cause and same fix shape as the Ä/Å case:
+ಪ/ಫ substitute a special byte (Ç) for their long-u/o/O vowel signs instead
+of the regular byte (Æ) every other consonant uses (e.g. `PÀÆ` -> ಕು...
+long-u; `PÉÆ`/`PÉÆÃ` -> ಕೊ/ಕೋ), to avoid the same legacy-font rendering
+collision - and only the Ç-based keys (`¥ÀÇ`, `¥ÉÇ`, `¥ÉÇÃ`, and the ಫ
+equivalents) existed. Added `¥ÀÆ`/`¥ÉÆ`/`¥ÉÆÃ` (and `¥sÀÆ`/`¥sÉÆ`/`¥sÉÆÃ`)
+as accepted alternates, each inserted *before* its Ç counterpart in the
+array so Ç stays the canonical `U2A_MAP` (Unicode->ASCII) output, exactly
+as with the earlier Ä/Å fix - this time confirmed *before* committing by
+checking every font's pass count still matches the established baseline
+exactly, not just re-running once. Deliberately did NOT extend this to
+ವ (`ª`), even though it has the identical Ç-substitution pattern for the
+same collision-avoidance reason: `ªÉÆ`/`ªÉÆÃ` are already taken - they mean
+ಮೊ/ಮೋ (ma), a real, load-bearing collision already relied on elsewhere in
+the map, not an oversight. Verified against both reported words plus the
+existing Ç-based forms (still working) and the u2a canonical outputs for
+ಪೂ/ಪೋ (still `¥ÀÇ`/`¥ÉÇÃ`). Zero regressions - every font's pass count
+matches the baseline exactly.
+
 **Missing 'Ä' variant of ಪ/ಫ's "u" matra broke real-world letterhead text
 (e.g. "ಕೆ.ಆರ್.ಪುರಂ") (fixed)**: reported via a full letterhead conversion -
 "PÉ.Dgï.¥ÀÄgÀA, ¨ÉAUÀ¼ÀÆgÀÄ" should convert to "ಕೆ.ಆರ್.ಪುರಂ, ಬೆಂಗಳೂರು" but

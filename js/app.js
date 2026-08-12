@@ -96,13 +96,17 @@ const consonantMaps = [
     // output - other pivot fonts (e.g. Surabhi KN) only know how to
     // reverse-map the 'Å' byte, so making 'Ä' canonical broke their u2a
     // round-trip even though the a2u direction alone was fine.
-    ['¥ÀÄ', 'ಪು'], ['¥ÀÅ', 'ಪು'], ['¥ÀÇ', 'ಪೂ'], ['¥ÀÈ', 'ಪೃ'], ['¥É', 'ಪೆ'], ['¥ÉÃ', 'ಪೇ'],
-    ['¥ÉÊ', 'ಪೈ'], ['¥ÉÇ', 'ಪೊ'], ['¥ÉÇÃ', 'ಪೋ'], ['¥Ë', 'ಪೌ'],
+    ['¥ÀÄ', 'ಪು'], ['¥ÀÅ', 'ಪು'],
+    // ಪ also substitutes Ç for the regular long-u/long-O-family Æ byte
+    // (same rendering-collision reason as the Å/Ä case above) - both
+    // accepted here too, Æ listed first so Ç stays canonical for u2a.
+    ['¥ÀÆ', 'ಪೂ'], ['¥ÀÇ', 'ಪೂ'], ['¥ÀÈ', 'ಪೃ'], ['¥É', 'ಪೆ'], ['¥ÉÃ', 'ಪೇ'],
+    ['¥ÉÊ', 'ಪೈ'], ['¥ÉÆ', 'ಪೊ'], ['¥ÉÇ', 'ಪೊ'], ['¥ÉÆÃ', 'ಪೋ'], ['¥ÉÇÃ', 'ಪೋ'], ['¥Ë', 'ಪೌ'],
     ['¥sï', 'ಫ್'], ['¥sÀ', 'ಫ'], ['¥sÁ', 'ಫಾ'], ['¦ü', 'ಫಿ'], ['¦üÃ', 'ಫೀ'],
-    // Same Å/Ä dual-acceptance as ಪ above, and same ordering reason (Å
-    // must be inserted last to stay the canonical u2a output).
-    ['¥sÀÄ', 'ಫು'], ['¥sÀÅ', 'ಫು'], ['¥sÀÇ', 'ಫೂ'], ['¥sÀÈ', 'ಫೃ'], ['¥sÉ', 'ಫೆ'], ['¥sÉÃ', 'ಫೇ'],
-    ['¥sÉÊ', 'ಫೈ'], ['¥sÉÇ', 'ಫೊ'], ['¥sÉÇÃ', 'ಫೋ'], ['¥sË', 'ಫೌ'],
+    // Same Å/Ä and Ç/Æ dual-acceptance as ಪ above, and same ordering
+    // reason (the special byte must be inserted last to stay canonical).
+    ['¥sÀÄ', 'ಫು'], ['¥sÀÅ', 'ಫು'], ['¥sÀÆ', 'ಫೂ'], ['¥sÀÇ', 'ಫೂ'], ['¥sÀÈ', 'ಫೃ'], ['¥sÉ', 'ಫೆ'], ['¥sÉÃ', 'ಫೇ'],
+    ['¥sÉÊ', 'ಫೈ'], ['¥sÉÆ', 'ಫೊ'], ['¥sÉÇ', 'ಫೊ'], ['¥sÉÆÃ', 'ಫೋ'], ['¥sÉÇÃ', 'ಫೋ'], ['¥sË', 'ಫೌ'],
     ['¨ï', 'ಬ್'], ['§', 'ಬ'], ['¨Á', 'ಬಾ'], ['©', 'ಬಿ'], ['©Ã', 'ಬೀ'],
     ['§Ä', 'ಬು'], ['§Æ', 'ಬೂ'], ['§È', 'ಬೃ'], ['¨É', 'ಬೆ'], ['¨ÉÃ', 'ಬೇ'],
     ['¨ÉÊ', 'ಬೈ'], ['¨ÉÆ', 'ಬೊ'], ['¨ÉÆÃ', 'ಬೋ'], ['¨Ë', 'ಬೌ'],
