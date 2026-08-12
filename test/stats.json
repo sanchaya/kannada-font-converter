@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-24",
+  "generated": "2026-08-12",
   "casesPerFont": 2077,
   "fonts": {
     "nudi": {
@@ -197,18 +197,18 @@
       }
     },
     "winkey": {
-      "pass": 1129,
-      "fail": 948,
+      "pass": 1139,
+      "fail": 938,
       "u2aFail": 8,
-      "a2uFail": 940,
+      "a2uFail": 930,
       "categories": {
         "vowel": 2,
         "halant-final": 13,
-        "syllable": 147,
+        "syllable": 139,
         "anusvara": 9,
         "visarga": 9,
         "conjunct": 632,
-        "conjunct+matra": 122,
+        "conjunct+matra": 120,
         "word": 12,
         "mixed": 2
       }

@@ -446,8 +446,33 @@ function _replace_from_map(txt) {
     return result;
 }
 
+// Resolves vowel-sign bytes (É/Æ/Ã/Ê) that survive _replace_from_map without
+// having been consumed as part of an atomic per-consonant key (e.g. 'PÉÆÃ'
+// -> ಕೋ). This happens whenever a document was typed with a redundant 'À'
+// between the base consonant and its vowel-sign keys - e.g. 'PÀÉÆÃ' instead
+// of the atomic 'PÉÆÃ' - which is common in real Nudi documents (the typist
+// completes the plain "ಕ" glyph first, then applies matra keys on top of
+// it). _strip_orphan_a_marker already consumes that redundant 'À' when it's
+// literally left over, but here it's not left over - 'PÀ' itself matches a
+// valid shorter key ('ಕ') before the longer 'PÉÆÃ' key ever gets a chance,
+// since À sits between P and É. What's left after that is the bare vowel-
+// sign run (É, Æ, Ã, Ê in some combination) with nothing to attach it to
+// syntactically except the plain consonant Unicode char immediately before
+// it. This mirrors the same four vowel forms already defined per-consonant
+// in consonantMaps (ೆ/ೇ/ೈ/ೊ/ೋ), just applied generically instead of tied to
+// one specific base letter. Must run before _a2u_deerga_handle, since that
+// function only recognizes already-converted Unicode matras (ಿ/ೆ/ೇ/ೊ)
+// immediately before a literal 'Ã' - if a bare 'É' were left unconverted at
+// that point (as it was here previously, via a fallback that ran AFTER
+// deerga_handle), deerga_handle's pattern would never match and 'Æ'/'Ã'
+// would leak through unconverted as literal characters.
 function _a2u_post_process(txt) {
-    return txt.replace(/É/g, 'ೆ');
+    return txt
+        .replace(/ÉÆÃ/g, 'ೋ')
+        .replace(/ÉÆ/g, 'ೊ')
+        .replace(/ÉÊ/g, 'ೈ')
+        .replace(/ÉÃ/g, 'ೇ')
+        .replace(/É/g, 'ೆ');
 }
 
 function _replace_a2u_anuswara_visarga(txt) {
@@ -1180,8 +1205,8 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = _fix_conjuncts(converted);
             converted = converted.replace(/[0-9]/g, (d) => KN_DIGITS[parseInt(d)]);
             converted = _replace_a2u_anuswara_visarga(converted);
-            converted = _a2u_deerga_handle(converted);
             converted = _a2u_post_process(converted);
+            converted = _a2u_deerga_handle(converted);
             return converted;
         });
         return convertedParts.join('');
