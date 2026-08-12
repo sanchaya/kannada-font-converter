@@ -360,6 +360,14 @@ textarea.form-control-custom#live-result {
     max-height: 300px;
     overflow-y: auto;
     line-height: 1.8;
+    /* Converted text keeps its original line breaks/paragraph structure
+       (the downloaded .txt already reflects this correctly - it's a pure
+       string) - without this, the browser's default block-level
+       white-space handling collapses every newline, so multi-line input
+       shows up as one run-on paragraph on screen even though the
+       underlying data is fine. pre-wrap keeps line breaks while still
+       wrapping long lines instead of overflowing horizontally. */
+    white-space: pre-wrap;
 }
 
 .file-item {

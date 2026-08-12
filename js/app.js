@@ -1608,7 +1608,11 @@ function convertFile() {
         }
 
         const numFormat = document.getElementById('number-format').value;
-        const retainEl = document.getElementById('retain-english');
+        // Own checkbox for the file tab (previously this silently read the
+        // main text tab's hidden 'retain-english' checkbox instead, which
+        // the user had no visible control over while on the file tab -
+        // effectively always off since that one defaults unchecked).
+        const retainEl = document.getElementById('file-retain-english');
         const retainEnglish = retainEl ? retainEl.checked : false;
         let direction = document.getElementById('convert-direction').value;
 
