@@ -27,12 +27,25 @@ body {
     background: #f5f7fa;
     color: var(--dark);
     min-height: 100vh;
+    /* Sticky footer: body stretches to fill the viewport (min-height
+       above), but without this flex setup nothing tells the browser to
+       actually use that extra space - the footer just sits right after
+       whatever height the page's real content happens to be, leaving the
+       leftover viewport height as blank space BELOW the footer instead of
+       pushing the footer down to it. Most visible on shorter pages
+       (about.html, status.html) opened on a tall/large monitor, where the
+       footer could end up looking like it's stranded mid-page. main
+       (flex: 1 0 auto below) absorbs the leftover space instead. */
+    display: flex;
+    flex-direction: column;
 }
 
 .main-container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 1.5rem 1.5rem;
+    flex: 1 0 auto;
+    width: 100%;
 }
 
 @media (min-width: 1500px) {
@@ -43,6 +56,7 @@ body {
     background: white;
     box-shadow: var(--card-shadow);
     padding: 0.5rem 0;
+    flex-shrink: 0;
 }
 
 .navbar .container {
@@ -429,11 +443,12 @@ textarea.form-control-custom#live-result {
 .toast-success { background: var(--success); }
 .toast-error { background: var(--danger); }
 
-.site-footer { 
-    background: #1e2235; 
-    color: #c8c8d8; 
-    padding: 2.5rem 0; 
-    margin-top: 3rem; 
+.site-footer {
+    background: #1e2235;
+    color: #c8c8d8;
+    padding: 2.5rem 0;
+    margin-top: 3rem;
+    flex-shrink: 0;
 }
 .site-footer .container { max-width: 1280px; }
 .footer-link { 

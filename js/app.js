@@ -1539,12 +1539,20 @@ function handleFile(f) {
                 showToast('DOCX library not loaded. Please refresh the page.', 'error');
                 return;
             }
-            if (typeof mammothLib.extractRawText !== 'function') {
-                console.error('extractRawText not found. Available methods:', Object.keys(mammothLib));
+            if (typeof mammothLib.convertToMarkdown !== 'function') {
+                console.error('convertToMarkdown not found. Available methods:', Object.keys(mammothLib));
                 showToast('DOCX library invalid. Please try TXT files or refresh.', 'error');
                 return;
             }
-            mammothLib.extractRawText({ arrayBuffer: e.target.result })
+            // convertToMarkdown (not extractRawText) so that Word's
+            // paragraph-level formatting - bullets, numbered lists, headings,
+            // bold - survives as plain-text-safe markdown syntax ("- ", "1. ",
+            // "# ", "__..__"). extractRawText discards all of that because
+            // Word stores it as numPr/style XML properties, not literal
+            // characters, so there was nothing left to preserve. The
+            // resulting markdown punctuation passes through the Kannada
+            // conversion pipeline untouched, same as any other ASCII text.
+            mammothLib.convertToMarkdown({ arrayBuffer: e.target.result })
                 .then(function(result) {
                     fileText = result.value;
                     showFileInfo();
@@ -2244,14 +2252,16 @@ document.addEventListener('DOMContentLoaded', function() {
             var r = new FileReader();
             r.onload = function(e) {
                 var m = (typeof mammoth !== 'undefined') ? mammoth : window.mammoth;
-                if (!m || typeof m.extractRawText !== 'function') {
+                if (!m || typeof m.convertToMarkdown !== 'function') {
                     showToast('DOCX ಲೈಬ್ರರಿ ಲಭ್ಯವಿಲ್ಲ — ಪುಟ ರಿಫ್ರೆಶ್ ಮಾಡಿ', 'error');
                     return;
                 }
                 var note = docxHasImages(e.target.result)
                     ? 'ಚಿತ್ರಗಳನ್ನು ಬಿಡಲಾಗಿದೆ (ಪಠ್ಯ ಮಾತ್ರ)'
                     : '';
-                m.extractRawText({ arrayBuffer: e.target.result })
+                // convertToMarkdown preserves bullets/numbering/headings/bold
+                // as markdown syntax; extractRawText discarded all of it.
+                m.convertToMarkdown({ arrayBuffer: e.target.result })
                     .then(function(res) { loadIntoEditor(res.value, f.name, note); })
                     .catch(function(err) { showToast('DOCX ಓದುವುದು ವಿಫಲ: ' + err.message, 'error'); });
             };
