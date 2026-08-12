@@ -1554,7 +1554,7 @@ function handleFile(f) {
             // conversion pipeline untouched, same as any other ASCII text.
             mammothLib.convertToMarkdown({ arrayBuffer: e.target.result })
                 .then(function(result) {
-                    fileText = result.value;
+                    fileText = _stripMarkdownEscapes(result.value);
                     showFileInfo();
                 })
                 .catch(function(err) {
@@ -1689,6 +1689,23 @@ function detectMixed() {
 // ============================================================
 function escapeHtml(text) {
     return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// mammoth's convertToMarkdown() (used for DOCX uploads to preserve bullets/
+// headings/bold - see convertFile/Live Keyboard file loader) escapes any
+// literal CommonMark-special character it finds in ordinary paragraph text
+// by prefixing a backslash, e.g. "-" becomes "\-", "." becomes "\.", "(" ")"
+// "!" "#" etc. all get the same treatment. This is correct behavior for a
+// real markdown renderer, but here the "markdown" is just an intermediate
+// carrier for plain text passed straight into the Kannada conversion engine
+// - so every ordinary hyphen, period, exclamation mark, or parenthesis in
+// the source document was showing up as a spurious "\" in the output. The
+// bullet/numbered-list/heading/bold markers mammoth itself generates
+// ("- ", "1. ", "# ", "__..__") are NOT escaped (no backslash prefix), so
+// stripping "\" immediately before one of these characters removes only
+// mammoth's defensive escaping and never touches the real structure markers.
+function _stripMarkdownEscapes(text) {
+    return text.replace(/\\([\\`*_{}\[\]()#+\-.!])/g, '$1');
 }
 
 function formatBytes(bytes) {
@@ -2262,7 +2279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // convertToMarkdown preserves bullets/numbering/headings/bold
                 // as markdown syntax; extractRawText discarded all of it.
                 m.convertToMarkdown({ arrayBuffer: e.target.result })
-                    .then(function(res) { loadIntoEditor(res.value, f.name, note); })
+                    .then(function(res) { loadIntoEditor(_stripMarkdownEscapes(res.value), f.name, note); })
                     .catch(function(err) { showToast('DOCX ಓದುವುದು ವಿಫಲ: ' + err.message, 'error'); });
             };
             r.readAsArrayBuffer(f);
