@@ -412,8 +412,36 @@ function _collapse_duplicate_e_marker(txt) {
 // (e.g. ÆÃ before Æ, ÀÄ before bare À) so a whole multi-byte run moves as
 // one unit instead of the vattu only jumping past the run's first byte and
 // splitting it apart.
+//
+// A third shape turned up via a real repro - "PÀtÚÂÃgÀÄ" (should be
+// "ಕಣ್ಣೀರು") came out "ಕಣ್ಣÂÃರು": the retroflex-na family ('t' -> ಣ) has
+// its own dedicated short/long-i suffix byte 'Â'/'ÂÃ' ('tÂ' -> ಣಿ, 'tÂÃ' ->
+// ಣೀ) that no other consonant uses, so it needs the same base+suffix
+// handling as the À/É groups above.
+//
+// A fourth, much larger shape also turned up while checking for other such
+// cases: most consonants (31 of them, confirmed via consonantMaps - Q/QÃ
+// for ki/kii, T/TÃ for khi/khii, and so on through every letter except the
+// 't'/ಣ family above) don't use a suffix byte for short/long-i at all -
+// they use a *completely separate* base letter with no shared prefix (e.g.
+// 'Q' for ಕಿ has nothing to do with 'P' for ಕ). These letters are already
+// complete, standalone map keys, so a vattu directly in front of one (e.g.
+// 'æQ' for ಕ್ರಿ) strands nothing - but confirmed broken anyway ('æQ' came
+// out "್ರಕಿ" instead of "ಕ್ರಿ") because the vattu still needs to end up
+// *after* the letter it's modifying, same as every other case here. Long-i
+// forms (QÃ, TÃ, ...) don't need their own explicit entry: swapping only
+// the short letter leaves the trailing 'Ã' immediately after the vattu,
+// and _a2u_deerga_handle (which already exists to catch exactly this kind
+// of "lengthener left behind after reordering" case) picks it up correctly
+// once _fix_conjuncts moves the vowel to the end of the conjunct - verified
+// directly ('QæÃ' -> "ಕ್ರೀ" via the existing pipeline, no new code needed
+// for the long forms). A few of these short letters are themselves a
+// prefix of a different consonant's letter (e.g. 'r' -> ಡಿ vs 'rü' -> ಢಿ),
+// so those pairs are listed longest-first to avoid splitting the longer
+// one apart.
 function _reorder_vattu_before_a_marker(txt) {
-    const VOWEL_RUN = 'É(?:ÆÃ|Æ|Ê|Ã)?|À(?:Ä|Å|Æ|Ç|È)?|[ÁË]';
+    const VOWEL_RUN = 'É(?:ÆÃ|Æ|Ê|Ã)?|À(?:Ä|Å|Æ|Ç|È)?|Â(?:Ã)?|[ÁË]|' +
+        'rü|¢ü|¦ü|©ü|jhÄ|«Ä|Q|T|V|X|a|c|f|n|p|r|w|y|¢|¦|©|j|°|«|²|¶|¹|»|½';
     const re = new RegExp('([' + ASCII_VATTAKSHARA + '])(' + VOWEL_RUN + ')', 'g');
     return txt.replace(re, '$2$1');
 }
