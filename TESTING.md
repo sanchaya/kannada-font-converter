@@ -23,7 +23,7 @@ Current status:
 | Suchi Kan | 1463 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 1093 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 1771 / 2077 | Pivot-ported via Nudi Bi |
-| WinKey KanEng | 1139 / 2077 | Pivot-ported via Nudi Bi - gained 10 cases from the vattu-before-vowel reordering fix below |
+| WinKey KanEng | 1145 / 2077 | Pivot-ported via Nudi Bi - gained 10 cases from the vattu-before-vowel reordering fix and 6 more from the stray Á/Ë fix below |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
 pivot-based: each source byte substitutes into a Nudi ASCII fragment (Mono
@@ -76,6 +76,25 @@ while final halants like ನನ್ stay intact), standalone number preservation,
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
+
+**Stray 'Á'/'Ë' left unconverted after a redundant 'À' consumes the base
+consonant first (fixed)**: reported via a real repro - "K£ÀÁzÀgÀÆ" (should
+be "ಏನಾದರೂ") came out "ಏನÁದರೂ". Root cause: 'Á' and 'Ë' are direct-attach
+vowel markers (canonical key is base+Á directly, e.g. `£Á` -> ನಾ, never
+base+À+Á) - but when a document types a redundant 'À' before them anyway
+(`£ÀÁ` instead of `£Á`, the same "complete the plain consonant glyph
+first" typing habit behind several other fixes below), `£À` itself is a
+valid 2-char key (ನ) that matches before the intended `£Á` key ever gets
+a chance. The base consonant converts fine, but the trailing 'Á' has
+nothing left to attach to and was left as literal ASCII. 'É' already had
+a fallback for this exact shape (see the "PÀÉÆÃn," fix below), which is
+why `PÀÉ` already worked - but no equivalent existed for 'Á' or 'Ë'.
+Extended `_a2u_post_process` (which already resolves stray É-family runs
+generically) to also resolve a stray 'Á' -> 'ಾ' and 'Ë' -> 'ೌ'. Verified
+against the reported word and a spread of base+redundant-À+Á/Ë
+combinations. Zero regressions and a further net improvement - `winkey`
+gained 6 more previously-failing cases (1139/2077 -> 1145/2077); every
+other font's pass count matches the baseline exactly.
 
 **A u/uu/vocalic-r vowel byte (Ä/Å/Æ/Ç/È) left stranded right after a
 vattakshara conjunct instead of attaching as a vowel (fixed)**: found by
