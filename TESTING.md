@@ -23,7 +23,7 @@ Current status:
 | Suchi Kan | 1463 / 2077 | Pivot-ported via Nudi Bi (extra hop through the macros' own Nudi Mono<->Bi tables) |
 | ISM (KNB TT-Nandi) | 1093 / 2077 | Pivot-ported via Nudi Bi - bilingual variant, sparsest source table (100/117 bytes mapped) |
 | Akruti Bi | 1771 / 2077 | Pivot-ported via Nudi Bi |
-| WinKey KanEng | 1129 / 2077 | Pivot-ported via Nudi Bi |
+| WinKey KanEng | 1139 / 2077 | Pivot-ported via Nudi Bi - gained 10 cases from the vattu-before-vowel reordering fix below |
 
 ShreeLipi, Prakashak, Akruti, Surabhi, and the 10 fonts below them are
 pivot-based: each source byte substitutes into a Nudi ASCII fragment (Mono
@@ -53,7 +53,7 @@ begin with.
   just more of it.
 - **Partial support**: Surabhi KN (74%) - conjuncts and some base syllables
   (mostly aspirated consonants and a few ambiguous byte codes) still fail.
-- **Improving, most now usable**: Akruti Bi (85%), WinKey KanEng (54%),
+- **Improving, most now usable**: Akruti Bi (85%), WinKey KanEng (55%),
   Suchi Kan (70%), ISM KNB TT-Nandi (53%). These route through an extra
   Nudi Mono<->Bi hop and have sparser source tables. Several rounds of
   resolver fixes this session (see fix history) took them from
@@ -76,6 +76,103 @@ while final halants like ನನ್ stay intact), standalone number preservation,
 anusvara/visarga codes (dA, kB, ...) no longer mistaken for English tokens.
 
 ## Fix history
+
+**A u/uu/vocalic-r vowel byte (Ä/Å/Æ/Ç/È) left stranded right after a
+vattakshara conjunct instead of attaching as a vowel (fixed)**: found by
+converting a full real-world document end to end and scanning the output
+for leftover unconverted ASCII bytes - "ZÀPÀëÄ" (should be "ಚಕ್ಷು", "kshu"
+as in "ಕ್ಷುಲ್ಲಕ"/kshullaka) came out "ಚಕ್ಷÄ", and appeared 4 times in the
+test document. Root cause: these bytes are only ever valid as the third
+character of a base+'À'+byte key (e.g. `PÀÄ` -> ಕು), but in the canonical
+vattu order (base+'À'+vattu, e.g. `PÀë` -> ಕ್ಷ for "ksha"), the vattu byte
+sits exactly where a following u-vowel's required 'À' would have gone,
+and there's only one 'À' to go around - the base+vattu conjunct forms
+correctly, but the trailing vowel byte has nothing left to pair with and
+was left as literal ASCII after `_fix_conjuncts`. Added
+`_a2u_attach_orphan_u_vowel()`, running right after `_fix_conjuncts`,
+which attaches the orphaned byte directly to the conjunct's last
+(subjoined) consonant - matching how Kannada script actually attaches a
+conjunct's vowel to its final member, not its first. Same "orphan byte"
+reasoning already established for the À/É fixes below: any of these five
+bytes still surviving as literal ASCII this late could not have matched
+any `A2U_MAP` key, so there's nothing else they could legitimately mean.
+Verified against the reported word and re-checked the vattu/aspirate
+reordering fixes below still hold together with this one. Zero
+regressions - every font's pass count matches the baseline exactly.
+
+**Aspiration marker 's' (pha/bha/dda/dha) typed after the vowel-sign byte
+instead of before it (fixed)**: found in the same real-document pass as
+the fix above - 4 separate real words all typed the 's' in the wrong
+position: "¨ÀsnÖ" (should be "ಭಟ್ಟಿ"), "G¨ÀsAiÀÄ" ("ಉಭಯ"),
+"C£ÀÄ¨Às«¸ÀvÉÆqÀVvÀÄÛ" ("ಅನುಭವಿಸತೊಡಗಿತ್ತು"), "¥æÀ¨ÀsÄvÀézÀ" ("ಪ್ರಭುತ್ವದ").
+Four consonants (¥/pha, ¨/bha, q/dda, z/dha) mark aspiration with a
+trailing 's' digraph that must be typed right after the base letter and
+before any vowel-sign byte (canonical key order e.g. `¨sÀ` -> ಭ) - these
+words instead had the 's' after the vowel byte (`¨ÀsAiÀÄ` instead of
+`¨sÀAiÀÄ`), the same shape as the vattu-before-vowel bug below: with 's'
+sitting between the base letter and its vowel-sign byte, no `A2U_MAP` key
+can ever match. Added `_reorder_aspirate_marker_before_vowel()`, running
+alongside the vattu/vowel reordering before `_replace_from_map`, which
+swaps vowel-run+s back into the canonical s+vowel-run order. Verified
+against all 4 reported words and the canonical (already-working) order.
+Zero regressions - every font's pass count matches the baseline exactly.
+
+**Vattakshara typed before its base consonant's vowel-sign byte(s), for
+every vowel a consonant can take (fixed)**: reported via a real repro -
+"¥æÀÀPÁgÀzÀ°è" (should be "ಪ್ರಕಾರದಲ್ಲಿ") came out "¥್ರಕಾರದಲ್ಲಿ" - the
+leading '¥' (pa) was never converted. Root cause: the canonical/
+already-handled vattakshara typing order is base-consonant + vowel-sign
+byte(s) + vattu-marker-byte (`PÀå` -> ಕ್ಯ, `QÌ` -> ಕ್ಕಿ - vowel typed
+first, subjoined consonant added on top). This document instead typed the
+vattu marker *before* the vowel-sign byte(s) ('¥æÀ' = pa + ra-vattu +
+plain-vowel-marker) - with the vattu sitting between the base consonant
+and its vowel byte, no key can ever match the base consonant at all, so
+it's left stranded as literal ASCII, not just one syllable off like the
+reph case. Checking further (at the user's request to look for other such
+cases) found this affects every vowel-sign shape a consonant can take:
+direct-attach markers (Á/aa, the É-family for e/ee/ai/o/oo, Ë/au), markers
+that are only ever valid as a suffix on the plain-vowel 'À' (Ä/Å for u,
+Æ/Ç for uu, È for vocalic r - there is no bare `PÄ` key, only `PÀÄ`), a
+consonant-specific suffix byte (Â/ÂÃ, the retroflex-na family's own
+short/long-i marker), and - far more broadly - 31 other consonants that
+use a completely separate base letter for short/long-i instead of a
+suffix (Q/QÃ for ki/kii vs base P for ka, T/TÃ for khi/khii vs base R for
+kha, and so on through nearly every consonant except retroflex-na).
+Confirmed all of these strand the base consonant and/or a trailing vowel
+byte the same way. Added `_reorder_vattu_before_a_marker()`, running
+right after `_collapse_duplicate_e_marker` and before `_replace_from_map`,
+which swaps a vattu byte and the vowel-sign run immediately following it
+into the canonical order; multi-byte runs move as a single unit (listed
+longest-first, e.g. ÆÃ before Æ, ÀÄ before bare À, `rü` before `r`) so the
+vattu doesn't split a run apart or collide with a different consonant's
+letter that happens to share a prefix (r/rü, ¢/¢ü, ¦/¦ü, ©/©ü, j/jhÄ,
+«/«Ä). The separate-letter forms' *long*-i variants (QÃ, TÃ, ...) don't
+need their own entry: swapping only the short letter leaves the trailing
+'Ã' immediately after the vattu, and `_a2u_deerga_handle` (which already
+exists for exactly this "lengthener left behind after reordering" case)
+picks it up correctly once `_fix_conjuncts` moves the vowel to the end of
+the conjunct. Verified against the reported word, a wide spread of
+vattu+vowel-run combinations (including the prefix-disambiguation cases),
+and every earlier fix in this session still holding. Zero regressions -
+`winkey` actually gained 10 previously-failing cases (1129/2077 ->
+1139/2077); every other font's pass count matches the baseline exactly.
+
+**"PÀÉÆÃn," (should be "ಕೋಟಿ,") coming out "ಕೆÆÃಟಿ," (fixed)**: root
+cause is a redundant 'À' typed between a base consonant and its o/e/ai
+vowel-sign bytes ('PÀÉÆÃ' instead of the atomic 'PÉÆÃ' key) - a common
+real-Nudi-document pattern, same class as the earlier orphaned-À and
+duplicate-É fixes. Since 'PÀ' itself is a valid 2-char key (ಕ), it matches
+before the longer 4-char 'PÉÆÃ' key ever gets a chance. What's left
+(`ÉÆÃ`) had nowhere correct to go: only bare 'É' had a fallback (-> ೆ),
+and that fallback ran *after* `_a2u_deerga_handle` - which needs an
+already-converted Unicode matra before a literal 'Ã' to do its
+lengthening - so by the time É became ೆ it was too late, and 'Æ'/'Ã' were
+left as literal characters. Fixed by extending `_a2u_post_process` to
+resolve the full leftover vowel-sign run generically (ÉÆÃ->ೋ, ÉÆ->ೊ,
+ÉÊ->ೈ, ÉÃ->ೇ, É->ೆ) and moving it to run *before* `_a2u_deerga_handle`
+instead of after. Verified against the reported case and every earlier
+fix from this session. Zero regressions - every font's pass count matches
+the baseline exactly.
 
 **Duplicate 'É' bytes blocked the intended long-e/lengthen key from
 matching, e.g. "ವೇ" coming out as "ವೆೆÃ" (fixed)**: reported via a real
