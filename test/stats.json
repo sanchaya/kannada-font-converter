@@ -197,18 +197,18 @@
       }
     },
     "winkey": {
-      "pass": 1139,
-      "fail": 938,
+      "pass": 1145,
+      "fail": 932,
       "u2aFail": 8,
-      "a2uFail": 930,
+      "a2uFail": 924,
       "categories": {
         "vowel": 2,
         "halant-final": 13,
-        "syllable": 139,
+        "syllable": 135,
         "anusvara": 9,
         "visarga": 9,
         "conjunct": 632,
-        "conjunct+matra": 120,
+        "conjunct+matra": 118,
         "word": 12,
         "mixed": 2
       }

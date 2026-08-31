@@ -558,33 +558,40 @@ function _replace_from_map(txt) {
     return result;
 }
 
-// Resolves vowel-sign bytes (É/Æ/Ã/Ê) that survive _replace_from_map without
-// having been consumed as part of an atomic per-consonant key (e.g. 'PÉÆÃ'
-// -> ಕೋ). This happens whenever a document was typed with a redundant 'À'
-// between the base consonant and its vowel-sign keys - e.g. 'PÀÉÆÃ' instead
-// of the atomic 'PÉÆÃ' - which is common in real Nudi documents (the typist
-// completes the plain "ಕ" glyph first, then applies matra keys on top of
-// it). _strip_orphan_a_marker already consumes that redundant 'À' when it's
-// literally left over, but here it's not left over - 'PÀ' itself matches a
-// valid shorter key ('ಕ') before the longer 'PÉÆÃ' key ever gets a chance,
-// since À sits between P and É. What's left after that is the bare vowel-
-// sign run (É, Æ, Ã, Ê in some combination) with nothing to attach it to
-// syntactically except the plain consonant Unicode char immediately before
-// it. This mirrors the same four vowel forms already defined per-consonant
-// in consonantMaps (ೆ/ೇ/ೈ/ೊ/ೋ), just applied generically instead of tied to
-// one specific base letter. Must run before _a2u_deerga_handle, since that
-// function only recognizes already-converted Unicode matras (ಿ/ೆ/ೇ/ೊ)
-// immediately before a literal 'Ã' - if a bare 'É' were left unconverted at
-// that point (as it was here previously, via a fallback that ran AFTER
-// deerga_handle), deerga_handle's pattern would never match and 'Æ'/'Ã'
-// would leak through unconverted as literal characters.
+// Resolves vowel-sign bytes (É/Æ/Ã/Ê/Á/Ë) that survive _replace_from_map
+// without having been consumed as part of an atomic per-consonant key (e.g.
+// 'PÉÆÃ' -> ಕೋ). This happens whenever a document was typed with a
+// redundant 'À' between the base consonant and its vowel-sign keys - e.g.
+// 'PÀÉÆÃ' instead of the atomic 'PÉÆÃ' - which is common in real Nudi
+// documents (the typist completes the plain "ಕ" glyph first, then applies
+// matra keys on top of it). _strip_orphan_a_marker already consumes that
+// redundant 'À' when it's literally left over, but here it's not left
+// over - 'PÀ' itself matches a valid shorter key ('ಕ') before the longer
+// 'PÉÆÃ' key ever gets a chance, since À sits between P and É. What's left
+// after that is the bare vowel-sign byte (É in some combination, or Á, or
+// Ë) with nothing to attach it to syntactically except the plain consonant
+// Unicode char immediately before it. This mirrors the same vowel forms
+// already defined per-consonant in consonantMaps (ೆ/ೇ/ೈ/ೊ/ೋ/ಾ/ೌ), just
+// applied generically instead of tied to one specific base letter. Á and Ë
+// were confirmed broken by the exact same redundant-'À' pattern via a real
+// report - "K£ÀÁzÀgÀÆ" (should be "ಏನಾದರೂ") came out "ಏನÁದರೂ" (the
+// canonical key is the direct-attach '£Á' -> ನಾ, no 'À' needed at all, but
+// '£À' -> ನ matches first and strands the 'Á'). Must run before
+// _a2u_deerga_handle, since that function only recognizes already-
+// converted Unicode matras (ಿ/ೆ/ೇ/ೊ) immediately before a literal 'Ã' - if
+// a bare 'É' were left unconverted at that point (as it was here
+// previously, via a fallback that ran AFTER deerga_handle), deerga_handle's
+// pattern would never match and 'Æ'/'Ã' would leak through unconverted as
+// literal characters.
 function _a2u_post_process(txt) {
     return txt
         .replace(/ÉÆÃ/g, 'ೋ')
         .replace(/ÉÆ/g, 'ೊ')
         .replace(/ÉÊ/g, 'ೈ')
         .replace(/ÉÃ/g, 'ೇ')
-        .replace(/É/g, 'ೆ');
+        .replace(/É/g, 'ೆ')
+        .replace(/Á/g, 'ಾ')
+        .replace(/Ë/g, 'ೌ');
 }
 
 function _replace_a2u_anuswara_visarga(txt) {
