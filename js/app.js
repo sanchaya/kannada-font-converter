@@ -380,6 +380,44 @@ function _collapse_duplicate_e_marker(txt) {
     return txt.replace(/É{2,}/g, 'É');
 }
 
+// Nudi's documented/canonical vattakshara typing order is base-consonant +
+// (vowel-sign byte(s), e.g. 'À'/'Á'/'É'/'ÉÆÃ'/...) + vattu-marker-byte - the
+// vowel is typed first, then the subjoined consonant is added on top of it
+// (see _fix_conjuncts' 'PÀå' -> ಕ್ಯ and 'QÌ' -> ಕ್ಕಿ examples). But some
+// documents type the vattu marker BEFORE the vowel-sign byte(s) instead
+// (e.g. '¥æÀ' for ಪ್ರ - '¥' pa + 'æ' ra-vattu + 'À' plain-vowel marker,
+// confirmed via a real repro: "¥æÀPÁgÀzÀ°è" should be "ಪ್ರಕಾರದಲ್ಲಿ" but the
+// leading '¥' was left untranslated as literal ASCII). In that order, the
+// vattu byte sits between the base consonant and its vowel-sign byte(s), so
+// no A2U_MAP key can ever match the base consonant at all (e.g. '¥À' is a
+// valid key, but '¥æÀ' isn't, and never will be no matter how many keys
+// exist) - the base consonant is left completely stranded, not just one
+// syllable off like the reph case. This isn't unique to 'À': the same
+// stranding happens for every vowel-sign run a consonant can take. Two
+// different shapes exist (confirmed against consonantMaps' actual keys):
+// direct-attach markers that need nothing else ('PÁ'->ಕಾ, 'PÉ'/'PÉÃ'/
+// 'PÉÊ'/'PÉÆ'/'PÉÆÃ'->ಕೆ/ಕೇ/ಕೈ/ಕೊ/ಕೋ, 'PË'->ಕೌ), and markers that are only
+// ever valid as a suffix ON TOP OF the plain-vowel 'À' ('PÀÄ'->ಕು,
+// 'PÀÆ'->ಕೂ, 'PÀÈ'->ಕೃ, plus the ¥/¥s-family's alternate 'PÀÅ'/'PÀÇ' u/uu
+// bytes) - there is no bare 'PÄ'/'PÆ'/'PÈ' key anywhere, only 'PÀ'+that
+// byte together. Confirmed all of these strand the base consonant the same
+// way '¥æÀ' did: 'PæÁ'/'PæÉ'/'PæË' (direct-attach) and 'PæÀÄ'/'PæÀÆ'/
+// 'PæÀÈ' (À-suffixed) all left the base consonant and/or trailing vowel
+// byte as literal ASCII before this fix. Reordering vattu+vowel-run ->
+// vowel-run+vattu before _replace_from_map runs turns this into the
+// already-handled canonical order, letting the base consonant match
+// normally; the vattu byte itself is untouched by this swap and still
+// flows through _replace_vattakshara / _fix_conjuncts exactly as it does
+// for the canonical typing order. Alternatives are listed longest-first
+// (e.g. ÆÃ before Æ, ÀÄ before bare À) so a whole multi-byte run moves as
+// one unit instead of the vattu only jumping past the run's first byte and
+// splitting it apart.
+function _reorder_vattu_before_a_marker(txt) {
+    const VOWEL_RUN = 'É(?:ÆÃ|Æ|Ê|Ã)?|À(?:Ä|Å|Æ|Ç|È)?|[ÁË]';
+    const re = new RegExp('([' + ASCII_VATTAKSHARA + '])(' + VOWEL_RUN + ')', 'g');
+    return txt.replace(re, '$2$1');
+}
+
 // 'ð' encodes reph - the "ರ್" that precedes a following consonant cluster
 // in normal reading order (ಕರ್ನಾಟಕ = ಕ + ರ್ + ನಾ + ಟಕ, ಸರ್ಕಾರ = ಸ + ರ್ +
 // ಕಾ + ರ, ...). Nudi's typing convention, though, has the typist finish the
@@ -1198,6 +1236,7 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$1');
             
             converted = _collapse_duplicate_e_marker(converted);
+            converted = _reorder_vattu_before_a_marker(converted);
             converted = _replace_from_map(converted);
             converted = _strip_orphan_a_marker(converted);
             converted = _replace_reph(converted);
