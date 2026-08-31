@@ -446,6 +446,25 @@ function _reorder_vattu_before_a_marker(txt) {
     return txt.replace(re, '$2$1');
 }
 
+// Four consonants (¥/pha, ¨/bha, q/dda, z/dha) mark aspiration with a
+// trailing 's' digraph typed right after the base letter and before any
+// vowel-sign byte - the canonical/only valid key order is base+'s'+vowel
+// (e.g. '¨sÀ' -> ಭ, '¨sÁ' -> ಭಾ). Confirmed via a real document (4 separate
+// words, so a recurring typing habit, not a typo): "¨ÀsnÖ" (should be
+// "ಭಟ್ಟಿ"), "G¨ÀsAiÀÄ" ("ಉಭಯ"), "C£ÀÄ¨Às«¸ÀvÉÆqÀVvÀÄÛ" ("ಅನುಭವಿಸತೊಡಗಿತ್ತು"),
+// "¥æÀ¨ÀsÄvÀézÀ" ("ಪ್ರಭುತ್ವದ") all typed the 's' *after* the vowel-sign byte
+// instead of before it ('¨ÀsAiÀÄ' instead of '¨sÀAiÀÄ'). Same shape as the
+// vattu-before-vowel bug above: with 's' sitting between the base letter
+// and its vowel-sign byte, no A2U_MAP key can ever match ('¨À' matches on
+// its own giving a bare ಭ-less consonant, or nothing at all matches and
+// '¨' is stranded, depending on what follows) - reordering vowel-run+s ->
+// s+vowel-run before _replace_from_map turns it into the canonical order.
+function _reorder_aspirate_marker_before_vowel(txt) {
+    const VOWEL_RUN = 'É(?:ÆÃ|Æ|Ê|Ã)?|À(?:Ä|Å|Æ|Ç|È)?|[ÁË]';
+    const re = new RegExp('([¥¨qz])(' + VOWEL_RUN + ')s', 'g');
+    return txt.replace(re, '$1s$2');
+}
+
 // 'ð' encodes reph - the "ರ್" that precedes a following consonant cluster
 // in normal reading order (ಕರ್ನಾಟಕ = ಕ + ರ್ + ನಾ + ಟಕ, ಸರ್ಕಾರ = ಸ + ರ್ +
 // ಕಾ + ರ, ...). Nudi's typing convention, though, has the typist finish the
@@ -481,6 +500,33 @@ function _fix_conjuncts(txt) {
     result = result.replace(new RegExp(VATT_MARKER, 'g'), '್');
     result = result.replace(/([ಕ-ಹ])(್){2,}/g, '$1$2');
     return result;
+}
+
+// Handles a u/uu/vocalic-r vowel byte (Ä/Å/Æ/Ç/È) left stranded right after
+// a vattakshara conjunct instead of attaching as a vowel. Confirmed via a
+// real document: "ZÀPÀëÄ" (should be "ಚಕ್ಷು") came out "ಚಕ್ಷÄ". These bytes
+// are only ever valid as the third character of a base+'À'+byte key (e.g.
+// 'PÀÄ' -> ಕು - see the '¥æÀÄ'/orphaned-'À' fix above for the same "always
+// needs À" rule) - but in the canonical vattu order (base+'À'+vattu, e.g.
+// 'PÀë' -> ಕ್ಷ for "ksha"), the vattu byte sits exactly where a following
+// u-vowel's required 'À' would have gone, and there's no second 'À' to
+// spare: "PÀëÄ" only has one 'À', already spent forming the base consonant
+// before the vattu. So the base+vattu conjunct forms correctly (ಕ್ಷ), but
+// the trailing 'Ä' has nothing left to pair with and was left as literal
+// ASCII after _fix_conjuncts, instead of attaching to the conjunct's final
+// (subjoined) consonant the way Kannada script actually attaches a vowel
+// to a conjunct - on its last member, not its first. Must run after
+// _fix_conjuncts (so there's a real Unicode consonant immediately before
+// the stray byte to attach to) and is safe for the same "orphan byte"
+// reason as _strip_orphan_a_marker/_collapse_duplicate_e_marker: any of
+// these five bytes still surviving as literal ASCII this late could not
+// have matched any A2U_MAP key (that pass already had its chance), so
+// there is nothing else they could legitimately mean.
+function _a2u_attach_orphan_u_vowel(txt) {
+    return txt
+        .replace(/([ಕ-ಹೞ])[ÄÅ]/g, '$1ು')
+        .replace(/([ಕ-ಹೞ])[ÆÇ]/g, '$1ೂ')
+        .replace(/([ಕ-ಹೞ])È/g, '$1ೃ');
 }
 
 // Handles the "lengthen the preceding short vowel sign" suffix bytes that
@@ -1264,12 +1310,14 @@ function asciiToUnicode(text, retainEnglish = false, fontType = 'nudi') {
             converted = converted.replace(/([ೆೇೊ])([ÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæèéêëìíî])/g, '$2$1');
             
             converted = _collapse_duplicate_e_marker(converted);
+            converted = _reorder_aspirate_marker_before_vowel(converted);
             converted = _reorder_vattu_before_a_marker(converted);
             converted = _replace_from_map(converted);
             converted = _strip_orphan_a_marker(converted);
             converted = _replace_reph(converted);
             converted = _replace_vattakshara(converted);
             converted = _fix_conjuncts(converted);
+            converted = _a2u_attach_orphan_u_vowel(converted);
             converted = converted.replace(/[0-9]/g, (d) => KN_DIGITS[parseInt(d)]);
             converted = _replace_a2u_anuswara_visarga(converted);
             converted = _a2u_post_process(converted);
