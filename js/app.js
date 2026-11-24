@@ -1769,7 +1769,9 @@ function convertFile() {
         // effectively always off since that one defaults unchecked).
         const retainEl = document.getElementById('file-retain-english');
         const retainEnglish = retainEl ? retainEl.checked : false;
-        let direction = document.getElementById('convert-direction').value;
+        // Own direction select for the file tab (was silently reading the
+        // text tab's hidden #convert-direction).
+        let direction = document.getElementById('file-direction').value;
 
         if (direction === 'auto') {
             const unicodeCount = (fileText.match(/[\u0C80-\u0CFF]/g) || []).length;
